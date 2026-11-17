@@ -1,0 +1,4669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173B32" />
+  <title>All Things Christmas | Create, Celebrate &amp; Explore Christmas</title>
+  <meta name="description" content="Discover Christmas greetings, digital gifts, festive games, party activities and everything you need to make Christmas special." />
+  <meta property="og:title" content="All Things Christmas | Create, Celebrate &amp; Explore Christmas" />
+  <meta property="og:description" content="Everything Christmas, beautifully brought together. Create personalised digital cards, play festive games, plan your gifting and explore curated digital keepsakes." />
+  <meta property="og:type" content="website" />
+
+  <!-- Typography: Google Fonts with sensible fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+
+  <!-- html2canvas for PNG Greeting Card Export -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & BASE RESET
+       ========================================================================== */
+    :root {
+      --forest: #173B32;
+      --forest-deep: #102B24;
+      --forest-soft: #214E43;
+      --burgundy: #762D38;
+      --burgundy-dark: #5C212A;
+      --ivory: #F6F1E8;
+      --ivory-dark: #EBE3D5;
+      --gold: #C6A66B;
+      --gold-light: #DFC694;
+      --charcoal: #282724;
+      --charcoal-muted: #57544E;
+      --sage: #A7B5A6;
+      --sage-tint: #E5ECE4;
+      --white: #FFFFFF;
+
+      --border-subtle: rgba(40, 39, 36, 0.12);
+      --border-gold: rgba(198, 166, 107, 0.45);
+      --shadow-sm: 0 4px 16px rgba(23, 59, 50, 0.06);
+      --shadow-md: 0 12px 32px rgba(23, 59, 50, 0.10);
+      --shadow-lg: 0 24px 56px rgba(16, 43, 36, 0.18);
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+
+      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+      --font-cinzel: 'Cinzel', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      --container-max: 1220px;
+      --header-h: 74px;
+      --transition: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-h) + 16px);
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ==========================================================================
+       2. LAYOUT UTILITIES & TYPOGRAPHY
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: 1.125rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding-inline: 2rem;
+      }
+    }
+
+    .section {
+      padding-block: 4rem;
+    }
+
+    @media (min-width: 960px) {
+      .section {
+        padding-block: 6rem;
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      margin-bottom: 0.75rem;
+    }
+
+    .eyebrow--gold {
+      color: var(--gold-light);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background-color: currentColor;
+      opacity: 0.75;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+      font-weight: 600;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--forest);
+      margin-bottom: 1rem;
+    }
+
+    .section-heading--light {
+      color: var(--ivory);
+    }
+
+    .section-lead {
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      color: var(--charcoal-muted);
+      max-width: 62ch;
+    }
+
+    .section-lead--light {
+      color: rgba(246, 241, 232, 0.84);
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header--center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 46px;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      letter-spacing: 0.01em;
+      transition: transform var(--transition), background-color var(--transition), border-color var(--transition), box-shadow var(--transition), color var(--transition);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--burgundy);
+      color: var(--white);
+      box-shadow: 0 6px 18px rgba(118, 45, 56, 0.24);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--burgundy-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-forest {
+      background-color: var(--forest);
+      color: var(--ivory);
+      box-shadow: 0 6px 18px rgba(23, 59, 50, 0.2);
+    }
+
+    .btn-forest:hover {
+      background-color: var(--forest-deep);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(246, 241, 232, 0.55);
+      color: var(--ivory);
+      background-color: rgba(246, 241, 232, 0.05);
+    }
+
+    .btn-outline-light:hover {
+      border-color: var(--gold);
+      background-color: rgba(198, 166, 107, 0.14);
+      color: var(--white);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid var(--forest);
+      color: var(--forest);
+      background-color: transparent;
+    }
+
+    .btn-outline-dark:hover {
+      background-color: var(--forest);
+      color: var(--ivory);
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==========================================================================
+       3. STICKY NAVIGATION & HEADER
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      height: var(--header-h);
+      background-color: rgba(246, 241, 232, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: box-shadow var(--transition), background-color var(--transition);
+    }
+
+    .site-header.is-scrolled {
+      box-shadow: var(--shadow-sm);
+      background-color: rgba(246, 241, 232, 0.98);
+    }
+
+    .nav-bar {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 420px) {
+      .brand-logo {
+        font-size: 1.35rem;
+      }
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--forest);
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border: 1px solid var(--gold);
+    }
+
+    .nav-links {
+      display: none;
+      list-style: none;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      padding-block: 0.4rem;
+      transition: color var(--transition);
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--burgundy);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform var(--transition);
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      color: var(--forest);
+      font-weight: 600;
+    }
+
+    .nav-link.is-active::after,
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    @media (min-width: 420px) {
+      .nav-actions {
+        gap: 0.5rem;
+      }
+    }
+
+    .icon-btn {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--forest);
+      transition: background-color var(--transition), color var(--transition);
+    }
+
+    .icon-btn:hover {
+      background-color: rgba(23, 59, 50, 0.08);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: 4px;
+      right: 3px;
+      min-width: 18px;
+      height: 18px;
+      padding-inline: 4px;
+      border-radius: 999px;
+      background-color: var(--burgundy);
+      color: var(--white);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+    }
+
+    @media (min-width: 900px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    /* Mobile Navigation Drawer */
+    .mobile-nav {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      background-color: var(--ivory);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-lg);
+      padding: 1.25rem 1.5rem 1.75rem;
+      z-index: 890;
+      transform: translateY(-110%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform var(--transition), opacity var(--transition), visibility var(--transition);
+    }
+
+    .mobile-nav.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--forest);
+    }
+
+    .mobile-nav-link.is-active,
+    .mobile-nav-link:hover {
+      background-color: rgba(23, 59, 50, 0.07);
+      color: var(--burgundy);
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero {
+      position: relative;
+      background-color: var(--forest);
+      color: var(--ivory);
+      overflow: hidden;
+      padding-block: 3.5rem 4.25rem;
+    }
+
+    @media (min-width: 960px) {
+      .hero {
+        padding-block: 5rem 5.75rem;
+      }
+    }
+
+    /* Subtle ambient snow dots */
+    .hero-snow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 12% 22%, rgba(255, 255, 255, 0.35) 50%, transparent 100%),
+        radial-gradient(2.5px 2.5px at 28% 68%, rgba(198, 166, 107, 0.45) 50%, transparent 100%),
+        radial-gradient(2px 2px at 44% 18%, rgba(255, 255, 255, 0.28) 50%, transparent 100%),
+        radial-gradient(3px 3px at 67% 42%, rgba(198, 166, 107, 0.35) 50%, transparent 100%),
+        radial-gradient(2px 2px at 82% 76%, rgba(255, 255, 255, 0.32) 50%, transparent 100%),
+        radial-gradient(2px 2px at 91% 16%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+      animation: gentleDrift 18s linear infinite alternate;
+    }
+
+    @keyframes gentleDrift {
+      from { transform: translateY(-6px); }
+      to { transform: translateY(8px); }
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.75rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 3.5rem;
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.35rem, 5.2vw, 3.9rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ivory);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+      color: rgba(246, 241, 232, 0.86);
+      max-width: 52ch;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(198, 166, 107, 0.25);
+      font-size: 0.85rem;
+      color: rgba(246, 241, 232, 0.78);
+    }
+
+    .hero-highlight-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .hero-highlight-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--gold);
+    }
+
+    /* Editorial Architectural Illustration Frame */
+    .hero-visual {
+      position: relative;
+      max-width: 490px;
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    .hero-arch-frame {
+      position: relative;
+      border-radius: 220px 220px var(--radius-lg) var(--radius-lg);
+      border: 1px solid rgba(198, 166, 107, 0.5);
+      padding: 0.75rem;
+      background: linear-gradient(180deg, rgba(198, 166, 107, 0.14), rgba(16, 43, 36, 0.6));
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-arch-inner {
+      border-radius: 210px 210px var(--radius-md) var(--radius-md);
+      overflow: hidden;
+      background-color: var(--forest-deep);
+    }
+
+    .hero-floating-tag {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--ivory);
+      color: var(--forest);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       5. EXPLORE / INTRODUCTION SECTION
+       ========================================================================== */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 600px) {
+      .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .explore-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .pillar-card {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold);
+    }
+
+    .pillar-art {
+      height: 132px;
+      border-radius: var(--radius-sm);
+      background-color: var(--ivory);
+      margin-bottom: 1.25rem;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(198, 166, 107, 0.25);
+    }
+
+    .pillar-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-desc {
+      font-size: 0.925rem;
+      color: var(--charcoal-muted);
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .pillar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--burgundy);
+      transition: gap var(--transition);
+    }
+
+    .pillar-card:hover .pillar-link {
+      gap: 0.65rem;
+    }
+
+    /* ==========================================================================
+       6. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
+       ========================================================================== */
+    .studio-section {
+      background-color: var(--white);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .studio-promo-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .studio-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .step-pill {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background-color: var(--ivory);
+      color: var(--forest);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .studio-workspace {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (min-width: 980px) {
+      .studio-workspace {
+        grid-template-columns: 1.02fr 0.98fr;
+        gap: 2.75rem;
+      }
+    }
+
+    .studio-controls {
+      background-color: var(--ivory);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 600px) {
+      .studio-controls {
+        padding: 1.75rem;
+      }
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .control-hint {
+      font-size: 0.78rem;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--charcoal-muted);
+    }
+
+    /* Template Selector Grid */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+
+    @media (min-width: 520px) {
+      .template-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .template-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--white);
+      border: 1.5px solid var(--border-subtle);
+      text-align: left;
+      transition: border-color var(--transition), background-color var(--transition), transform var(--transition);
+    }
+
+    .template-btn:hover {
+      border-color: var(--gold);
+    }
+
+    .template-btn.is-selected {
+      border-color: var(--burgundy);
+      background-color: rgba(118, 45, 56, 0.05);
+      box-shadow: 0 2px 8px rgba(118, 45, 56, 0.12);
+    }
+
+    .template-swatch-bar {
+      display: flex;
+      gap: 4px;
+    }
+
+    .template-swatch-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .template-btn-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.25;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background-color: var(--white);
+      border: 1px solid rgba(40, 39, 36, 0.22);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--forest);
+      box-shadow: 0 0 0 3px rgba(23, 59, 50, 0.12);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 92px;
+    }
+
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .preset-chip {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      color: var(--charcoal-muted);
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .preset-chip:hover {
+      border-color: var(--forest);
+      color: var(--forest);
+    }
+
+    .control-row-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 520px) {
+      .control-row-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .swatch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid rgba(40, 39, 36, 0.2);
+      position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .color-swatch.is-selected {
+      box-shadow: 0 0 0 2px var(--ivory), 0 0 0 4px var(--burgundy);
+    }
+
+    /* Card Preview Stage */
+    .studio-preview-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 980px) {
+      .studio-preview-column {
+        position: sticky;
+        top: calc(var(--header-h) + 20px);
+      }
+    }
+
+    .preview-stage {
+      width: 100%;
+      background-color: var(--ivory);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 520px) {
+      .preview-stage {
+        padding: 2rem;
+      }
+    }
+
+    /* The Exportable Greeting Card Canvas */
+    .greeting-card {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      aspect-ratio: 4 / 5;
+      border-radius: 10px;
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: background-color 220ms ease, color 220ms ease;
+    }
+
+    @media (min-width: 440px) {
+      .greeting-card {
+        padding: 2.35rem 2rem;
+      }
+    }
+
+    .card-ornament-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-inner-frame {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.15rem 0.9rem;
+    }
+
+    /* Template-Specific Structural Variations */
+    .greeting-card.tpl-classic .card-inner-frame {
+      border: 1.5px solid rgba(198, 166, 107, 0.72);
+      outline: 1px solid rgba(198, 166, 107, 0.3);
+      outline-offset: -6px;
+    }
+
+    .greeting-card.tpl-minimal .card-inner-frame {
+      border: 1px solid rgba(198, 166, 107, 0.55);
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .greeting-card.tpl-golden .card-inner-frame {
+      border: 2px solid #C6A66B;
+      border-radius: 140px 140px 6px 6px;
+      padding-top: 2rem;
+    }
+
+    .greeting-card.tpl-winter .card-inner-frame {
+      border: 1px dashed rgba(167, 181, 166, 0.85);
+      border-radius: 8px;
+    }
+
+    .greeting-card.tpl-merry .card-inner-frame {
+      border-top: 2px solid rgba(198, 166, 107, 0.7);
+      border-bottom: 2px solid rgba(198, 166, 107, 0.7);
+      padding-top: 2.35rem;
+    }
+
+    .greeting-card.tpl-rustic .card-inner-frame {
+      border: 1.5px solid rgba(118, 45, 56, 0.35);
+      background-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .card-kicker {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .card-recipient {
+      font-size: clamp(1.35rem, 4vw, 1.85rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-block: 0.35rem;
+      word-break: break-word;
+    }
+
+    .card-divider {
+      width: 44px;
+      height: 1.5px;
+      background-color: #C6A66B;
+      margin: 0.45rem auto;
+    }
+
+    .card-message {
+      font-size: clamp(0.92rem, 2.5vw, 1.05rem);
+      line-height: 1.62;
+      max-width: 30ch;
+      margin-inline: auto;
+      word-break: break-word;
+    }
+
+    .card-sender {
+      font-size: 0.9rem;
+      font-style: italic;
+      opacity: 0.92;
+      margin-top: 0.5rem;
+      word-break: break-word;
+    }
+
+    .card-brand-stamp {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-top: 0.35rem;
+    }
+
+    .studio-actions {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .studio-actions .btn {
+      flex: 1 1 160px;
+    }
+
+    .status-banner {
+      width: 100%;
+      max-width: 440px;
+      font-size: 0.84rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--sage-tint);
+      color: var(--forest);
+      border: 1px solid rgba(23, 59, 50, 0.16);
+      display: none;
+    }
+
+    .status-banner.is-visible {
+      display: block;
+    }
+
+    /* ==========================================================================
+       7. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
+       ========================================================================== */
+    .activities-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+
+    .activity-tab-btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      font-weight: 600;
+      font-size: 0.925rem;
+      color: var(--forest);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--transition);
+    }
+
+    .activity-tab-btn:hover {
+      border-color: var(--gold);
+    }
+
+    .activity-tab-btn.is-active {
+      background-color: var(--forest);
+      color: var(--ivory);
+      border-color: var(--forest);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .activity-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 960px) {
+      .activity-layout {
+        grid-template-columns: 1.35fr 0.65fr;
+        align-items: start;
+      }
+    }
+
+    .quiz-card {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (min-width: 640px) {
+      .quiz-card {
+        padding: 2.25rem;
+      }
+    }
+
+    .quiz-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+    }
+
+    .quiz-badge {
+      background-color: var(--ivory);
+      color: var(--burgundy);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(118, 45, 56, 0.2);
+    }
+
+    .quiz-progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: var(--ivory-dark);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background-color: var(--burgundy);
+      transition: width 300ms ease;
+    }
+
+    .quiz-emoji-display {
+      font-size: clamp(2.1rem, 5vw, 3rem);
+      letter-spacing: 0.25rem;
+      text-align: center;
+      padding: 1.25rem;
+      background-color: var(--ivory);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.25rem;
+      border: 1px dashed var(--gold);
+    }
+
+    .quiz-question {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.32;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      padding: 0.95rem 1.15rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--ivory);
+      border: 1.5px solid var(--border-subtle);
+      font-weight: 500;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: border-color var(--transition), background-color var(--transition);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      border-color: var(--forest);
+      background-color: rgba(23, 59, 50, 0.05);
+    }
+
+    .quiz-option:disabled {
+      cursor: default;
+    }
+
+    .quiz-option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--forest);
+      flex-shrink: 0;
+    }
+
+    .quiz-option.is-correct {
+      background-color: rgba(23, 59, 50, 0.1);
+      border-color: var(--forest);
+      color: var(--forest);
+      font-weight: 600;
+    }
+
+    .quiz-option.is-correct .quiz-option-letter {
+      background-color: var(--forest);
+      color: var(--white);
+      border-color: var(--forest);
+    }
+
+    .quiz-option.is-wrong {
+      background-color: rgba(118, 45, 56, 0.1);
+      border-color: var(--burgundy);
+      color: var(--burgundy);
+    }
+
+    .quiz-option.is-wrong .quiz-option-letter {
+      background-color: var(--burgundy);
+      color: var(--white);
+      border-color: var(--burgundy);
+    }
+
+    .quiz-feedback {
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--ivory);
+      border-left: 4px solid var(--gold);
+      margin-bottom: 1.25rem;
+      font-size: 0.9375rem;
+      display: none;
+    }
+
+    .quiz-feedback.is-visible {
+      display: block;
+    }
+
+    .quiz-result-box {
+      text-align: center;
+      padding-block: 1rem;
+    }
+
+    .quiz-score-ring {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      margin: 0 auto 1.25rem;
+      background-color: var(--forest);
+      color: var(--gold-light);
+      border: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+    }
+
+    .quiz-score-num {
+      font-size: 1.85rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .quiz-score-total {
+      font-size: 0.8rem;
+      color: var(--ivory);
+      margin-top: 0.2rem;
+    }
+
+    /* Side Activity Cards */
+    .activity-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mini-activity-card {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .mini-activity-card.is-current {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mini-activity-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--forest);
+      margin-bottom: 0.35rem;
+    }
+
+    .mini-activity-card p {
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+      margin-bottom: 0.95rem;
+    }
+
+    /* ==========================================================================
+       8. CHRISTMAS SHOP (DIGITAL CATALOGUE)
+       ========================================================================== */
+    .shop-section {
+      background-color: var(--white);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .shop-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .filter-pill {
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background-color: var(--ivory);
+      color: var(--charcoal);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--forest);
+    }
+
+    .filter-pill.is-active {
+      background-color: var(--forest);
+      color: var(--ivory);
+      border-color: var(--forest);
+    }
+
+    .shop-note {
+      font-size: 0.8125rem;
+      color: var(--charcoal-muted);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 580px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .product-card {
+      background-color: var(--ivory);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold);
+    }
+
+    .product-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background-color: var(--forest);
+      display: grid;
+      place-items: center;
+      padding: 1.25rem;
+      overflow: hidden;
+    }
+
+    .product-tier-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .product-tier-badge--premium {
+      background-color: var(--ivory);
+      color: var(--forest);
+      border: 1px solid var(--gold);
+    }
+
+    .product-tier-badge--free {
+      background-color: var(--burgundy);
+      color: var(--white);
+    }
+
+    .product-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-category {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      margin-bottom: 0.3rem;
+    }
+
+    .product-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.28;
+      margin-bottom: 0.45rem;
+    }
+
+    .product-desc {
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+      margin-bottom: 1.15rem;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-bottom: 0.85rem;
+    }
+
+    .product-price {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--forest);
+    }
+
+    .product-format {
+      font-size: 0.75rem;
+      color: var(--charcoal-muted);
+    }
+
+    .product-actions {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       9. CHRISTMAS COUNTDOWN BANNER
+       ========================================================================== */
+    .countdown-section {
+      background-color: var(--forest);
+      color: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-box {
+      border: 1px solid rgba(198, 166, 107, 0.42);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 1.25rem;
+      text-align: center;
+      background: radial-gradient(circle at top center, rgba(198, 166, 107, 0.12), transparent 65%);
+    }
+
+    @media (min-width: 768px) {
+      .countdown-box {
+        padding: 3.5rem 2.5rem;
+      }
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      max-width: 680px;
+      margin: 2rem auto 1.5rem;
+    }
+
+    @media (min-width: 560px) {
+      .countdown-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.15rem;
+      }
+    }
+
+    .countdown-unit {
+      background-color: var(--forest-deep);
+      border: 1px solid rgba(198, 166, 107, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 0.75rem;
+    }
+
+    .countdown-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--gold-light);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(246, 241, 232, 0.75);
+      margin-top: 0.45rem;
+    }
+
+    .countdown-message {
+      font-size: 0.95rem;
+      color: rgba(246, 241, 232, 0.85);
+      max-width: 48ch;
+      margin-inline: auto;
+    }
+
+    /* ==========================================================================
+       10. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
+       ========================================================================== */
+    .planner-summary {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (min-width: 600px) {
+      .planner-summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .planner-summary {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .budget-stat {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+
+    .budget-stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .budget-stat-value {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--forest);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .budget-stat-value.is-negative {
+      color: var(--burgundy);
+    }
+
+    .budget-edit-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.4rem;
+    }
+
+    .budget-input-inline {
+      width: 115px;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      font-size: 0.875rem;
+      background-color: var(--ivory);
+    }
+
+    .planner-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 920px) {
+      .planner-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+        align-items: start;
+      }
+    }
+
+    .planner-card {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .planner-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--forest);
+      margin-bottom: 1rem;
+    }
+
+    .planner-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .gift-list-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .gift-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .gift-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--ivory);
+      border: 1px solid var(--border-subtle);
+      transition: opacity var(--transition);
+    }
+
+    .gift-item.is-purchased {
+      opacity: 0.72;
+      background-color: var(--sage-tint);
+    }
+
+    .gift-item-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .gift-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--forest);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .gift-info {
+      min-width: 0;
+    }
+
+    .gift-recipient {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--forest);
+      word-break: break-word;
+    }
+
+    .gift-desc {
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+      word-break: break-word;
+    }
+
+    .gift-item.is-purchased .gift-recipient,
+    .gift-item.is-purchased .gift-desc {
+      text-decoration: line-through;
+    }
+
+    .gift-item-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .gift-price {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .gift-delete-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      color: var(--burgundy);
+      transition: background-color var(--transition);
+    }
+
+    .gift-delete-btn:hover {
+      background-color: rgba(118, 45, 56, 0.12);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2.25rem 1rem;
+      color: var(--charcoal-muted);
+      font-size: 0.925rem;
+    }
+
+    /* ==========================================================================
+       11. NEWSLETTER & FOOTER
+       ========================================================================== */
+    .newsletter-section {
+      background-color: var(--ivory-dark);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .newsletter-card {
+      max-width: 720px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 500px;
+      margin: 1.75rem auto 0.75rem;
+    }
+
+    @media (min-width: 540px) {
+      .newsletter-form {
+        flex-direction: row;
+      }
+    }
+
+    .newsletter-form .form-input {
+      flex: 1;
+      min-height: 48px;
+    }
+
+    .newsletter-feedback {
+      font-size: 0.85rem;
+      min-height: 1.4em;
+    }
+
+    .newsletter-feedback.is-error {
+      color: var(--burgundy);
+      font-weight: 600;
+    }
+
+    .newsletter-feedback.is-success {
+      color: var(--forest);
+      font-weight: 600;
+    }
+
+    .site-footer {
+      background-color: var(--forest-deep);
+      color: rgba(246, 241, 232, 0.82);
+      padding-block: 4rem 2.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(198, 166, 107, 0.22);
+    }
+
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 980px) {
+      .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+      }
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--ivory);
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-desc {
+      font-size: 0.9rem;
+      max-width: 34ch;
+      color: rgba(246, 241, 232, 0.74);
+    }
+
+    .footer-heading {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a,
+    .footer-links button {
+      color: rgba(246, 241, 232, 0.8);
+      text-align: left;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      padding-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.825rem;
+      color: rgba(246, 241, 232, 0.65);
+    }
+
+    .footer-legal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .footer-legal button {
+      color: rgba(246, 241, 232, 0.72);
+      font-size: 0.825rem;
+    }
+
+    .footer-legal button:hover {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       12. DRAWERS & MODALS (CART, SEARCH, PRODUCT PREVIEW, ACCOUNT, LEGAL)
+       ========================================================================== */
+    .overlay-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(16, 43, 36, 0.55);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition), visibility var(--transition);
+    }
+
+    .overlay-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Slide-over Cart Drawer */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 420px;
+      background-color: var(--ivory);
+      z-index: 1010;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+    }
+
+    .cart-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 1.25rem 1.5rem;
+      background-color: var(--forest);
+      color: var(--ivory);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .drawer-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--ivory);
+      display: inline-grid;
+      place-items: center;
+    }
+
+    .drawer-close:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .cart-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .cart-item {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .cart-item-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--forest);
+      margin-bottom: 0.2rem;
+    }
+
+    .cart-item-price {
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      background-color: var(--ivory);
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--forest);
+    }
+
+    .qty-val {
+      min-width: 28px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .cart-footer {
+      padding: 1.25rem 1.5rem 1.5rem;
+      background-color: var(--white);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .cart-subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--forest);
+      padding-top: 0.65rem;
+      margin-top: 0.65rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-bottom: 1rem;
+    }
+
+    .prototype-notice {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--ivory);
+      border: 1px solid var(--border-gold);
+      color: var(--charcoal);
+      margin-bottom: 0.85rem;
+    }
+
+    /* Centered Modal */
+    .modal-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -48%) scale(0.97);
+      width: calc(100% - 2rem);
+      max-width: 540px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background-color: var(--ivory);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 1020;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+    }
+
+    .modal-dialog.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-header {
+      padding: 1.15rem 1.5rem;
+      background-color: var(--forest);
+      color: var(--ivory);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .search-results-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .search-result-item {
+      background-color: var(--white);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: 100%;
+      text-align: left;
+    }
+
+    .search-result-item:hover {
+      border-color: var(--gold);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      background-color: var(--forest-deep);
+      color: var(--ivory);
+      border: 1px solid var(--gold);
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      z-index: 1100;
+      transform: translateY(130%);
+      opacity: 0;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .toast.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       HEADER & STICKY NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-bar">
+      <a href="#home" class="brand-logo" aria-label="All Things Christmas Home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </span>
+        <span>All Things Christmas</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links" id="desktop-nav-links">
+          <li><a href="#home" class="nav-link is-active" data-nav="home">Home</a></li>
+          <li><a href="#explore" class="nav-link" data-nav="explore">Explore</a></li>
+          <li><a href="#studio" class="nav-link" data-nav="studio">Create</a></li>
+          <li><a href="#shop" class="nav-link" data-nav="shop">Shop</a></li>
+          <li><a href="#planner" class="nav-link" data-nav="planner">Plan</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn" id="open-search-btn" aria-label="Search All Things Christmas">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <button type="button" class="icon-btn" id="open-account-btn" aria-label="Guest Preferences and Account Info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+
+        <button type="button" class="icon-btn" id="open-cart-btn" aria-label="Open Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" id="cart-count-badge" aria-live="polite">0</span>
+        </button>
+
+        <button type="button" class="icon-btn mobile-menu-btn" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <ul class="mobile-nav-list">
+      <li><a href="#home" class="mobile-nav-link" data-nav="home">Home <span aria-hidden="true">→</span></a></li>
+      <li><a href="#explore" class="mobile-nav-link" data-nav="explore">Explore <span aria-hidden="true">→</span></a></li>
+      <li><a href="#studio" class="mobile-nav-link" data-nav="studio">Create <span aria-hidden="true">→</span></a></li>
+      <li><a href="#shop" class="mobile-nav-link" data-nav="shop">Shop <span aria-hidden="true">→</span></a></li>
+      <li><a href="#planner" class="mobile-nav-link" data-nav="planner">Plan <span aria-hidden="true">→</span></a></li>
+    </ul>
+    <a href="#studio" class="btn btn-primary" style="width:100%;">Create a Christmas Card</a>
+  </div>
+
+  <main>
+    <!-- ======================================================================
+         SECTION 1: HERO
+         ====================================================================== -->
+    <section class="hero" id="home" aria-labelledby="hero-heading">
+      <div class="hero-snow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow eyebrow--gold">Season’s Curated Destination</span>
+          <h1 class="hero-title" id="hero-heading">Make this Christmas <em>unforgettable.</em></h1>
+          <p class="hero-subtitle">
+            Discover beautiful creations, festive experiences, thoughtful gifts and everything you need to celebrate Christmas.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#explore" class="btn btn-primary">Explore Christmas</a>
+            <a href="#studio" class="btn btn-outline-light">Create a Christmas Card</a>
+          </div>
+          <div class="hero-highlights">
+            <span class="hero-highlight-item"><span class="hero-highlight-dot"></span>Instant Digital Cards</span>
+            <span class="hero-highlight-item"><span class="hero-highlight-dot"></span>Festive Party Games</span>
+            <span class="hero-highlight-item"><span class="hero-highlight-dot"></span>Gift &amp; Budget Planner</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-arch-frame">
+            <div class="hero-arch-inner">
+              <!-- Editorial Architectural Illustration: Warm Living Room & Golden Christmas Tree -->
+              <svg viewBox="0 0 460 520" role="img" aria-label="Editorial illustration of an illuminated Christmas tree with warm golden lights inside a cosy evening room">
+                <defs>
+                  <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0E2620" />
+                    <stop offset="100%" stop-color="#1A4238" />
+                  </linearGradient>
+                  <radialGradient id="treeGlow" cx="50%" cy="48%" r="45%">
+                    <stop offset="0%" stop-color="#C6A66B" stop-opacity="0.34" />
+                    <stop offset="100%" stop-color="#102B24" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="treeBody" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#265A4D" />
+                    <stop offset="100%" stop-color="#13332B" />
+                  </linearGradient>
+                </defs>
+                <!-- Evening Backdrop -->
+                <rect width="460" height="520" fill="url(#skyGrad)" />
+                <circle cx="230" cy="250" r="195" fill="url(#treeGlow)" />
+
+                <!-- Distant Window Panes -->
+                <rect x="65" y="95" width="330" height="315" rx="165" fill="none" stroke="#C6A66B" stroke-opacity="0.28" stroke-width="1.5" />
+                <line x1="230" y1="95" x2="230" y2="410" stroke="#C6A66B" stroke-opacity="0.16" stroke-width="1" />
+                <line x1="65" y1="265" x2="395" y2="265" stroke="#C6A66B" stroke-opacity="0.16" stroke-width="1" />
+
+                <!-- Subtle Stars Outside -->
+                <circle cx="130" cy="165" r="2" fill="#DFC694" opacity="0.8" />
+                <circle cx="335" cy="155" r="2.2" fill="#DFC694" opacity="0.85" />
+                <circle cx="110" cy="225" r="1.5" fill="#F6F1E8" opacity="0.6" />
+                <circle cx="350" cy="235" r="1.5" fill="#F6F1E8" opacity="0.65" />
+
+                <!-- Floor & Hearth Base -->
+                <rect x="0" y="412" width="460" height="108" fill="#0B1F1A" />
+                <line x1="35" y1="412" x2="425" y2="412" stroke="#C6A66B" stroke-opacity="0.45" stroke-width="1.5" />
+
+                <!-- Tree Trunk & Brass Stand -->
+                <rect x="218" y="376" width="24" height="36" fill="#4B2E24" />
+                <path d="M198 412 L262 412 L252 400 L208 400 Z" fill="#C6A66B" />
+
+                <!-- Layered Evergreen Tiers -->
+                <polygon points="230,225 112,380 348,380" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.35" stroke-width="1" />
+                <polygon points="230,175 134,315 326,315" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.4" stroke-width="1" />
+                <polygon points="230,130 156,248 304,248" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.45" stroke-width="1" />
+                <polygon points="230,92 182,182 278,182" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.55" stroke-width="1" />
+
+                <!-- Golden Ribbon Garland -->
+                <path d="M194 166 Q230 186 266 166" fill="none" stroke="#DFC694" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M168 232 Q230 262 292 232" fill="none" stroke="#DFC694" stroke-width="2" stroke-linecap="round" />
+                <path d="M144 302 Q230 338 316 302" fill="none" stroke="#DFC694" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M122 365 Q230 402 338 365" fill="none" stroke="#DFC694" stroke-width="2.2" stroke-linecap="round" />
+
+                <!-- Burgundy & Champagne Baubles -->
+                <circle cx="212" cy="158" r="5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
+                <circle cx="248" cy="168" r="4.5" fill="#C6A66B" />
+                <circle cx="192" cy="222" r="6" fill="#C6A66B" />
+                <circle cx="235" cy="214" r="5.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
+                <circle cx="268" cy="228" r="5" fill="#F6F1E8" />
+                <circle cx="174" cy="292" r="6.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
+                <circle cx="222" cy="285" r="6" fill="#C6A66B" />
+                <circle cx="282" cy="295" r="6.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
+                <circle cx="155" cy="356" r="7" fill="#C6A66B" />
+                <circle cx="206" cy="352" r="6.5" fill="#F6F1E8" />
+                <circle cx="256" cy="358" r="7" fill="#762D38" stroke="#DFC694" stroke-width="1" />
+                <circle cx="305" cy="352" r="6.5" fill="#C6A66B" />
+
+                <!-- Crown Star -->
+                <polygon points="230,62 235,77 251,77 238,86 243,101 230,92 217,101 222,86 209,77 225,77" fill="#DFC694" />
+
+                <!-- Wrapped Gift Boxes Beneath Tree -->
+                <rect x="128" y="384" width="44" height="28" rx="2" fill="#762D38" stroke="#C6A66B" stroke-width="1" />
+                <line x1="150" y1="384" x2="150" y2="412" stroke="#DFC694" stroke-width="2" />
+                <rect x="284" y="388" width="52" height="24" rx="2" fill="#F6F1E8" stroke="#C6A66B" stroke-width="1" />
+                <line x1="310" y1="388" x2="310" y2="412" stroke="#762D38" stroke-width="2" />
+              </svg>
+            </div>
+          </div>
+          <div class="hero-floating-tag">
+            <span aria-hidden="true">✦</span>
+            <span>Everything Christmas, beautifully brought together</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: CHRISTMAS INTRODUCTION (FOUR PILLARS)
+         ====================================================================== -->
+    <section class="section" id="explore" aria-labelledby="explore-heading">
+      <div class="container">
+        <div class="section-header section-header--center">
+          <span class="eyebrow">The Festive Edit</span>
+          <h2 class="section-heading" id="explore-heading">Everything Christmas. All in one place.</h2>
+          <p class="section-lead">
+            Whether you are hosting an intimate dinner, sending heartfelt wishes across cities or organising a family gathering, explore thoughtful tools crafted for the season.
+          </p>
+        </div>
+
+        <div class="explore-grid">
+          <!-- Pillar 1 -->
+          <article class="pillar-card">
+            <div class="pillar-art" aria-hidden="true">
+              <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+                <rect x="22" y="14" width="52" height="68" rx="4" fill="#173B32" stroke="#C6A66B" stroke-width="2" />
+                <rect x="28" y="20" width="40" height="56" rx="2" stroke="#C6A66B" stroke-opacity="0.6" stroke-width="1" />
+                <path d="M48 34L51 41L58 42L53 47L54 54L48 50L42 54L43 47L38 42L45 41L48 34Z" fill="#C6A66B" />
+                <line x1="36" y1="62" x2="60" y2="62" stroke="#F6F1E8" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="pillar-title">Create &amp; Personalise</h3>
+            <p class="pillar-desc">Design bespoke digital Christmas cards with curated templates, custom typography and instant PNG downloads.</p>
+            <a href="#studio" class="pillar-link">Open Card Studio <span aria-hidden="true">→</span></a>
+          </article>
+
+          <!-- Pillar 2 -->
+          <article class="pillar-card">
+            <div class="pillar-art" aria-hidden="true">
+              <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+                <circle cx="48" cy="52" r="24" fill="#762D38" stroke="#C6A66B" stroke-width="2" />
+                <rect x="43" y="22" width="10" height="6" rx="1" fill="#C6A66B" />
+                <circle cx="48" cy="18" r="4" stroke="#C6A66B" stroke-width="1.5" />
+                <path d="M32 52C38 46 58 46 64 52" stroke="#DFC694" stroke-width="2" stroke-linecap="round" />
+                <circle cx="41" cy="58" r="2.5" fill="#F6F1E8" />
+                <circle cx="55" cy="58" r="2.5" fill="#F6F1E8" />
+              </svg>
+            </div>
+            <h3 class="pillar-title">Games &amp; Activities</h3>
+            <p class="pillar-desc">Spark lively conversations at home or online with Christmas trivia, movie clues and emoji challenges.</p>
+            <a href="#activities" class="pillar-link">Play Festive Games <span aria-hidden="true">→</span></a>
+          </article>
+
+          <!-- Pillar 3 -->
+          <article class="pillar-card">
+            <div class="pillar-art" aria-hidden="true">
+              <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+                <rect x="20" y="22" width="56" height="54" rx="6" fill="#FFFFFF" stroke="#173B32" stroke-width="2" />
+                <path d="M20 34H76" stroke="#173B32" stroke-width="2" />
+                <circle cx="34" cy="46" r="3" fill="#762D38" />
+                <line x1="43" y1="46" x2="64" y2="46" stroke="#173B32" stroke-width="2" stroke-linecap="round" />
+                <circle cx="34" cy="60" r="3" fill="#C6A66B" />
+                <line x1="43" y1="60" x2="60" y2="60" stroke="#173B32" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3 class="pillar-title">Plan Christmas</h3>
+            <p class="pillar-desc">Organise your gift list, track INR spending effortlessly and stay calm throughout the holiday rush.</p>
+            <a href="#planner" class="pillar-link">Start Planning <span aria-hidden="true">→</span></a>
+          </article>
+
+          <!-- Pillar 4 -->
+          <article class="pillar-card">
+            <div class="pillar-art" aria-hidden="true">
+              <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+                <rect x="24" y="36" width="48" height="40" rx="4" fill="#173B32" stroke="#C6A66B" stroke-width="2" />
+                <rect x="20" y="28" width="56" height="10" rx="2" fill="#762D38" stroke="#C6A66B" stroke-width="1.5" />
+                <line x1="48" y1="28" x2="48" y2="76" stroke="#DFC694" stroke-width="2.5" />
+                <path d="M48 28C42 20 33 22 36 28H48Z" stroke="#C6A66B" stroke-width="2" />
+                <path d="M48 28C54 20 63 22 60 28H48Z" stroke="#C6A66B" stroke-width="2" />
+              </svg>
+            </div>
+            <h3 class="pillar-title">Christmas Shop</h3>
+            <p class="pillar-desc">Browse printable party packs, gift tags, wallpapers and festive bundles designed for effortless celebration.</p>
+            <a href="#shop" class="pillar-link">Browse Catalogue <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 3: CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
+         ====================================================================== -->
+    <section class="section studio-section" id="studio" aria-labelledby="studio-heading">
+      <div class="container">
+        <div class="studio-promo-bar">
+          <div>
+            <span class="eyebrow">Christmas Studio</span>
+            <h2 class="section-heading" id="studio-heading">Make it personal.</h2>
+            <p class="section-lead">
+              Create beautiful Christmas greetings for the people who matter most. Choose an editorial template, write your note and download a ready-to-share PNG in seconds.
+            </p>
+          </div>
+          <div class="studio-steps" aria-label="Card Creation Steps">
+            <span class="step-pill">1. Template</span>
+            <span class="step-pill">2. Message</span>
+            <span class="step-pill">3. Style</span>
+            <span class="step-pill">4. Download PNG</span>
+          </div>
+        </div>
+
+        <div class="studio-workspace">
+          <!-- Left Column: Editor Controls -->
+          <div class="studio-controls" aria-label="Greeting Card Customisation Controls">
+            <div class="control-group">
+              <span class="control-label">
+                <span>Step 1 · Select a Template</span>
+                <span class="control-hint" id="selected-template-label">Classic Christmas</span>
+              </span>
+              <div class="template-grid" id="template-selector" role="radiogroup" aria-label="Card Templates">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="card-recipient-input">
+                <span>Step 2 · Recipient Name</span>
+                <span class="control-hint">Max 40 chars</span>
+              </label>
+              <input type="text" id="card-recipient-input" class="form-input" maxlength="40" value="Dearest Aarav &amp; Meera" placeholder="e.g., Dearest Family" />
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="card-message-input">
+                <span>Step 3 · Custom Christmas Message</span>
+                <span class="control-hint" id="message-char-count">118 / 220</span>
+              </label>
+              <textarea id="card-message-input" class="form-textarea" maxlength="220" placeholder="Write a warm seasonal wish...">Wishing you a Christmas filled with warm candlelight, unhurried conversations and quiet joy that lingers well into the new year.</textarea>
+              <div class="preset-chips" aria-label="Quick Message Ideas">
+                <button type="button" class="preset-chip" data-preset="family">Family warmth</button>
+                <button type="button" class="preset-chip" data-preset="friends">Close friends</button>
+                <button type="button" class="preset-chip" data-preset="colleagues">Professional wish</button>
+                <button type="button" class="preset-chip" data-preset="short">Short &amp; poetic</button>
+              </div>
+            </div>
+
+            <div class="control-row-2">
+              <div class="control-group">
+                <label class="control-label" for="card-sender-input">Sender Signature</label>
+                <input type="text" id="card-sender-input" class="form-input" maxlength="40" value="Warmly, Rohan" placeholder="e.g., With love, Maya" />
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="card-font-select">Typography</label>
+                <select id="card-font-select" class="form-select">
+                  <option value="Playfair Display">Playfair Display (Editorial)</option>
+                  <option value="Cormorant Garamond">Cormorant Garamond (Classic)</option>
+                  <option value="Cinzel">Cinzel (Ceremonial)</option>
+                  <option value="DM Sans">DM Sans (Modern Clean)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control-row-2">
+              <div class="control-group">
+                <span class="control-label">Card Background</span>
+                <div class="swatch-row" id="bg-color-swatches" role="radiogroup" aria-label="Background Colour"></div>
+              </div>
+
+              <div class="control-group">
+                <span class="control-label">Text Colour</span>
+                <div class="swatch-row" id="text-color-swatches" role="radiogroup" aria-label="Text Colour"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Live Card Preview & Export -->
+          <div class="studio-preview-column">
+            <div class="preview-stage">
+              <div class="greeting-card tpl-classic" id="card-preview-canvas" style="background-color:#173B32; color:#F6F1E8; font-family:'Playfair Display', Georgia, serif;">
+                <div class="card-ornament-layer" id="card-ornament-layer" aria-hidden="true"></div>
+                <div class="card-inner-frame">
+                  <div>
+                    <div class="card-kicker" id="preview-kicker">Season’s Greetings</div>
+                    <div class="card-divider"></div>
+                  </div>
+
+                  <div>
+                    <div class="card-recipient" id="preview-recipient">Dearest Aarav &amp; Meera</div>
+                    <p class="card-message" id="preview-message">
+                      Wishing you a Christmas filled with warm candlelight, unhurried conversations and quiet joy that lingers well into the new year.
+                    </p>
+                  </div>
+
+                  <div>
+                    <div class="card-sender" id="preview-sender">Warmly, Rohan</div>
+                    <div class="card-brand-stamp">All Things Christmas</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-actions">
+              <button type="button" class="btn btn-primary" id="download-card-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download PNG</span>
+              </button>
+              <button type="button" class="btn btn-outline-dark" id="reset-card-btn">Reset Defaults</button>
+            </div>
+
+            <div class="status-banner" id="studio-status-banner" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 4: CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
+         ====================================================================== -->
+    <section class="section" id="activities" aria-labelledby="activities-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Festive Games &amp; Quizzes</span>
+          <h2 class="section-heading" id="activities-heading">Bring everyone together.</h2>
+          <p class="section-lead">
+            Gather around with family and friends for three interactive seasonal challenges—complete with instant explanations and live scorekeeping.
+          </p>
+        </div>
+
+        <div class="activities-tabs" role="tablist" aria-label="Christmas Activities">
+          <button type="button" class="activity-tab-btn is-active" role="tab" aria-selected="true" data-activity="trivia">
+            <span>✦ Christmas Trivia (10 Questions)</span>
+          </button>
+          <button type="button" class="activity-tab-btn" role="tab" aria-selected="false" data-activity="movies">
+            <span>🎬 Guess the Christmas Movie</span>
+          </button>
+          <button type="button" class="activity-tab-btn" role="tab" aria-selected="false" data-activity="emoji">
+            <span>🎄 Christmas Emoji Challenge</span>
+          </button>
+        </div>
+
+        <div class="activity-layout">
+          <!-- Main Interactive Game Stage -->
+          <div class="quiz-card" id="activity-stage" aria-live="polite">
+            <!-- Dynamically rendered by JS -->
+          </div>
+
+          <!-- Activity Overview Cards -->
+          <aside class="activity-sidebar" aria-label="Available Games Overview">
+            <div class="mini-activity-card is-current" data-card-activity="trivia">
+              <h3>Christmas Trivia</h3>
+              <p>Ten curated questions spanning carols, history, global traditions and holiday lore.</p>
+              <button type="button" class="btn btn-outline-dark btn-sm launch-activity-btn" data-launch="trivia">Play Trivia</button>
+            </div>
+
+            <div class="mini-activity-card" data-card-activity="movies">
+              <h3>Guess the Christmas Movie</h3>
+              <p>Identify beloved holiday films from atmospheric plot clues and memorable moments.</p>
+              <button type="button" class="btn btn-outline-dark btn-sm launch-activity-btn" data-launch="movies">Launch Movie Game</button>
+            </div>
+
+            <div class="mini-activity-card" data-card-activity="emoji">
+              <h3>Christmas Emoji Challenge</h3>
+              <p>Decode classic Christmas carols, stories and festive treats hidden in emoji sequences.</p>
+              <button type="button" class="btn btn-outline-dark btn-sm launch-activity-btn" data-launch="emoji">Start Emoji Challenge</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 5: CHRISTMAS SHOP (DIGITAL PRODUCT CATALOGUE)
+         ====================================================================== -->
+    <section class="section shop-section" id="shop" aria-labelledby="shop-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Digital Curations</span>
+          <h2 class="section-heading" id="shop-heading">Thoughtful little things. Beautifully designed.</h2>
+          <p class="section-lead">
+            Instant-download stationery, printable party games and festive planning suites crafted for effortless celebrations.
+          </p>
+        </div>
+
+        <div class="shop-toolbar">
+          <div class="filter-pills" id="shop-filters" role="group" aria-label="Filter Products by Category">
+            <button type="button" class="filter-pill is-active" data-filter="all">All Editions</button>
+            <button type="button" class="filter-pill" data-filter="Cards &amp; Tags">Cards &amp; Tags</button>
+            <button type="button" class="filter-pill" data-filter="Wallpapers">Wallpapers</button>
+            <button type="button" class="filter-pill" data-filter="Games &amp; Bundles">Games &amp; Bundles</button>
+            <button type="button" class="filter-pill" data-filter="Planners">Planners</button>
+          </div>
+          <p class="shop-note">Illustrative INR pricing · Prototype digital catalogue</p>
+        </div>
+
+        <div class="product-grid" id="product-grid">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 6: CHRISTMAS COUNTDOWN
+         ====================================================================== -->
+    <section class="section countdown-section" id="countdown" aria-labelledby="countdown-heading">
+      <div class="container">
+        <div class="countdown-box">
+          <span class="eyebrow eyebrow--gold">Counting the Moments</span>
+          <h2 class="section-heading section-heading--light" id="countdown-heading">Christmas is getting closer.</h2>
+          <p class="section-lead section-lead--light" style="margin-inline:auto;" id="countdown-target-label">
+            Live countdown to December 25 based on your local device clock.
+          </p>
+
+          <div class="countdown-grid" role="timer" aria-live="off">
+            <div class="countdown-unit">
+              <span class="countdown-num" id="cd-days">00</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="cd-hours">00</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="cd-minutes">00</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="cd-seconds">00</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+
+          <p class="countdown-message" id="countdown-seasonal-note">
+            Every evening brings the season a little nearer—take a quiet moment to write a card or plan a gathering.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 7: CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
+         ====================================================================== -->
+    <section class="section" id="planner" aria-labelledby="planner-heading">
+      <div class="container">
+        <div class="section-header" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1rem;">
+          <div>
+            <span class="eyebrow">Holiday Organiser</span>
+            <h2 class="section-heading" id="planner-heading">Plan your Christmas gifting.</h2>
+            <p class="section-lead">
+              Keep track of recipients, gift ideas and your festive budget in Indian Rupees—saved automatically in your browser.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline-dark btn-sm" id="reset-planner-btn">Reset Planner</button>
+        </div>
+
+        <!-- Budget Summary Cards -->
+        <div class="planner-summary" aria-label="Budget Summary">
+          <div class="budget-stat">
+            <div class="budget-stat-label">Overall Budget</div>
+            <div class="budget-stat-value" id="stat-total-budget">₹15,000</div>
+            <div class="budget-edit-row">
+              <label for="overall-budget-input" class="sr-only">Set Overall Budget in INR</label>
+              <input type="number" id="overall-budget-input" class="budget-input-inline" min="0" step="100" value="15000" />
+              <button type="button" class="btn btn-forest btn-sm" id="save-budget-btn" style="min-height:32px; padding:0.25rem 0.65rem; font-size:0.78rem;">Update</button>
+            </div>
+          </div>
+
+          <div class="budget-stat">
+            <div class="budget-stat-label">Total Planned Gifts</div>
+            <div class="budget-stat-value" id="stat-total-estimated">₹0</div>
+            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-item-count">0 gifts listed</div>
+          </div>
+
+          <div class="budget-stat">
+            <div class="budget-stat-label">Purchased Amount</div>
+            <div class="budget-stat-value" id="stat-total-purchased">₹0</div>
+            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-purchased-count">0 marked purchased</div>
+          </div>
+
+          <div class="budget-stat">
+            <div class="budget-stat-label">Remaining Budget</div>
+            <div class="budget-stat-value" id="stat-remaining-budget">₹15,000</div>
+            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-budget-status">Calculated against overall budget</div>
+          </div>
+        </div>
+
+        <div class="planner-grid">
+          <!-- Add Gift Form -->
+          <div class="planner-card">
+            <h3>Add a Gift Idea</h3>
+            <form class="planner-form" id="gift-form" novalidate>
+              <div class="control-group">
+                <label class="control-label" for="gift-recipient-input">Recipient Name</label>
+                <input type="text" id="gift-recipient-input" class="form-input" maxlength="50" placeholder="e.g., Amma, Kabir, Secret Santa" required />
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="gift-desc-input">Gift Description</label>
+                <input type="text" id="gift-desc-input" class="form-input" maxlength="80" placeholder="e.g., Artisanal Plum Cake &amp; Coffee Hamper" required />
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="gift-price-input">Estimated Price (INR)</label>
+                <input type="number" id="gift-price-input" class="form-input" min="0" max="10000000" step="1" placeholder="e.g., 1250" required />
+              </div>
+
+              <p id="gift-form-error" style="color:var(--burgundy); font-size:0.84rem; display:none;" role="alert"></p>
+
+              <button type="submit" class="btn btn-primary">Add to Gift Checklist</button>
+            </form>
+          </div>
+
+          <!-- Checklist Display -->
+          <div class="planner-card">
+            <div class="gift-list-header">
+              <h3 style="margin-bottom:0;">Gift Checklist</h3>
+              <div class="filter-pills" id="planner-filter-pills">
+                <button type="button" class="filter-pill is-active" data-gift-filter="all">All</button>
+                <button type="button" class="filter-pill" data-gift-filter="pending">To Buy</button>
+                <button type="button" class="filter-pill" data-gift-filter="purchased">Purchased</button>
+              </div>
+            </div>
+            <ul class="gift-list" id="gift-checklist">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 8: NEWSLETTER
+         ====================================================================== -->
+    <section class="section newsletter-section" id="newsletter" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <div class="newsletter-card">
+          <span class="eyebrow">Seasonal Notes</span>
+          <h2 class="section-heading" id="newsletter-heading">Make room for a little more Christmas.</h2>
+          <p class="section-lead" style="margin-inline:auto;">
+            Discover festive ideas, beautiful creations and seasonal surprises.
+          </p>
+
+          <form class="newsletter-form" id="newsletter-form" novalidate>
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input type="email" id="newsletter-email" class="form-input" placeholder="Enter your email address" required />
+            <button type="submit" class="btn btn-forest">Subscribe</button>
+          </form>
+
+          <p class="newsletter-feedback" id="newsletter-feedback" role="status" aria-live="polite">
+            Prototype preview: Email validation runs locally in your browser.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#home" class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>All Things Christmas</span>
+          </a>
+          <p class="footer-desc">
+            Everything Christmas, beautifully brought together. An India-first seasonal digital destination to celebrate, create, plan and explore.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Navigation</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#studio">Create a Card</a></li>
+            <li><a href="#shop">Christmas Shop</a></li>
+            <li><a href="#planner">Gift Planner</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Explore</h3>
+          <ul class="footer-links">
+            <li><a href="#activities">Christmas Trivia</a></li>
+            <li><a href="#activities">Movie Guessing Game</a></li>
+            <li><a href="#activities">Emoji Challenge</a></li>
+            <li><a href="#countdown">Christmas Countdown</a></li>
+            <li><a href="#newsletter">Seasonal Notes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Contact &amp; Prototype Info</h3>
+          <ul class="footer-links">
+            <li>Digital Platform Prototype</li>
+            <li>Customer Support: Available upon full commercial launch</li>
+            <li><button type="button" data-legal="privacy">Privacy Policy</button></li>
+            <li><button type="button" data-legal="terms">Terms &amp; Conditions</button></li>
+            <li><button type="button" data-legal="refund">Refund Policy</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="copyright-year">2026</span> All Things Christmas. All rights reserved. Prototype MVP.</p>
+        <div class="footer-legal">
+          <button type="button" data-legal="privacy">Privacy Policy</button>
+          <button type="button" data-legal="terms">Terms &amp; Conditions</button>
+          <button type="button" data-legal="refund">Refund Policy</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       OVERLAYS: SHOPPING CART DRAWER & MULTI-PURPOSE MODAL
+       ======================================================================== -->
+  <div class="overlay-backdrop" id="overlay-backdrop"></div>
+
+  <!-- Shopping Bag Drawer -->
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" aria-hidden="true">
+    <div class="drawer-header">
+      <h2 class="drawer-title" id="cart-drawer-title">Your Festive Bag</h2>
+      <button type="button" class="drawer-close" id="close-cart-btn" aria-label="Close Shopping Bag">✕</button>
+    </div>
+
+    <div class="cart-body" id="cart-body">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="cart-footer" id="cart-footer">
+      <div class="cart-subtotal-row">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">₹0</span>
+      </div>
+      <div class="cart-subtotal-row" style="font-size:0.85rem; color:var(--charcoal-muted);">
+        <span>Digital Delivery</span>
+        <span>Instant (Prototype)</span>
+      </div>
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <span id="cart-total">₹0</span>
+      </div>
+
+      <div class="prototype-notice">
+        <strong>Prototype Notice:</strong> Online payment processing and automated digital file delivery will be enabled in a future release. No charges are processed in this preview.
+      </div>
+
+      <button type="button" class="btn btn-outline-dark btn-sm" id="clear-cart-btn" style="width:100%;">Clear Bag</button>
+    </div>
+  </aside>
+
+  <!-- General Purpose Modal (Search, Product Preview, Guest Account, Legal Policies) -->
+  <div class="modal-dialog" id="app-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Modal Title</h2>
+      <button type="button" class="drawer-close" id="close-modal-btn" aria-label="Close Dialog">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- Live Toast Feedback -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       APPLICATION JAVASCRIPT (CLEAN, MODULAR, SAFE DOM MANIPULATION)
+       ======================================================================== -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* ----------------------------------------------------------------------
+         1. DATA DEFINITIONS
+         ---------------------------------------------------------------------- */
+      const CARD_TEMPLATES = [
+        {
+          id: "classic",
+          name: "Classic Christmas",
+          kicker: "Season’s Greetings",
+          bg: "#173B32",
+          text: "#F6F1E8",
+          font: "Playfair Display",
+          swatches: ["#173B32", "#C6A66B", "#F6F1E8"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <path d="M24 58 L24 24 L58 24" fill="none" stroke="#C6A66B" stroke-width="2"/>
+              <path d="M376 58 L376 24 L342 24" fill="none" stroke="#C6A66B" stroke-width="2"/>
+              <path d="M24 442 L24 476 L58 476" fill="none" stroke="#C6A66B" stroke-width="2"/>
+              <path d="M376 442 L376 476 L342 476" fill="none" stroke="#C6A66B" stroke-width="2"/>
+              <polygon points="200,36 203,44 212,44 205,49 207,57 200,52 193,57 195,49 188,44 197,44" fill="#C6A66B"/>
+            </svg>`
+        },
+        {
+          id: "minimal",
+          name: "Minimal Christmas",
+          kicker: "Peace & Joy",
+          bg: "#F6F1E8",
+          text: "#282724",
+          font: "DM Sans",
+          swatches: ["#F6F1E8", "#282724", "#C6A66B"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <line x1="200" y1="28" x2="200" y2="66" stroke="#C6A66B" stroke-width="1.2"/>
+              <line x1="184" y1="47" x2="216" y2="47" stroke="#C6A66B" stroke-width="1.2"/>
+              <circle cx="200" cy="47" r="3" fill="#762D38"/>
+            </svg>`
+        },
+        {
+          id: "golden",
+          name: "Golden Christmas",
+          kicker: "Warmest Wishes",
+          bg: "#102B24",
+          text: "#DFC694",
+          font: "Cinzel",
+          swatches: ["#102B24", "#DFC694", "#C6A66B"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <circle cx="200" cy="68" r="22" fill="none" stroke="#C6A66B" stroke-opacity="0.45" stroke-width="1"/>
+              <line x1="200" y1="36" x2="200" y2="100" stroke="#C6A66B" stroke-width="1.2"/>
+              <line x1="168" y1="68" x2="232" y2="68" stroke="#C6A66B" stroke-width="1.2"/>
+              <line x1="178" y1="46" x2="222" y2="90" stroke="#C6A66B" stroke-opacity="0.6" stroke-width="1"/>
+              <line x1="222" y1="46" x2="178" y2="90" stroke="#C6A66B" stroke-opacity="0.6" stroke-width="1"/>
+            </svg>`
+        },
+        {
+          id: "winter",
+          name: "Winter Wonderland",
+          kicker: "December Magic",
+          bg: "#E5ECE4",
+          text: "#173B32",
+          font: "Cormorant Garamond",
+          swatches: ["#E5ECE4", "#173B32", "#A7B5A6"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <g stroke="#173B32" stroke-opacity="0.24" stroke-width="1.2">
+                <line x1="56" y1="44" x2="56" y2="76"/>
+                <line x1="40" y1="60" x2="72" y2="60"/>
+                <line x1="45" y1="49" x2="67" y2="71"/>
+                <line x1="67" y1="49" x2="45" y2="71"/>
+                <line x1="344" y1="424" x2="344" y2="456"/>
+                <line x1="328" y1="440" x2="360" y2="440"/>
+                <line x1="333" y1="429" x2="355" y2="451"/>
+                <line x1="355" y1="429" x2="333" y2="451"/>
+              </g>
+            </svg>`
+        },
+        {
+          id: "merry",
+          name: "Merry & Bright",
+          kicker: "Merry Christmas",
+          bg: "#762D38",
+          text: "#F6F1E8",
+          font: "Playfair Display",
+          swatches: ["#762D38", "#F6F1E8", "#C6A66B"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <line x1="95" y1="0" x2="95" y2="54" stroke="#DFC694" stroke-width="1.2"/>
+              <circle cx="95" cy="64" r="10" fill="#C6A66B"/>
+              <line x1="305" y1="0" x2="305" y2="42" stroke="#DFC694" stroke-width="1.2"/>
+              <circle cx="305" cy="50" r="8" fill="#F6F1E8"/>
+            </svg>`
+        },
+        {
+          id: "rustic",
+          name: "Rustic Christmas",
+          kicker: "From Our Home to Yours",
+          bg: "#EBE3D5",
+          text: "#173B32",
+          font: "Cormorant Garamond",
+          swatches: ["#EBE3D5", "#173B32", "#762D38"],
+          ornamentSvg: `
+            <svg viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="none">
+              <circle cx="200" cy="56" r="18" fill="none" stroke="#173B32" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="4 3"/>
+              <circle cx="200" cy="74" r="3" fill="#762D38"/>
+              <circle cx="193" cy="72" r="2.5" fill="#762D38"/>
+              <circle cx="207" cy="72" r="2.5" fill="#762D38"/>
+            </svg>`
+        }
+      ];
+
+      const BG_SWATCHES = [
+        { label: "Forest Green", value: "#173B32" },
+        { label: "Deep Pine", value: "#102B24" },
+        { label: "Burgundy", value: "#762D38" },
+        { label: "Warm Ivory", value: "#F6F1E8" },
+        { label: "Parchment", value: "#EBE3D5" },
+        { label: "Muted Sage", value: "#E5ECE4" },
+        { label: "Soft White", value: "#FFFFFF" }
+      ];
+
+      const TEXT_SWATCHES = [
+        { label: "Warm Ivory", value: "#F6F1E8" },
+        { label: "Champagne Gold", value: "#DFC694" },
+        { label: "Charcoal", value: "#282724" },
+        { label: "Forest Green", value: "#173B32" },
+        { label: "Burgundy", value: "#762D38" }
+      ];
+
+      const MESSAGE_PRESETS = {
+        family: "Wishing you a Christmas filled with warm candlelight, unhurried conversations and quiet joy that lingers well into the new year.",
+        friends: "Here is to good music, late-night laughter, shared desserts and another wonderful year of friendship. Merry Christmas!",
+        colleagues: "Warmest wishes for a restful holiday season and a bright, fulfilling year ahead. Merry Christmas and Happy New Year.",
+        short: "Peace, warmth and golden moments to you and yours this Christmas."
+      };
+
+      const TRIVIA_QUESTIONS = [
+        {
+          question: "Which beloved Christmas carol was originally written in 1857 for a Thanksgiving church service?",
+          options: ["Silent Night", "Jingle Bells", "Deck the Halls", "O Holy Night"],
+          answer: 1,
+          explanation: "James Lord Pierpont composed 'Jingle Bells' (originally titled 'The One Horse Open Sleigh') in 1857, and it quickly became a Christmas favourite."
+        },
+        {
+          question: "In which country did the tradition of decorating an indoor evergreen Christmas tree originate?",
+          options: ["England", "Germany", "Norway", "Austria"],
+          answer: 1,
+          explanation: "Modern indoor Christmas tree traditions began in 16th-century Germany, later popularised across Britain and the world in the 1840s."
+        },
+        {
+          question: "Which plant with bright red and green foliage is widely associated with Christmas decorations?",
+          options: ["Amaryllis", "Poinsettia", "Cyclamen", "Camellia"],
+          answer: 1,
+          explanation: "Native to Mexico, the poinsettia became a global holiday emblem known for its star-shaped red bracts."
+        },
+        {
+          question: "In Charles Dickens' 'A Christmas Carol', what is the first name of Ebenezer Scrooge's late business partner?",
+          options: ["Bob", "Jacob", "Fred", "Albert"],
+          answer: 1,
+          explanation: "Jacob Marley visits Scrooge on Christmas Eve to warn him about the arrival of the three spirits."
+        },
+        {
+          question: "Which spice is traditionally central to Christmas plum cakes and gingerbread?",
+          options: ["Saffron", "Cinnamon", "Turmeric", "Paprika"],
+          answer: 1,
+          explanation: "Warm spices—especially cinnamon, nutmeg, cloves and ginger—define traditional Christmas baking across India and around the world."
+        },
+        {
+          question: "Who wrote the classic poem 'A Visit from St. Nicholas' ('Twas the Night Before Christmas')?",
+          options: ["Clement Clarke Moore", "Washington Irving", "Robert Frost", "Henry Wadsworth Longfellow"],
+          answer: 0,
+          explanation: "Published in 1823, Clement Clarke Moore's poem shaped modern imagery of Santa Claus and his eight reindeer."
+        },
+        {
+          question: "In 'The Twelve Days of Christmas', what gift is given on the fifth day?",
+          options: ["Five calling birds", "Five golden rings", "Five geese a-laying", "Five French hens"],
+          answer: 1,
+          explanation: "The fifth day famously celebrates 'five golden rings', sung with an elongated melody."
+        },
+        {
+          question: "Which famous classical ballet takes place on Christmas Eve and features the Sugar Plum Fairy?",
+          options: ["Swan Lake", "The Nutcracker", "Giselle", "Coppélia"],
+          answer: 1,
+          explanation: "Pyotr Ilyich Tchaikovsky's 1892 ballet 'The Nutcracker' is one of the most performed holiday works worldwide."
+        },
+        {
+          question: "Where was the world's first commercial Christmas card printed and sent in 1843?",
+          options: ["New York", "London", "Paris", "Edinburgh"],
+          answer: 1,
+          explanation: "Sir Henry Cole commissioned artist John Callcott Horsley in London in 1843 to produce the first commercial Christmas greeting card."
+        },
+        {
+          question: "In India, what is the traditional lantern hung outside homes during the Christmas season called in Goa and Kerala?",
+          options: ["Kandil / Nakshathra", "Diya", "Toran", "Rangoli"],
+          answer: 0,
+          explanation: "Illuminated star lanterns—known as Nakshathra in Kerala and Kandil in Goa and Mumbai—glow outside homes throughout December."
+        }
+      ];
+
+      const MOVIE_QUESTIONS = [
+        {
+          question: "An eight-year-old boy is accidentally left behind in Chicago when his family flies to Paris for Christmas and must defend his house from two bumbling burglars.",
+          options: ["Elf", "Home Alone", "The Polar Express", "Jingle All the Way"],
+          answer: 1,
+          explanation: "'Home Alone' (1990) stars Macaulay Culkin as Kevin McCallister."
+        },
+        {
+          question: "Raised by Santa's elves at the North Pole, a human man travels to New York City to find his biological father and spread holiday cheer.",
+          options: ["Arthur Christmas", "Elf", "The Santa Clause", "Klaus"],
+          answer: 1,
+          explanation: "Will Ferrell plays Buddy in Jon Favreau's 2003 modern holiday classic 'Elf'."
+        },
+        {
+          question: "On Christmas Eve, a doubting young boy boards a magical steam train bound for the North Pole.",
+          options: ["The Polar Express", "A Christmas Carol", "Miracle on 34th Street", "The Holiday"],
+          answer: 0,
+          explanation: "'The Polar Express' (2004) is adapted from Chris Van Allsburg's beloved illustrated book."
+        },
+        {
+          question: "Two women from opposite sides of the Atlantic—one in Surrey, one in Los Angeles—swap homes for the Christmas holidays.",
+          options: ["Love Actually", "Last Christmas", "The Holiday", "Four Christmases"],
+          answer: 2,
+          explanation: "Nancy Meyers' 'The Holiday' (2006) follows Iris and Amanda across an English cottage and a California villa."
+        },
+        {
+          question: "A self-centred postman stationed on a frozen northern island forms an unlikely friendship with a reclusive toymaker.",
+          options: ["Klaus", "Rise of the Guardians", "The Christmas Chronicles", "Noelle"],
+          answer: 0,
+          explanation: "'Klaus' (2019) is an acclaimed hand-drawn animated origin tale of Santa Claus."
+        },
+        {
+          question: "Eight interlocking stories explore love, family and heartbreak in London during the five weeks leading up to Christmas.",
+          options: ["Bridget Jones's Diary", "Love Actually", "About Time", "Notting Hill"],
+          answer: 1,
+          explanation: "Richard Curtis' 'Love Actually' (2003) weaves together multiple festive London storylines."
+        }
+      ];
+
+      const EMOJI_QUESTIONS = [
+        {
+          emojis: "🔔 🐎 🛷 ❄️",
+          question: "Which classic Christmas song do these emojis represent?",
+          options: ["Silent Night", "Jingle Bells", "Sleigh Ride", "Winter Wonderland"],
+          answer: 1,
+          explanation: "Jingle Bells — celebrating a one-horse open sleigh gliding through the snow!"
+        },
+        {
+          emojis: "☃️ 🎩 🥕 ❄️",
+          question: "Decode this festive character:",
+          options: ["Jack Frost", "Frosty the Snowman", "The Grinch", "Rudolph"],
+          answer: 1,
+          explanation: "Frosty the Snowman — brought to life with an old silk hat and a button nose."
+        },
+        {
+          emojis: "🦌 🔴 👃 ✨",
+          question: "Which famous reindeer is shown here?",
+          options: ["Dasher", "Blitzen", "Rudolph the Red-Nosed Reindeer", "Comet"],
+          answer: 2,
+          explanation: "Rudolph the Red-Nosed Reindeer — guiding Santa's sleigh through foggy nights."
+        },
+        {
+          emojis: "🏠 😱 🎄 🪤",
+          question: "Which iconic Christmas movie is this?",
+          options: ["Deck the Halls", "Home Alone", "National Lampoon's Christmas Vacation", "The Family Stone"],
+          answer: 1,
+          explanation: "Home Alone — Kevin protecting his home with clever holiday traps."
+        },
+        {
+          emojis: "🚂 🎫 ❄️ 🎅",
+          question: "Identify this magical Christmas journey:",
+          options: ["Murder on the Orient Express", "The Polar Express", "Snowpiercer", "Last Train to Christmas"],
+          answer: 1,
+          explanation: "The Polar Express — complete with the golden punched ticket to the North Pole."
+        },
+        {
+          emojis: "🤫 🌙 ⭐ 👶",
+          question: "Which timeless Christmas carol is pictured?",
+          options: ["O Little Town of Bethlehem", "Silent Night", "Away in a Manger", "We Three Kings"],
+          answer: 1,
+          explanation: "Silent Night ('Silent night, holy night, all is calm, all is bright')."
+        }
+      ];
+
+      const PRODUCTS = [
+        {
+          id: "prod-wallpapers",
+          name: "Christmas Wallpaper Collection",
+          category: "Wallpapers",
+          price: 49,
+          tier: "Premium",
+          format: "12 High-Res PNGs (Mobile & Desktop)",
+          description: "Warm candlelit botanicals, minimalist golden stars and deep forest-green seasonal wallpapers for phone and laptop screens.",
+          includes: ["8 Mobile Lockscreen Wallpapers (4K)", "4 Desktop Editorial Backdrops", "Dark & Warm Ivory Variants"],
+          artBg: "#173B32",
+          artAccent: "#C6A66B"
+        },
+        {
+          id: "prod-cards",
+          name: "Premium Christmas Greeting Cards",
+          category: "Cards & Tags",
+          price: 99,
+          tier: "Premium",
+          format: "10 Printable & Digital Cards (PDF + PNG)",
+          description: "Ten heirloom-inspired A5 folded card designs with matching digital shareables and calligraphy borders.",
+          includes: ["10 Print-Ready 300 DPI PDFs", "10 WhatsApp & Instagram Story Editions", "Envelope Liner Templates"],
+          artBg: "#762D38",
+          artAccent: "#DFC694"
+        },
+        {
+          id: "prod-party-games",
+          name: "Christmas Party Game Pack",
+          category: "Games & Bundles",
+          price: 149,
+          tier: "Premium",
+          format: "8 Printable Group Games (PDF)",
+          description: "Curated icebreakers, Christmas charades, music bingo and family trivia sheets designed for effortless hosting.",
+          includes: ["Christmas Music Bingo (20 Cards)", "Charades & Pictionary Prompt Deck", "Host Answer Keys"],
+          artBg: "#102B24",
+          artAccent: "#C6A66B"
+        },
+        {
+          id: "prod-planner",
+          name: "Christmas Planner Bundle",
+          category: "Planners",
+          price: 199,
+          tier: "Premium",
+          format: "24-Page Digital & Printable Workbook",
+          description: "Complete December planner covering dinner menus, guest lists, gift budgets, decor checklists and baking timelines.",
+          includes: ["Hyperlinked iPad / Tablet PDF", "A4 Home-Print Edition", "INR Gift & Menu Budget Sheets"],
+          artBg: "#214E43",
+          artAccent: "#F6F1E8"
+        },
+        {
+          id: "prod-gift-tags",
+          name: "Printable Gift Tags",
+          category: "Cards & Tags",
+          price: 49,
+          tier: "Free Sample + Pack",
+          format: "24 Illustrated Gift Tags (PDF)",
+          description: "Botanical pine, burgundy ribbon and gold-crest gift tags ready to print on cardstock and tie onto presents.",
+          includes: ["24 Distinct Tag Designs", "Crop Marks for Easy Cutting", "Blank & Pre-Lettered Options"],
+          artBg: "#762D38",
+          artAccent: "#F6F1E8"
+        },
+        {
+          id: "prod-activity-pack",
+          name: "Christmas Activity Pack",
+          category: "Games & Bundles",
+          price: 149,
+          tier: "Premium",
+          format: "18 Illustrated Activity Pages (PDF)",
+          description: "Screen-free seasonal puzzles, crosswords, colouring illustrations and creative prompts for quiet afternoons.",
+          includes: ["Festive Crosswords & Word Searches", "Botanical Line-Art Colouring Pages", "Letter to Santa Keepsake Sheet"],
+          artBg: "#173B32",
+          artAccent: "#DFC694"
+        },
+        {
+          id: "prod-family-bundle",
+          name: "Family Christmas Game Bundle",
+          category: "Games & Bundles",
+          price: 199,
+          tier: "Premium",
+          format: "14 Multi-Generational Games",
+          description: "All-ages party collection blending quick-fire rounds, storytelling prompts and team challenges for family reunions.",
+          includes: ["Two-Team Christmas Trivia Tournament", "Guess the Carol & Movie Rounds", "Printable Scorecards"],
+          artBg: "#102B24",
+          artAccent: "#DFC694"
+        },
+        {
+          id: "prod-ultimate-bundle",
+          name: "Ultimate Christmas Bundle",
+          category: "Games & Bundles",
+          price: 299,
+          tier: "Premium",
+          format: "Complete 6-in-1 Digital Suite",
+          description: "Every wallpaper, greeting card, printable gift tag, party game pack and Christmas planner brought together in one archive.",
+          includes: ["All 7 Digital Collections Included", "Commercial-Free Personal & Family Use", "Instant Organised ZIP Archive"],
+          artBg: "#762D38",
+          artAccent: "#C6A66B"
+        }
+      ];
+
+      const LEGAL_DOCS = {
+        privacy: {
+          title: "Privacy Policy (Prototype Notice)",
+          paragraphs: [
+            "All Things Christmas is currently operating as a frontend prototype hosted on GitHub Pages. We do not operate a backend server or collect personal data across networks.",
+            "Any preferences you enter—such as greeting card text, shopping bag items or gift planner lists—are stored strictly inside your own browser's localStorage and can be cleared at any time.",
+            "Newsletter email inputs are validated locally on your device to demonstrate user experience and are not transmitted or stored externally."
+          ]
+        },
+        terms: {
+          title: "Terms & Conditions (Prototype Notice)",
+          paragraphs: [
+            "Welcome to All Things Christmas. This website is an interactive minimum viable product (MVP) showcasing digital seasonal experiences, card creation tools and illustrative product catalogues.",
+            "All product prices shown in Indian Rupees (₹) are illustrative placeholders for demonstration purposes. No binding commercial transactions are executed through this prototype.",
+            "Greeting cards created in the Christmas Studio may be downloaded as PNG files for personal, non-commercial seasonal sharing."
+          ]
+        },
+        refund: {
+          title: "Refund Policy (Prototype Notice)",
+          paragraphs: [
+            "Because this release is a frontend prototype with no active payment processing, no monetary charges are collected from visitors.",
+            "When digital checkout launches in a future release, clear instant-download licensing and support policies will be published prior to enabling payments."
+          ]
+        }
+      };
+
+      /* ----------------------------------------------------------------------
+         2. STATE & STORAGE HELPERS
+         ---------------------------------------------------------------------- */
+      const STORAGE_KEYS = {
+        CART: "atc_cart_v1",
+        PLANNER: "atc_planner_v1",
+        GUEST: "atc_guest_name_v1"
+      };
+
+      const state = {
+        card: {
+          templateId: "classic",
+          recipient: "Dearest Aarav & Meera",
+          message: MESSAGE_PRESETS.family,
+          sender: "Warmly, Rohan",
+          font: "Playfair Display",
+          bg: "#173B32",
+          text: "#F6F1E8"
+        },
+        activity: {
+          mode: "trivia", // 'trivia' | 'movies' | 'emoji'
+          index: 0,
+          score: 0,
+          answered: false,
+          selectedOption: null,
+          finished: false
+        },
+        shopFilter: "all",
+        cart: loadFromStorage(STORAGE_KEYS.CART, []),
+        planner: loadFromStorage(STORAGE_KEYS.PLANNER, {
+          budget: 15000,
+          gifts: [
+            { id: "g-1", recipient: "Amma & Appa", desc: "Artisanal Plum Cake & Filter Coffee Hamper", price: 1850, purchased: true },
+            { id: "g-2", recipient: "Ananya", desc: "Hardcover Novel & Scented Cedar Candle", price: 1400, purchased: false },
+            { id: "g-3", recipient: "Office Secret Santa", desc: "Brass Bookmark & Hot Chocolate Trio", price: 850, purchased: false }
+          ],
+          filter: "all"
+        }),
+        guestName: loadFromStorage(STORAGE_KEYS.GUEST, "")
+      };
+
+      function loadFromStorage(key, fallback) {
+        try {
+          const raw = window.localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (err) {
+          return fallback;
+        }
+      }
+
+      function saveToStorage(key, value) {
+        try {
+          window.localStorage.setItem(key, JSON.stringify(value));
+        } catch (err) {
+          // Ignore storage quota or private mode restrictions gracefully
+        }
+      }
+
+      function formatINR(amount) {
+        const numeric = Number(amount) || 0;
+        return new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 0
+        }).format(numeric);
+      }
+
+      let toastTimer = null;
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 2800);
+      }
+
+      /* ----------------------------------------------------------------------
+         3. NAVIGATION & SCROLL SPY
+         ---------------------------------------------------------------------- */
+      function initNavigation() {
+        const header = document.getElementById("site-header");
+        const menuToggle = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
+        const navLinks = document.querySelectorAll("[data-nav]");
+
+        function setMobileMenu(open) {
+          mobileNav.classList.toggle("is-open", open);
+          mobileNav.setAttribute("aria-hidden", String(!open));
+          menuToggle.setAttribute("aria-expanded", String(open));
+        }
+
+        menuToggle.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("is-open");
+          setMobileMenu(!isOpen);
+        });
+
+        mobileNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setMobileMenu(false));
+        });
+
+        window.addEventListener("scroll", () => {
+          header.classList.toggle("is-scrolled", window.scrollY > 12);
+        }, { passive: true });
+
+        // Active section highlight
+        const sectionMap = ["home", "explore", "studio", "shop", "planner"];
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach((link) => {
+                  link.classList.toggle("is-active", link.dataset.nav === id);
+                });
+              }
+            });
+          },
+          { rootMargin: "-35% 0px -55% 0px" }
+        );
+
+        sectionMap.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) observer.observe(el);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         4. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
+         ---------------------------------------------------------------------- */
+      function initStudio() {
+        const tplContainer = document.getElementById("template-selector");
+        const bgContainer = document.getElementById("bg-color-swatches");
+        const textContainer = document.getElementById("text-color-swatches");
+
+        const recipientInput = document.getElementById("card-recipient-input");
+        const messageInput = document.getElementById("card-message-input");
+        const senderInput = document.getElementById("card-sender-input");
+        const fontSelect = document.getElementById("card-font-select");
+        const downloadBtn = document.getElementById("download-card-btn");
+        const resetBtn = document.getElementById("reset-card-btn");
+
+        if (state.guestName) {
+          state.card.sender = "Warmly, " + state.guestName;
+          senderInput.value = state.card.sender;
+        }
+
+        // Render template buttons
+        CARD_TEMPLATES.forEach((tpl) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "template-btn" + (tpl.id === state.card.templateId ? " is-selected" : "");
+          btn.dataset.templateId = tpl.id;
+          btn.setAttribute("role", "radio");
+          btn.setAttribute("aria-checked", String(tpl.id === state.card.templateId));
+
+          const bar = document.createElement("div");
+          bar.className = "template-swatch-bar";
+          tpl.swatches.forEach((hex) => {
+            const dot = document.createElement("span");
+            dot.className = "template-swatch-dot";
+            dot.style.backgroundColor = hex;
+            bar.appendChild(dot);
+          });
+
+          const name = document.createElement("span");
+          name.className = "template-btn-name";
+          name.textContent = tpl.name;
+
+          btn.appendChild(bar);
+          btn.appendChild(name);
+
+          btn.addEventListener("click", () => {
+            state.card.templateId = tpl.id;
+            state.card.bg = tpl.bg;
+            state.card.text = tpl.text;
+            state.card.font = tpl.font;
+            fontSelect.value = tpl.font;
+            renderCardPreview();
+            syncStudioControls();
+          });
+
+          tplContainer.appendChild(btn);
+        });
+
+        // Render background swatches
+        BG_SWATCHES.forEach((sw) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "color-swatch";
+          btn.style.backgroundColor = sw.value;
+          btn.title = sw.label;
+          btn.setAttribute("aria-label", "Background " + sw.label);
+          btn.dataset.bgColor = sw.value;
+          btn.addEventListener("click", () => {
+            state.card.bg = sw.value;
+            renderCardPreview();
+            syncStudioControls();
+          });
+          bgContainer.appendChild(btn);
+        });
+
+        // Render text swatches
+        TEXT_SWATCHES.forEach((sw) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "color-swatch";
+          btn.style.backgroundColor = sw.value;
+          btn.title = sw.label;
+          btn.setAttribute("aria-label", "Text " + sw.label);
+          btn.dataset.textColor = sw.value;
+          btn.addEventListener("click", () => {
+            state.card.text = sw.value;
+            renderCardPreview();
+            syncStudioControls();
+          });
+          textContainer.appendChild(btn);
+        });
+
+        // Live input listeners
+        recipientInput.addEventListener("input", () => {
+          state.card.recipient = recipientInput.value;
+          renderCardPreview();
+        });
+
+        messageInput.addEventListener("input", () => {
+          state.card.message = messageInput.value;
+          renderCardPreview();
+        });
+
+        senderInput.addEventListener("input", () => {
+          state.card.sender = senderInput.value;
+          renderCardPreview();
+        });
+
+        fontSelect.addEventListener("change", () => {
+          state.card.font = fontSelect.value;
+          renderCardPreview();
+        });
+
+        // Preset message chips
+        document.querySelectorAll("[data-preset]").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const key = chip.dataset.preset;
+            if (MESSAGE_PRESETS[key]) {
+              state.card.message = MESSAGE_PRESETS[key];
+              messageInput.value = state.card.message;
+              renderCardPreview();
+            }
+          });
+        });
+
+        // Reset button
+        resetBtn.addEventListener("click", () => {
+          const defaultTpl = CARD_TEMPLATES[0];
+          state.card = {
+            templateId: defaultTpl.id,
+            recipient: "Dearest Aarav & Meera",
+            message: MESSAGE_PRESETS.family,
+            sender: state.guestName ? "Warmly, " + state.guestName : "Warmly, Rohan",
+            font: defaultTpl.font,
+            bg: defaultTpl.bg,
+            text: defaultTpl.text
+          };
+          recipientInput.value = state.card.recipient;
+          messageInput.value = state.card.message;
+          senderInput.value = state.card.sender;
+          fontSelect.value = state.card.font;
+          renderCardPreview();
+          syncStudioControls();
+          showToast("Card reset to Classic Christmas defaults.");
+        });
+
+        // Download PNG button
+        downloadBtn.addEventListener("click", exportCardAsPng);
+
+        renderCardPreview();
+        syncStudioControls();
+      }
+
+      function syncStudioControls() {
+        const activeTpl = CARD_TEMPLATES.find((t) => t.id === state.card.templateId) || CARD_TEMPLATES[0];
+        document.getElementById("selected-template-label").textContent = activeTpl.name;
+
+        document.querySelectorAll(".template-btn").forEach((btn) => {
+          const isMatch = btn.dataset.templateId === state.card.templateId;
+          btn.classList.toggle("is-selected", isMatch);
+          btn.setAttribute("aria-checked", String(isMatch));
+        });
+
+        document.querySelectorAll("[data-bg-color]").forEach((btn) => {
+          btn.classList.toggle("is-selected", btn.dataset.bgColor.toLowerCase() === state.card.bg.toLowerCase());
+        });
+
+        document.querySelectorAll("[data-text-color]").forEach((btn) => {
+          btn.classList.toggle("is-selected", btn.dataset.textColor.toLowerCase() === state.card.text.toLowerCase());
+        });
+      }
+
+      function renderCardPreview() {
+        const cardEl = document.getElementById("card-preview-canvas");
+        const ornamentEl = document.getElementById("card-ornament-layer");
+        const activeTpl = CARD_TEMPLATES.find((t) => t.id === state.card.templateId) || CARD_TEMPLATES[0];
+
+        cardEl.className = "greeting-card tpl-" + activeTpl.id;
+        cardEl.style.backgroundColor = state.card.bg;
+        cardEl.style.color = state.card.text;
+
+        const fontMap = {
+          "Playfair Display": "'Playfair Display', Georgia, serif",
+          "Cormorant Garamond": "'Cormorant Garamond', Georgia, serif",
+          "Cinzel": "'Cinzel', Georgia, serif",
+          "DM Sans": "'DM Sans', sans-serif"
+        };
+        cardEl.style.fontFamily = fontMap[state.card.font] || fontMap["Playfair Display"];
+
+        ornamentEl.innerHTML = activeTpl.ornamentSvg;
+        document.getElementById("preview-kicker").textContent = activeTpl.kicker;
+        document.getElementById("preview-recipient").textContent = state.card.recipient.trim() || "Season’s Warmest Wishes";
+        document.getElementById("preview-message").textContent = state.card.message.trim() || "Wishing you peace, warmth and joy this Christmas.";
+        document.getElementById("preview-sender").textContent = state.card.sender.trim() || "With warm wishes";
+        document.getElementById("message-char-count").textContent = `${state.card.message.length} / 220`; }  async function exportCardAsPng() { const cardEl = document.getElementById("card-preview-canvas"); const statusEl = document.getElementById("studio-status-banner"); const downloadBtn = document.getElementById("download-card-btn");  downloadBtn.disabled = true; statusEl.textContent = "Preparing your high-resolution PNG card..."; statusEl.classList.add("is-visible");  const safeFileRecipient = (state.card.recipient \vert{}\vert{} "christmas-card") .toLowerCase() .replace(/[^a-z0-9]+/g, "-") .replace(/(^-\vert{}-$)/g, "") \vert{}\vert{} "christmas-card"; const filename = `all-things-christmas-${safeFileRecipient}.png`;
+
+        try {
+          if (typeof window.html2canvas === "function") {
+            const canvas = await window.html2canvas(cardEl, {
+              scale: 2.5,
+              useCORS: true,
+              backgroundColor: state.card.bg,
+              logging: false
+            });
+            triggerCanvasDownload(canvas, filename);
+            statusEl.textContent = "Downloaded '" + filename + "' to your device.";
+            showToast("Greeting card downloaded as PNG!");
+          } else {
+            // Honest fallback if html2canvas CDN could not load (e.g., offline environment)
+            const fallbackCanvas = renderFallbackCardCanvas();
+            triggerCanvasDownload(fallbackCanvas, filename);
+            statusEl.textContent = "Downloaded using built-in offline renderer (external html2canvas CDN unavailable).";
+            showToast("Card downloaded via built-in renderer.");
+          }
+        } catch (err) {
+          try {
+            const fallbackCanvas = renderFallbackCardCanvas();
+            triggerCanvasDownload(fallbackCanvas, filename);
+            statusEl.textContent = "Card exported via fallback renderer.";
+          } catch (fallbackErr) {
+            statusEl.textContent = "Unable to generate PNG automatically in this browser. You may take a screenshot of the preview card.";
+          }
+        } finally {
+          downloadBtn.disabled = false;
+        }
+      }
+
+      function triggerCanvasDownload(canvas, filename) {
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function renderFallbackCardCanvas() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 800;
+        canvas.height = 1000;
+        const ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = state.card.bg;
+        ctx.fillRect(0, 0, 800, 1000);
+
+        ctx.strokeStyle = "#C6A66B";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(48, 48, 704, 904);
+
+        ctx.fillStyle = state.card.text;
+        ctx.textAlign = "center";
+        ctx.font = "600 22px Georgia, serif";
+        ctx.fillText("SEASON'S GREETINGS", 400, 140);
+
+        ctx.font = "700 44px Georgia, serif";
+        ctx.fillText(state.card.recipient || "Merry Christmas", 400, 340, 640);
+
+        ctx.font = "400 28px Georgia, serif";
+        const words = (state.card.message || "").split(" ");
+        let line = "";
+        let y = 440;
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + " ";
+          if (ctx.measureText(testLine).width > 580 && i > 0) {
+            ctx.fillText(line.trim(), 400, y);
+            line = words[i] + " ";
+            y += 42;
+          } else {
+            line = testLine;
+          }
+        }
+        ctx.fillText(line.trim(), 400, y);
+
+        ctx.font = "italic 28px Georgia, serif";
+        ctx.fillText(state.card.sender || "", 400, 820, 620);
+
+        ctx.font = "600 16px sans-serif";
+        ctx.globalAlpha = 0.6;
+        ctx.fillText("ALL THINGS CHRISTMAS", 400, 900);
+        return canvas;
+      }
+
+      /* ----------------------------------------------------------------------
+         5. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
+         ---------------------------------------------------------------------- */
+      function getActivityBank(mode) {
+        if (mode === "movies") return MOVIE_QUESTIONS;
+        if (mode === "emoji") return EMOJI_QUESTIONS;
+        return TRIVIA_QUESTIONS;
+      }
+
+      function switchActivity(mode) {
+        state.activity = {
+          mode,
+          index: 0,
+          score: 0,
+          answered: false,
+          selectedOption: null,
+          finished: false
+        };
+
+        document.querySelectorAll(".activity-tab-btn").forEach((btn) => {
+          const active = btn.dataset.activity === mode;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-selected", String(active));
+        });
+
+        document.querySelectorAll(".mini-activity-card").forEach((card) => {
+          card.classList.toggle("is-current", card.dataset.cardActivity === mode);
+        });
+
+        renderActivityStage();
+      }
+
+      function initActivities() {
+        document.querySelectorAll(".activity-tab-btn").forEach((btn) => {
+          btn.addEventListener("click", () => switchActivity(btn.dataset.activity));
+        });
+
+        document.querySelectorAll(".launch-activity-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            switchActivity(btn.dataset.launch);
+            document.getElementById("activity-stage").scrollIntoView({ behavior: "smooth", block: "nearest" });
+          });
+        });
+
+        renderActivityStage();
+      }
+
+      function renderActivityStage() {
+        const stage = document.getElementById("activity-stage");
+        const bank = getActivityBank(state.activity.mode);
+        const total = bank.length;
+
+        const titleMap = {
+          trivia: "Christmas Trivia",
+          movies: "Guess the Christmas Movie",
+          emoji: "Christmas Emoji Challenge"
+        };
+
+        if (state.activity.finished) {
+          const pct = Math.round((state.activity.score / total) * 100);
+          let verdict = "A wonderful festive effort! Pour a warm cup of cocoa and try another round.";
+          if (pct >= 85) {
+            verdict = "Extraordinary! You are officially an Honorary Keeper of Christmas Lore.";
+          } else if (pct >= 60) {
+            verdict = "Splendid work! Your seasonal knowledge brings real cheer to the table.";
+          }
+
+          stage.innerHTML = `
+            <div class="quiz-result-box">
+              <span class="quiz-badge">${titleMap[state.activity.mode]} Complete</span>
+              <div class="quiz-score-ring" style="margin-top:1.25rem;">
+                <span class="quiz-score-num">${state.activity.score}/${total}</span>
+                <span class="quiz-score-total">${pct}% Score</span>
+              </div>
+              <h3 class="quiz-question" style="margin-bottom:0.65rem;">Well played!</h3>
+              <p class="section-lead" style="margin:0 auto 1.75rem; max-width:44ch;">${verdict}</p>
+              <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:0.75rem;">
+                <button type="button" class="btn btn-primary" id="restart-quiz-btn">Play Again</button>
+                <button type="button" class="btn btn-outline-dark" id="next-game-btn">Try Next Activity</button>
+              </div>
+            </div>
+          `;
+
+          document.getElementById("restart-quiz-btn").addEventListener("click", () => {
+            switchActivity(state.activity.mode);
+          });
+
+          document.getElementById("next-game-btn").addEventListener("click", () => {
+            const order = ["trivia", "movies", "emoji"];
+            const next = order[(order.indexOf(state.activity.mode) + 1) % order.length];
+            switchActivity(next);
+          });
+          return;
+        }
+
+        const current = bank[state.activity.index];
+        const progressPct = ((state.activity.index + (state.activity.answered ? 1 : 0)) / total) * 100;
+        const letters = ["A", "B", "C", "D"];
+
+        const emojiHtml = current.emojis
+          ? `<div class="quiz-emoji-display" aria-label="Emoji Clue">${current.emojis}</div>`
+          : "";
+
+        const optionsHtml = current.options
+          .map((opt, idx) => {
+            let extraClass = "";
+            if (state.activity.answered) {
+              if (idx === current.answer) extraClass = " is-correct";
+              else if (idx === state.activity.selectedOption) extraClass = " is-wrong";
+            }
+            return `
+              <button type="button" class="quiz-option${extraClass}" data-option-idx="${idx}" ${state.activity.answered ? "disabled" : ""}>
+                <span class="quiz-option-letter">${letters[idx]}</span>
+                <span>${opt}</span>
+              </button>
+            `;
+          })
+          .join("");
+
+        const isCorrectSelection = state.activity.selectedOption === current.answer;
+        const feedbackHtml = state.activity.answered
+          ? `
+            <div class="quiz-feedback is-visible">
+              <strong>${isCorrectSelection ? "Correct!" : "Not quite — the correct answer is " + current.options[current.answer] + "."}</strong>
+              <p style="margin-top:0.3rem;">${current.explanation}</p>
+            </div>
+            <button type="button" class="btn btn-forest" id="next-question-btn">
+              ${state.activity.index + 1 < total ? "Next Question →" : "See Final Score"}
+            </button>
+          `
+          : "";
+
+        stage.innerHTML = `
+          <div class="quiz-meta">
+            <span class="quiz-badge">${titleMap[state.activity.mode]}</span>
+            <span>Question <strong>${state.activity.index + 1}</strong> of ${total} · Score: <strong>${state.activity.score}</strong></span>
+          </div>
+          <div class="quiz-progress-track" aria-hidden="true">
+            <div class="quiz-progress-fill" style="width:${progressPct}%"></div>
+          </div>
+          ${emojiHtml}
+          <h3 class="quiz-question">${current.question}</h3>
+          <div class="quiz-options">${optionsHtml}</div>${feedbackHtml}
+        `;
+
+        stage.querySelectorAll("[data-option-idx]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (state.activity.answered) return;
+            const chosen = Number(btn.dataset.optionIdx);
+            state.activity.answered = true;
+            state.activity.selectedOption = chosen;
+            if (chosen === current.answer) {
+              state.activity.score += 1;
+            }
+            renderActivityStage();
+          });
+        });
+
+        const nextBtn = document.getElementById("next-question-btn");
+        if (nextBtn) {
+          nextBtn.addEventListener("click", () => {
+            if (state.activity.index + 1 < total) {
+              state.activity.index += 1;
+              state.activity.answered = false;
+              state.activity.selectedOption = null;
+            } else {
+              state.activity.finished = true;
+            }
+            renderActivityStage();
+          });
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         6. CHRISTMAS SHOP & SHOPPING BAG DRAWER
+         ---------------------------------------------------------------------- */
+      function initShop() {
+        document.querySelectorAll("#shop-filters .filter-pill").forEach((pill) => {
+          pill.addEventListener("click", () => {
+            state.shopFilter = pill.dataset.filter;
+            document.querySelectorAll("#shop-filters .filter-pill").forEach((p) => {
+              p.classList.toggle("is-active", p === pill);
+            });
+            renderProductGrid();
+          });
+        });
+
+        renderProductGrid();
+        renderCart();
+      }
+
+      function buildProductArtwork(prod) {
+        return `
+          <svg width="160" height="120" viewBox="0 0 160 120" aria-hidden="true">
+            <rect x="26" y="12" width="108" height="96" rx="6" fill="#F6F1E8" stroke="${prod.artAccent}" stroke-width="2"/>
+            <rect x="33" y="19" width="94" height="82" rx="3" fill="none" stroke="${prod.artBg}" stroke-opacity="0.3" stroke-width="1"/>
+            <polygon points="80,34 84,45 96,45 86,52 90,63 80,56 70,63 74,52 64,45 76,45" fill="${prod.artBg}"/>
+            <line x1="54" y1="76" x2="106" y2="76" stroke="${prod.artBg}" stroke-width="2" stroke-linecap="round"/>
+            <line x1="64" y1="85" x2="96" y2="85" stroke="#C6A66B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      function renderProductGrid() {
+        const grid = document.getElementById("product-grid");
+        const filtered = state.shopFilter === "all"
+          ? PRODUCTS
+          : PRODUCTS.filter((p) => p.category === state.shopFilter);
+
+        grid.innerHTML = filtered
+          .map((prod) => {
+            const isFreeHighlight = prod.tier.toLowerCase().includes("free");
+            const badgeClass = isFreeHighlight ? "product-tier-badge--free" : "product-tier-badge--premium";
+            return `
+              <article class="product-card">
+                <div class="product-visual" style="background-color:${prod.artBg};">
+                  <span class="product-tier-badge ${badgeClass}">${prod.tier}</span>${buildProductArtwork(prod)}
+                </div>
+                <div class="product-body">
+                  <div class="product-category">${prod.category}</div>
+                  <h3 class="product-title">${prod.name}</h3>
+                  <p class="product-desc">${prod.description}</p>
+                  <div class="product-footer">
+                    <span class="product-price">${formatINR(prod.price)}</span>
+                    <span class="product-format">Digital Edition</span>
+                  </div>
+                  <div class="product-actions">
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-preview-id="${prod.id}">Preview</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-add-id="${prod.id}">Add to Bag</button>
+                  </div>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+
+        grid.querySelectorAll("[data-preview-id]").forEach((btn) => {
+          btn.addEventListener("click", () => openProductPreview(btn.dataset.previewId));
+        });
+
+        grid.querySelectorAll("[data-add-id]").forEach((btn) => {
+          btn.addEventListener("click", () => addToCart(btn.dataset.addId));
+        });
+      }
+
+      function addToCart(productId) {
+        const product = PRODUCTS.find((p) => p.id === productId);
+        if (!product) return;
+
+        const existing = state.cart.find((item) => item.id === productId);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          state.cart.push({ id: product.id, qty: 1 });
+        }
+
+        saveToStorage(STORAGE_KEYS.CART, state.cart);
+        renderCart();
+        showToast(`Added "${product.name}" to your bag.`);
+      }
+
+      function updateCartQty(productId, delta) {
+        const item = state.cart.find((i) => i.id === productId);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) {
+          state.cart = state.cart.filter((i) => i.id !== productId);
+        }
+        saveToStorage(STORAGE_KEYS.CART, state.cart);
+        renderCart();
+      }
+
+      function removeCartItem(productId) {
+        state.cart = state.cart.filter((i) => i.id !== productId);
+        saveToStorage(STORAGE_KEYS.CART, state.cart);
+        renderCart();
+      }
+
+      function renderCart() {
+        const badge = document.getElementById("cart-count-badge");
+        const body = document.getElementById("cart-body");
+        const footer = document.getElementById("cart-footer");
+
+        const totalUnits = state.cart.reduce((sum, item) => sum + item.qty, 0);
+        badge.textContent = String(totalUnits);
+
+        if (state.cart.length === 0) {
+          footer.style.display = "none";
+          body.innerHTML = `
+            <div class="empty-state" style="padding-block:4rem;">
+              <p style="font-family:var(--font-serif); font-size:1.25rem; color:var(--forest); margin-bottom:0.5rem;">Your festive bag is empty</p>
+              <p style="margin-bottom:1.5rem;">Explore printable games, greeting cards and seasonal planners in the Christmas Shop.</p>
+              <a href="#shop" class="btn btn-forest btn-sm" id="empty-cart-browse">Browse Digital Shop</a>
+            </div>
+          `;
+          const browseBtn = document.getElementById("empty-cart-browse");
+          if (browseBtn) browseBtn.addEventListener("click", closeAllOverlays);
+          return;
+        }
+
+        footer.style.display = "block";
+        let subtotal = 0;
+
+        const list = document.createElement("ul");
+        list.className = "cart-items";
+
+        state.cart.forEach((entry) => {
+          const prod = PRODUCTS.find((p) => p.id === entry.id);
+          if (!prod) return;
+          const lineTotal = prod.price * entry.qty;
+          subtotal += lineTotal;
+
+          const li = document.createElement("li");
+          li.className = "cart-item";
+          li.innerHTML = `
+            <div>
+              <div class="cart-item-title">${prod.name}</div>
+              <div class="cart-item-price">${formatINR(prod.price)} each · ${prod.category}</div>
+              <div class="qty-controls" aria-label="Quantity controls for ${prod.name}">
+                <button type="button" class="qty-btn" data-qty-dec="${prod.id}" aria-label="Decrease quantity">−</button>
+                <span class="qty-val">${entry.qty}</span>
+                <button type="button" class="qty-btn" data-qty-inc="${prod.id}" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between;">
+              <span style="font-weight:700; color:var(--forest);">${formatINR(lineTotal)}</span>
+              <button type="button" style="font-size:0.78rem; color:var(--burgundy); text-decoration:underline;" data-remove-item="${prod.id}">Remove</button>
+            </div>
+          `;
+          list.appendChild(li);
+        });
+
+        body.innerHTML = "";
+        body.appendChild(list);
+
+        document.getElementById("cart-subtotal").textContent = formatINR(subtotal);
+        document.getElementById("cart-total").textContent = formatINR(subtotal);
+
+        body.querySelectorAll("[data-qty-dec]").forEach((btn) => {
+          btn.addEventListener("click", () => updateCartQty(btn.dataset.qtyDec, -1));
+        });
+        body.querySelectorAll("[data-qty-inc]").forEach((btn) => {
+          btn.addEventListener("click", () => updateCartQty(btn.dataset.qtyInc, 1));
+        });
+        body.querySelectorAll("[data-remove-item]").forEach((btn) => {
+          btn.addEventListener("click", () => removeCartItem(btn.dataset.removeItem));
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         7. LIVE CHRISTMAS COUNTDOWN
+         ---------------------------------------------------------------------- */
+      function initCountdown() {
+        const daysEl = document.getElementById("cd-days");
+        const hoursEl = document.getElementById("cd-hours");
+        const minutesEl = document.getElementById("cd-minutes");
+        const secondsEl = document.getElementById("cd-seconds");
+        const labelEl = document.getElementById("countdown-target-label");
+        const noteEl = document.getElementById("countdown-seasonal-note");
+
+        function updateClock() {
+          const now = new Date();
+          const currentYear = now.getFullYear();
+          const isChristmasDay = now.getMonth() === 11 && now.getDate() === 25;
+
+          let targetYear = currentYear;
+          if (now.getMonth() === 11 && now.getDate() > 25) {
+            targetYear = currentYear + 1;
+          }
+
+          const targetDate = new Date(targetYear, 11, 25, 0, 0, 0, 0);
+
+          if (isChristmasDay) {
+            const nextYearTarget = new Date(currentYear + 1, 11, 25, 0, 0, 0, 0);
+            const diff = Math.max(0, nextYearTarget - now);
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            daysEl.textContent = String(d).padStart(2, "0");
+            hoursEl.textContent = String(h).padStart(2, "0");
+            minutesEl.textContent = String(m).padStart(2, "0");
+            secondsEl.textContent = String(s).padStart(2, "0");
+            labelEl.textContent = `Merry Christmas ${currentYear}! Counting ahead to December 25, ${currentYear + 1}.`;
+            noteEl.textContent = "Today is Christmas Day—wishing you warmth, peace and joyful company.";
+            return;
+          }
+
+          const diff = Math.max(0, targetDate - now);
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / 1000 / 60) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          daysEl.textContent = String(days).padStart(2, "0");
+          hoursEl.textContent = String(hours).padStart(2, "0");
+          minutesEl.textContent = String(minutes).padStart(2, "0");
+          secondsEl.textContent = String(seconds).padStart(2, "0");
+          labelEl.textContent = `Counting down to December 25, ${targetYear} in your local time.`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+      }
+
+      /* ----------------------------------------------------------------------
+         8. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
+         ---------------------------------------------------------------------- */
+      function initPlanner() {
+        const budgetInput = document.getElementById("overall-budget-input");
+        const saveBudgetBtn = document.getElementById("save-budget-btn");
+        const giftForm = document.getElementById("gift-form");
+        const resetPlannerBtn = document.getElementById("reset-planner-btn");
+
+        budgetInput.value = state.planner.budget;
+
+        saveBudgetBtn.addEventListener("click", () => {
+          const val = Number(budgetInput.value);
+          if (Number.isNaN(val) || val < 0) {
+            showToast("Please enter a valid non-negative budget.");
+            return;
+          }
+          state.planner.budget = Math.round(val);
+          saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+          renderPlanner();
+          showToast("Overall Christmas budget updated.");
+        });
+
+        giftForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const recipientEl = document.getElementById("gift-recipient-input");
+          const descEl = document.getElementById("gift-desc-input");
+          const priceEl = document.getElementById("gift-price-input");
+          const errorEl = document.getElementById("gift-form-error");
+
+          const recipient = recipientEl.value.trim();
+          const desc = descEl.value.trim();
+          const price = Number(priceEl.value);
+
+          if (!recipient || !desc || priceEl.value === "" || Number.isNaN(price) || price < 0) {
+            errorEl.textContent = "Please enter a recipient name, gift description and valid price in INR.";
+            errorEl.style.display = "block";
+            return;
+          }
+
+          errorEl.style.display = "none";
+          state.planner.gifts.unshift({
+            id: "g-" + Date.now(),
+            recipient,
+            desc,
+            price: Math.round(price),
+            purchased: false
+          });
+
+          saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+          giftForm.reset();
+          renderPlanner();
+          showToast(`Added gift for ${recipient}.`);
+        });
+
+        document.querySelectorAll("[data-gift-filter]").forEach((pill) => {
+          pill.addEventListener("click", () => {
+            state.planner.filter = pill.dataset.giftFilter;
+            document.querySelectorAll("[data-gift-filter]").forEach((p) => {
+              p.classList.toggle("is-active", p === pill);
+            });
+            renderPlanner();
+          });
+        });
+
+        resetPlannerBtn.addEventListener("click", () => {
+          state.planner = {
+            budget: 15000,
+            gifts: [],
+            filter: "all"
+          };
+          budgetInput.value = 15000;
+          saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+          renderPlanner();
+          showToast("Christmas planner cleared.");
+        });
+
+        renderPlanner();
+      }
+
+      function renderPlanner() {
+        const listEl = document.getElementById("gift-checklist");
+        const totalPlanned = state.planner.gifts.reduce((sum, g) => sum + (Number(g.price) || 0), 0);
+        const purchasedGifts = state.planner.gifts.filter((g) => g.purchased);
+        const totalPurchased = purchasedGifts.reduce((sum, g) => sum + (Number(g.price) || 0), 0);
+        const remaining = state.planner.budget - totalPurchased;
+
+        document.getElementById("stat-total-budget").textContent = formatINR(state.planner.budget);
+        document.getElementById("stat-total-estimated").textContent = formatINR(totalPlanned);
+        document.getElementById("stat-item-count").textContent = `${state.planner.gifts.length} gift${state.planner.gifts.length === 1 ? "" : "s"} listed`;
+        document.getElementById("stat-total-purchased").textContent = formatINR(totalPurchased);
+        document.getElementById("stat-purchased-count").textContent = `${purchasedGifts.length} of${state.planner.gifts.length} purchased`;
+
+        const remEl = document.getElementById("stat-remaining-budget");
+        remEl.textContent = formatINR(remaining);
+        remEl.classList.toggle("is-negative", remaining < 0);
+        document.getElementById("stat-budget-status").textContent =
+          remaining < 0 ? "Over overall budget by " + formatINR(Math.abs(remaining)) : "Available after purchased gifts";
+
+        const visibleGifts = state.planner.gifts.filter((g) => {
+          if (state.planner.filter === "purchased") return g.purchased;
+          if (state.planner.filter === "pending") return !g.purchased;
+          return true;
+        });
+
+        listEl.innerHTML = "";
+        if (visibleGifts.length === 0) {
+          const empty = document.createElement("li");
+          empty.className = "empty-state";
+          empty.textContent = state.planner.gifts.length === 0
+            ? "No gifts added yet. Use the form beside to start your Christmas gift list."
+            : "No gifts match the selected filter.";
+          listEl.appendChild(empty);
+          return;
+        }
+
+        visibleGifts.forEach((gift) => {
+          const li = document.createElement("li");
+          li.className = "gift-item" + (gift.purchased ? " is-purchased" : "");
+
+          const left = document.createElement("div");
+          left.className = "gift-item-left";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.className = "gift-checkbox";
+          checkbox.checked = Boolean(gift.purchased);
+          checkbox.setAttribute("aria-label", `Mark gift for ${gift.recipient} as purchased`);
+          checkbox.addEventListener("change", () => {
+            gift.purchased = checkbox.checked;
+            saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+            renderPlanner();
+          });
+
+          const info = document.createElement("div");
+          info.className = "gift-info";
+
+          const rec = document.createElement("div");
+          rec.className = "gift-recipient";
+          rec.textContent = gift.recipient;
+
+          const desc = document.createElement("div");
+          desc.className = "gift-desc";
+          desc.textContent = gift.desc;
+
+          info.appendChild(rec);
+          info.appendChild(desc);
+          left.appendChild(checkbox);
+          left.appendChild(info);
+
+          const right = document.createElement("div");
+          right.className = "gift-item-right";
+
+          const price = document.createElement("span");
+          price.className = "gift-price";
+          price.textContent = formatINR(gift.price);
+
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "gift-delete-btn";
+          delBtn.setAttribute("aria-label", `Delete gift for ${gift.recipient}`);
+          delBtn.textContent = "✕";
+          delBtn.addEventListener("click", () => {
+            state.planner.gifts = state.planner.gifts.filter((item) => item.id !== gift.id);
+            saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+            renderPlanner();
+            showToast("Gift removed from checklist.");
+          });
+
+          right.appendChild(price);
+          right.appendChild(delBtn);
+
+          li.appendChild(left);
+          li.appendChild(right);
+          listEl.appendChild(li);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         9. NEWSLETTER VALIDATION (HONEST PROTOTYPE HANDLING)
+         ---------------------------------------------------------------------- */
+      function initNewsletter() {
+        const form = document.getElementById("newsletter-form");
+        const input = document.getElementById("newsletter-email");
+        const feedback = document.getElementById("newsletter-feedback");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const email = input.value.trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+          if (!emailRegex.test(email)) {
+            feedback.textContent = "Please enter a valid email address (for example, name@example.com).";
+            feedback.className = "newsletter-feedback is-error";
+            return;
+          }
+
+          feedback.textContent = `Prototype Preview: "${email}" passed format validation. No email has been stored or transmitted because this MVP has no backend server.`;
+          feedback.className = "newsletter-feedback is-success";
+          input.value = "";
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         10. MODALS, DRAWERS & SEARCH
+         ---------------------------------------------------------------------- */
+      function openOverlayBackdrop() {
+        document.getElementById("overlay-backdrop").classList.add("is-open");
+      }
+
+      function closeAllOverlays() {
+        document.getElementById("overlay-backdrop").classList.remove("is-open");
+        const cartDrawer = document.getElementById("cart-drawer");
+        const modal = document.getElementById("app-modal");
+        cartDrawer.classList.remove("is-open");
+        cartDrawer.setAttribute("aria-hidden", "true");
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      function openCartDrawer() {
+        closeAllOverlays();
+        openOverlayBackdrop();
+        const cartDrawer = document.getElementById("cart-drawer");
+        cartDrawer.classList.add("is-open");
+        cartDrawer.setAttribute("aria-hidden", "false");
+      }
+
+      function openModal(title, htmlContent) {
+        closeAllOverlays();
+        openOverlayBackdrop();
+        const modal = document.getElementById("app-modal");
+        document.getElementById("modal-title").textContent = title;
+        document.getElementById("modal-body").innerHTML = htmlContent;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function openProductPreview(productId) {
+        const prod = PRODUCTS.find((p) => p.id === productId);
+        if (!prod) return;
+
+        const includesList = prod.includes.map((item) => `<li style="margin-bottom:0.35rem;">✦ ${item}</li>`).join("");
+        openModal(
+          prod.name,
+          `
+            <div style="background-color:${prod.artBg}; border-radius:8px; padding:1.5rem; display:grid; place-items:center; margin-bottom:1.25rem;">
+              ${buildProductArtwork(prod)}
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <span class="quiz-badge">${prod.category}</span>
+              <strong style="font-family:var(--font-serif); font-size:1.45rem; color:var(--forest);">${formatINR(prod.price)}</strong>
+            </div>
+            <p style="margin-bottom:1rem; color:var(--charcoal);">${prod.description}</p>
+            <p style="font-size:0.85rem; color:var(--charcoal-muted); margin-bottom:0.5rem;"><strong>Format:</strong> ${prod.format}</p>
+            <ul style="list-style:none; font-size:0.9rem; color:var(--forest); background:var(--white); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle); margin-bottom:1.25rem;">
+              ${includesList}
+            </ul>
+            <button type="button" class="btn btn-primary" id="modal-add-to-bag" style="width:100%;">Add to Festive Bag · ${formatINR(prod.price)}</button>
+          `
+        );
+
+        document.getElementById("modal-add-to-bag").addEventListener("click", () => {
+          addToCart(prod.id);
+          openCartDrawer();
+        });
+      }
+
+      function openSearchModal() {
+        openModal(
+          "Search All Things Christmas",
+          `
+            <label for="global-search-input" class="sr-only">Search products, templates and games</label>
+            <input type="search" id="global-search-input" class="form-input" placeholder="Search greeting cards, trivia, wallpapers, planner..." autofocus />
+            <ul class="search-results-list" id="global-search-results"></ul>
+          `
+        );
+
+        const searchInput = document.getElementById("global-search-input");
+        const resultsEl = document.getElementById("global-search-results");
+
+        const searchableItems = [
+          { title: "Christmas Card Studio", type: "Interactive Tool", href: "#studio" },
+          { title: "Christmas Trivia (10 Questions)", type: "Activity", href: "#activities" },
+          { title: "Guess the Christmas Movie", type: "Activity", href: "#activities" },
+          { title: "Christmas Emoji Challenge", type: "Activity", href: "#activities" },
+          { title: "Gift & Budget Planner", type: "Planning Tool", href: "#planner" },
+          ...PRODUCTS.map((p) => ({
+            title: `${p.name} (${formatINR(p.price)})`,
+            type: p.category,
+            href: "#shop"
+          }))
+        ];
+
+        function renderResults(query) {
+          const q = query.trim().toLowerCase();
+          const matches = q
+            ? searchableItems.filter((item) => item.title.toLowerCase().includes(q) || item.type.toLowerCase().includes(q))
+            : searchableItems.slice(0, 6);
+
+          resultsEl.innerHTML = "";
+          if (matches.length === 0) {
+            const li = document.createElement("li");
+            li.className = "empty-state";
+            li.textContent = "No matching seasonal items found.";
+            resultsEl.appendChild(li);
+            return;
+          }
+
+          matches.forEach((item) => {
+            const li = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = item.href;
+            link.className = "search-result-item";
+            link.innerHTML = `
+              <span style="font-weight:600; color:var(--forest);">${item.title}</span>
+              <span class="quiz-badge">${item.type}</span>
+            `;
+            link.addEventListener("click", closeAllOverlays);
+            li.appendChild(link);
+            resultsEl.appendChild(li);
+          });
+        }
+
+        renderResults("");
+        searchInput.addEventListener("input", () => renderResults(searchInput.value));
+      }
+
+      function openAccountModal() {
+        openModal(
+          "Guest Preferences",
+          `
+            <p style="margin-bottom:1rem; color:var(--charcoal-muted);">
+              No account or sign-in is required to use All Things Christmas. Optionally save your first name below to personalise your card signature locally.
+            </p>
+            <div class="control-group" style="margin-bottom:1rem;">
+              <label class="control-label" for="guest-name-input">Your Display Name (Local Browser Only)</label>
+              <input type="text" id="guest-name-input" class="form-input" maxlength="32" placeholder="e.g., Rohan" />
+            </div>
+            <button type="button" class="btn btn-forest" id="save-guest-name-btn" style="width:100%;">Save Preference Locally</button>
+          `
+        );
+
+        const guestInput = document.getElementById("guest-name-input");
+        guestInput.value = state.guestName;
+
+        document.getElementById("save-guest-name-btn").addEventListener("click", () => {
+          state.guestName = guestInput.value.trim();
+          saveToStorage(STORAGE_KEYS.GUEST, state.guestName);
+          if (state.guestName) {
+            state.card.sender = "Warmly, " + state.guestName;
+            document.getElementById("card-sender-input").value = state.card.sender;
+            renderCardPreview();
+          }
+          closeAllOverlays();
+          showToast(state.guestName ? `Saved guest name: ${state.guestName}` : "Guest name cleared.");
+        });
+      }
+
+      function initOverlays() {
+        document.getElementById("open-cart-btn").addEventListener("click", openCartDrawer);
+        document.getElementById("close-cart-btn").addEventListener("click", closeAllOverlays);
+        document.getElementById("close-modal-btn").addEventListener("click", closeAllOverlays);
+        document.getElementById("overlay-backdrop").addEventListener("click", closeAllOverlays);
+
+        document.getElementById("open-search-btn").addEventListener("click", openSearchModal);
+        document.getElementById("open-account-btn").addEventListener("click", openAccountModal);
+
+        document.getElementById("clear-cart-btn").addEventListener("click", () => {
+          state.cart = [];
+          saveToStorage(STORAGE_KEYS.CART, state.cart);
+          renderCart();
+          showToast("Shopping bag cleared.");
+        });
+
+        document.querySelectorAll("[data-legal]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const doc = LEGAL_DOCS[btn.dataset.legal];
+            if (!doc) return;
+            const bodyHtml = doc.paragraphs.map((p) => `<p style="margin-bottom:0.9rem;">${p}</p>`).join("");
+            openModal(doc.title, bodyHtml);
+          });
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closeAllOverlays();
+            const mobileNav = document.getElementById("mobile-nav");
+            if (mobileNav.classList.contains("is-open")) {
+              mobileNav.classList.remove("is-open");
+              mobileNav.setAttribute("aria-hidden", "true");
+              document.getElementById("mobile-menu-toggle").setAttribute("aria-expanded", "false");
+            }
+          }
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         11. BOOTSTRAP APPLICATION
+         ---------------------------------------------------------------------- */
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("copyright-year").textContent = String(new Date().getFullYear());
+        initNavigation();
+        initStudio();
+        initActivities();
+        initShop();
+        initCountdown();
+        initPlanner();
+        initNewsletter();
+        initOverlays();
+      });
+    })();
+  </script>
+</body>
+</html>
