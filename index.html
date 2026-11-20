@@ -20,7 +20,7 @@
 
   <style>
     /* ==========================================================================
-       1. DESIGN TOKENS & BASE RESET
+       1. DESIGN TOKENS & FLUID BASE RESET
        ========================================================================== */
     :root {
       --forest: #173B32;
@@ -53,9 +53,16 @@
       --font-cinzel: 'Cinzel', Georgia, serif;
       --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-      --container-max: 1220px;
-      --header-h: 74px;
+      --container-max: 1280px;
+      --gutter: clamp(1rem, 3vw, 2.5rem);
+      --header-h: clamp(64px, 8vw, 76px);
       --transition: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @media (min-width: 1440px) {
+      :root {
+        --container-max: 1360px;
+      }
     }
 
     *,
@@ -81,6 +88,10 @@
       min-height: 100vh;
       overflow-x: clip;
       -webkit-font-smoothing: antialiased;
+    }
+
+    body.has-overlay-open {
+      overflow: hidden;
     }
 
     img, svg {
@@ -122,36 +133,24 @@
     }
 
     /* ==========================================================================
-       2. LAYOUT UTILITIES & TYPOGRAPHY
+       2. FLUID LAYOUT UTILITIES & TYPOGRAPHY
        ========================================================================== */
     .container {
       width: 100%;
       max-width: var(--container-max);
       margin-inline: auto;
-      padding-inline: 1.125rem;
-    }
-
-    @media (min-width: 768px) {
-      .container {
-        padding-inline: 2rem;
-      }
+      padding-inline: var(--gutter);
     }
 
     .section {
-      padding-block: 4rem;
-    }
-
-    @media (min-width: 960px) {
-      .section {
-        padding-block: 6rem;
-      }
+      padding-block: clamp(3.25rem, 6vw, 6rem);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.75rem;
+      font-size: clamp(0.7rem, 1vw, 0.75rem);
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -173,7 +172,7 @@
 
     .section-heading {
       font-family: var(--font-serif);
-      font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+      font-size: clamp(1.75rem, 3.6vw, 2.9rem);
       font-weight: 600;
       line-height: 1.18;
       letter-spacing: -0.015em;
@@ -186,7 +185,7 @@
     }
 
     .section-lead {
-      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      font-size: clamp(0.975rem, 1.35vw, 1.125rem);
       color: var(--charcoal-muted);
       max-width: 62ch;
     }
@@ -196,7 +195,7 @@
     }
 
     .section-header {
-      margin-bottom: 2.5rem;
+      margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
     }
 
     .section-header--center {
@@ -213,15 +212,21 @@
       justify-content: center;
       gap: 0.55rem;
       min-height: 46px;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.45rem;
       border-radius: var(--radius-sm);
       font-weight: 600;
       font-size: 0.9375rem;
       letter-spacing: 0.01em;
+      text-align: center;
       transition: transform var(--transition), background-color var(--transition), border-color var(--transition), box-shadow var(--transition), color var(--transition);
     }
 
-    .btn:active {
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .btn:active:not(:disabled) {
       transform: translateY(1px);
     }
 
@@ -231,7 +236,7 @@
       box-shadow: 0 6px 18px rgba(118, 45, 56, 0.24);
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover:not(:disabled) {
       background-color: var(--burgundy-dark);
       transform: translateY(-1px);
     }
@@ -242,7 +247,7 @@
       box-shadow: 0 6px 18px rgba(23, 59, 50, 0.2);
     }
 
-    .btn-forest:hover {
+    .btn-forest:hover:not(:disabled) {
       background-color: var(--forest-deep);
       transform: translateY(-1px);
     }
@@ -253,7 +258,7 @@
       background-color: rgba(246, 241, 232, 0.05);
     }
 
-    .btn-outline-light:hover {
+    .btn-outline-light:hover:not(:disabled) {
       border-color: var(--gold);
       background-color: rgba(198, 166, 107, 0.14);
       color: var(--white);
@@ -265,14 +270,14 @@
       background-color: transparent;
     }
 
-    .btn-outline-dark:hover {
+    .btn-outline-dark:hover:not(:disabled) {
       background-color: var(--forest);
       color: var(--ivory);
     }
 
     .btn-sm {
       min-height: 38px;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.95rem;
       font-size: 0.85rem;
     }
 
@@ -289,7 +294,7 @@
     }
 
     /* ==========================================================================
-       3. STICKY NAVIGATION & HEADER
+       3. STICKY NAVIGATION & RESPONSIVE MOBILE DRAWER
        ========================================================================== */
     .site-header {
       position: sticky;
@@ -313,30 +318,25 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .brand-logo {
       display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.55rem;
       font-family: var(--font-serif);
-      font-size: 1.2rem;
+      font-size: clamp(1.02rem, 2.2vw, 1.38rem);
       font-weight: 700;
       color: var(--forest);
       letter-spacing: -0.01em;
       white-space: nowrap;
-    }
-
-    @media (min-width: 420px) {
-      .brand-logo {
-        font-size: 1.35rem;
-      }
+      min-width: 0;
     }
 
     .brand-mark {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background-color: var(--forest);
       color: var(--gold);
@@ -346,11 +346,18 @@
       border: 1px solid var(--gold);
     }
 
+    @media (min-width: 420px) {
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
     .nav-links {
       display: none;
       list-style: none;
       align-items: center;
-      gap: 2rem;
+      gap: clamp(1.25rem, 2.5vw, 2.25rem);
     }
 
     @media (min-width: 900px) {
@@ -396,19 +403,20 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.125rem;
+      flex-shrink: 0;
     }
 
     @media (min-width: 420px) {
       .nav-actions {
-        gap: 0.5rem;
+        gap: 0.45rem;
       }
     }
 
     .icon-btn {
       position: relative;
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -417,14 +425,21 @@
       transition: background-color var(--transition), color var(--transition);
     }
 
+    @media (min-width: 400px) {
+      .icon-btn {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
     .icon-btn:hover {
       background-color: rgba(23, 59, 50, 0.08);
     }
 
     .cart-badge {
       position: absolute;
-      top: 4px;
-      right: 3px;
+      top: 3px;
+      right: 2px;
       min-width: 18px;
       height: 18px;
       padding-inline: 4px;
@@ -455,12 +470,14 @@
       top: var(--header-h);
       left: 0;
       right: 0;
+      max-height: calc(100dvh - var(--header-h));
+      overflow-y: auto;
       background-color: var(--ivory);
       border-bottom: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-lg);
-      padding: 1.25rem 1.5rem 1.75rem;
+      padding: 1.25rem var(--gutter) 1.75rem;
       z-index: 890;
-      transform: translateY(-110%);
+      transform: translateY(-105%);
       opacity: 0;
       visibility: hidden;
       transition: transform var(--transition), opacity var(--transition), visibility var(--transition);
@@ -487,7 +504,7 @@
       padding: 0.85rem 0.75rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-serif);
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--forest);
     }
@@ -506,16 +523,9 @@
       background-color: var(--forest);
       color: var(--ivory);
       overflow: hidden;
-      padding-block: 3.5rem 4.25rem;
+      padding-block: clamp(3rem, 6vw, 5.75rem) clamp(3.75rem, 7vw, 6.25rem);
     }
 
-    @media (min-width: 960px) {
-      .hero {
-        padding-block: 5rem 5.75rem;
-      }
-    }
-
-    /* Subtle ambient snow dots */
     .hero-snow {
       position: absolute;
       inset: 0;
@@ -540,20 +550,19 @@
       z-index: 2;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2.75rem;
+      gap: clamp(2.25rem, 4vw, 3.75rem);
       align-items: center;
     }
 
     @media (min-width: 960px) {
       .hero-grid {
         grid-template-columns: 1.08fr 0.92fr;
-        gap: 3.5rem;
       }
     }
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(2.35rem, 5.2vw, 3.9rem);
+      font-size: clamp(2.15rem, 5vw, 3.95rem);
       font-weight: 600;
       line-height: 1.1;
       letter-spacing: -0.02em;
@@ -568,7 +577,7 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+      font-size: clamp(1rem, 1.45vw, 1.18rem);
       color: rgba(246, 241, 232, 0.86);
       max-width: 52ch;
       margin-bottom: 2rem;
@@ -577,14 +586,20 @@
     .hero-cta-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.9rem;
+      gap: 0.85rem;
       margin-bottom: 2.25rem;
+    }
+
+    @media (max-width: 440px) {
+      .hero-cta-group .btn {
+        width: 100%;
+      }
     }
 
     .hero-highlights {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.25rem 2rem;
+      gap: 0.9rem 1.75rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(198, 166, 107, 0.25);
       font-size: 0.85rem;
@@ -602,12 +617,13 @@
       height: 6px;
       border-radius: 50%;
       background-color: var(--gold);
+      flex-shrink: 0;
     }
 
     /* Editorial Architectural Illustration Frame */
     .hero-visual {
       position: relative;
-      max-width: 490px;
+      max-width: min(490px, 100%);
       width: 100%;
       margin-inline: auto;
     }
@@ -616,7 +632,7 @@
       position: relative;
       border-radius: 220px 220px var(--radius-lg) var(--radius-lg);
       border: 1px solid rgba(198, 166, 107, 0.5);
-      padding: 0.75rem;
+      padding: clamp(0.55rem, 1.5vw, 0.85rem);
       background: linear-gradient(180deg, rgba(198, 166, 107, 0.14), rgba(16, 43, 36, 0.6));
       box-shadow: var(--shadow-lg);
     }
@@ -632,18 +648,27 @@
       bottom: -14px;
       left: 50%;
       transform: translateX(-50%);
+      max-width: calc(100% - 1.5rem);
       background-color: var(--ivory);
       color: var(--forest);
       border: 1px solid var(--gold);
       border-radius: 999px;
-      padding: 0.5rem 1.2rem;
-      font-size: 0.8125rem;
+      padding: 0.45rem 1rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
       font-weight: 600;
-      white-space: nowrap;
+      text-align: center;
       box-shadow: var(--shadow-md);
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+
+    @media (min-width: 480px) {
+      .hero-floating-tag {
+        white-space: nowrap;
+        padding: 0.5rem 1.2rem;
+      }
     }
 
     /* ==========================================================================
@@ -651,27 +676,15 @@
        ========================================================================== */
     .explore-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-    }
-
-    @media (min-width: 600px) {
-      .explore-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .explore-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+      gap: clamp(1.1rem, 2vw, 1.5rem);
     }
 
     .pillar-card {
       background-color: var(--white);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: clamp(1.25rem, 2.5vw, 1.65rem);
       display: flex;
       flex-direction: column;
       transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
@@ -738,7 +751,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 1.5rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
       padding-bottom: 1.75rem;
       border-bottom: 1px solid var(--border-subtle);
     }
@@ -746,11 +759,11 @@
     .studio-steps {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.65rem;
+      gap: 0.5rem;
     }
 
     .step-pill {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       padding: 0.35rem 0.75rem;
       border-radius: 999px;
@@ -762,14 +775,13 @@
     .studio-workspace {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: clamp(1.75rem, 3.5vw, 2.75rem);
       align-items: start;
     }
 
     @media (min-width: 980px) {
       .studio-workspace {
         grid-template-columns: 1.02fr 0.98fr;
-        gap: 2.75rem;
       }
     }
 
@@ -777,16 +789,10 @@
       background-color: var(--ivory);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.35rem;
+      padding: clamp(1.15rem, 2.5vw, 1.85rem);
       display: flex;
       flex-direction: column;
       gap: 1.35rem;
-    }
-
-    @media (min-width: 600px) {
-      .studio-controls {
-        padding: 1.75rem;
-      }
     }
 
     .control-group {
@@ -796,14 +802,16 @@
     }
 
     .control-label {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.03em;
       text-transform: uppercase;
       color: var(--forest);
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 0.35rem;
     }
 
     .control-hint {
@@ -904,7 +912,7 @@
 
     .preset-chip {
       font-size: 0.76rem;
-      padding: 0.28rem 0.65rem;
+      padding: 0.3rem 0.68rem;
       border-radius: 999px;
       background-color: var(--white);
       border: 1px solid var(--border-subtle);
@@ -958,6 +966,7 @@
       flex-direction: column;
       align-items: center;
       gap: 1.25rem;
+      width: 100%;
     }
 
     @media (min-width: 980px) {
@@ -972,16 +981,10 @@
       background-color: var(--ivory);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.25rem;
+      padding: clamp(0.95rem, 3vw, 2.25rem);
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    @media (min-width: 520px) {
-      .preview-stage {
-        padding: 2rem;
-      }
     }
 
     /* The Exportable Greeting Card Canvas */
@@ -989,9 +992,10 @@
       position: relative;
       width: 100%;
       max-width: 440px;
+      min-height: 440px;
       aspect-ratio: 4 / 5;
       border-radius: 10px;
-      padding: 1.75rem 1.5rem;
+      padding: clamp(1.25rem, 4vw, 2.35rem) clamp(1.1rem, 3.5vw, 2rem);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -999,12 +1003,6 @@
       overflow: hidden;
       box-shadow: var(--shadow-lg);
       transition: background-color 220ms ease, color 220ms ease;
-    }
-
-    @media (min-width: 440px) {
-      .greeting-card {
-        padding: 2.35rem 2rem;
-      }
     }
 
     .card-ornament-layer {
@@ -1017,12 +1015,14 @@
     .card-inner-frame {
       position: relative;
       z-index: 2;
+      flex: 1;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 1.15rem 0.9rem;
+      gap: 0.75rem;
+      padding: clamp(0.95rem, 2.5vw, 1.35rem) clamp(0.75rem, 2vw, 1.1rem);
     }
 
     /* Template-Specific Structural Variations */
@@ -1035,13 +1035,13 @@
     .greeting-card.tpl-minimal .card-inner-frame {
       border: 1px solid rgba(198, 166, 107, 0.55);
       justify-content: center;
-      gap: 1.25rem;
+      gap: 1.15rem;
     }
 
     .greeting-card.tpl-golden .card-inner-frame {
       border: 2px solid #C6A66B;
       border-radius: 140px 140px 6px 6px;
-      padding-top: 2rem;
+      padding-top: clamp(1.65rem, 4vw, 2.25rem);
     }
 
     .greeting-card.tpl-winter .card-inner-frame {
@@ -1052,7 +1052,7 @@
     .greeting-card.tpl-merry .card-inner-frame {
       border-top: 2px solid rgba(198, 166, 107, 0.7);
       border-bottom: 2px solid rgba(198, 166, 107, 0.7);
-      padding-top: 2.35rem;
+      padding-top: clamp(1.85rem, 4.5vw, 2.5rem);
     }
 
     .greeting-card.tpl-rustic .card-inner-frame {
@@ -1061,7 +1061,7 @@
     }
 
     .card-kicker {
-      font-size: 0.7rem;
+      font-size: clamp(0.62rem, 1.6vw, 0.72rem);
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -1069,10 +1069,11 @@
     }
 
     .card-recipient {
-      font-size: clamp(1.35rem, 4vw, 1.85rem);
+      font-size: clamp(1.2rem, 3.6vw, 1.8rem);
       font-weight: 600;
-      line-height: 1.2;
+      line-height: 1.22;
       margin-block: 0.35rem;
+      overflow-wrap: break-word;
       word-break: break-word;
     }
 
@@ -1084,23 +1085,25 @@
     }
 
     .card-message {
-      font-size: clamp(0.92rem, 2.5vw, 1.05rem);
-      line-height: 1.62;
-      max-width: 30ch;
+      font-size: clamp(0.86rem, 2.3vw, 1.02rem);
+      line-height: 1.58;
+      max-width: 32ch;
       margin-inline: auto;
+      overflow-wrap: break-word;
       word-break: break-word;
     }
 
     .card-sender {
-      font-size: 0.9rem;
+      font-size: clamp(0.84rem, 2vw, 0.94rem);
       font-style: italic;
       opacity: 0.92;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
+      overflow-wrap: break-word;
       word-break: break-word;
     }
 
     .card-brand-stamp {
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       opacity: 0.55;
@@ -1123,7 +1126,7 @@
       width: 100%;
       max-width: 440px;
       font-size: 0.84rem;
-      padding: 0.65rem 0.9rem;
+      padding: 0.7rem 0.95rem;
       border-radius: var(--radius-sm);
       background-color: var(--sage-tint);
       color: var(--forest);
@@ -1133,6 +1136,12 @@
 
     .status-banner.is-visible {
       display: block;
+    }
+
+    .status-banner.is-error {
+      background-color: rgba(118, 45, 56, 0.09);
+      color: var(--burgundy);
+      border-color: rgba(118, 45, 56, 0.3);
     }
 
     /* ==========================================================================
@@ -1146,17 +1155,24 @@
     }
 
     .activity-tab-btn {
-      padding: 0.75rem 1.25rem;
+      padding: 0.75rem 1.15rem;
       border-radius: var(--radius-sm);
       background-color: var(--white);
       border: 1px solid var(--border-subtle);
       font-weight: 600;
-      font-size: 0.925rem;
+      font-size: 0.9rem;
       color: var(--forest);
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       transition: all var(--transition);
+    }
+
+    @media (max-width: 540px) {
+      .activity-tab-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     .activity-tab-btn:hover {
@@ -1187,14 +1203,8 @@
       background-color: var(--white);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: clamp(1.25rem, 3vw, 2.25rem);
       box-shadow: var(--shadow-sm);
-    }
-
-    @media (min-width: 640px) {
-      .quiz-card {
-        padding: 2.25rem;
-      }
     }
 
     .quiz-meta {
@@ -1214,7 +1224,7 @@
       background-color: var(--ivory);
       color: var(--burgundy);
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 0.3rem 0.7rem;
@@ -1238,10 +1248,10 @@
     }
 
     .quiz-emoji-display {
-      font-size: clamp(2.1rem, 5vw, 3rem);
-      letter-spacing: 0.25rem;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      letter-spacing: 0.2rem;
       text-align: center;
-      padding: 1.25rem;
+      padding: 1.15rem;
       background-color: var(--ivory);
       border-radius: var(--radius-sm);
       margin-bottom: 1.25rem;
@@ -1250,7 +1260,7 @@
 
     .quiz-question {
       font-family: var(--font-serif);
-      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      font-size: clamp(1.2rem, 2.4vw, 1.6rem);
       font-weight: 600;
       color: var(--forest);
       line-height: 1.32;
@@ -1267,7 +1277,7 @@
     .quiz-option {
       width: 100%;
       text-align: left;
-      padding: 0.95rem 1.15rem;
+      padding: 0.9rem 1.05rem;
       border-radius: var(--radius-sm);
       background-color: var(--ivory);
       border: 1.5px solid var(--border-subtle);
@@ -1375,9 +1385,15 @@
 
     /* Side Activity Cards */
     .activity-sidebar {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
       gap: 1rem;
+    }
+
+    @media (min-width: 960px) {
+      .activity-sidebar {
+        grid-template-columns: 1fr;
+      }
     }
 
     .mini-activity-card {
@@ -1431,9 +1447,9 @@
     }
 
     .filter-pill {
-      padding: 0.45rem 0.95rem;
+      padding: 0.45rem 0.9rem;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       background-color: var(--ivory);
       color: var(--charcoal);
@@ -1458,20 +1474,8 @@
 
     .product-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 580px) {
-      .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 265px), 1fr));
+      gap: clamp(1.15rem, 2vw, 1.5rem);
     }
 
     .product-card {
@@ -1595,15 +1599,9 @@
     .countdown-box {
       border: 1px solid rgba(198, 166, 107, 0.42);
       border-radius: var(--radius-lg);
-      padding: 2.5rem 1.25rem;
+      padding: clamp(2rem, 5vw, 3.5rem) clamp(1.15rem, 3vw, 2.5rem);
       text-align: center;
       background: radial-gradient(circle at top center, rgba(198, 166, 107, 0.12), transparent 65%);
-    }
-
-    @media (min-width: 768px) {
-      .countdown-box {
-        padding: 3.5rem 2.5rem;
-      }
     }
 
     .countdown-grid {
@@ -1625,13 +1623,13 @@
       background-color: var(--forest-deep);
       border: 1px solid rgba(198, 166, 107, 0.35);
       border-radius: var(--radius-md);
-      padding: 1.25rem 0.75rem;
+      padding: 1.15rem 0.75rem;
     }
 
     .countdown-num {
       display: block;
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
       font-weight: 700;
       line-height: 1.05;
       color: var(--gold-light);
@@ -1640,7 +1638,7 @@
 
     .countdown-label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -1660,21 +1658,9 @@
        ========================================================================== */
     .planner-summary {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
       gap: 1rem;
       margin-bottom: 1.75rem;
-    }
-
-    @media (min-width: 600px) {
-      .planner-summary {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 960px) {
-      .planner-summary {
-        grid-template-columns: repeat(4, 1fr);
-      }
     }
 
     .budget-stat {
@@ -1685,7 +1671,7 @@
     }
 
     .budget-stat-label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1695,7 +1681,7 @@
 
     .budget-stat-value {
       font-family: var(--font-serif);
-      font-size: 1.65rem;
+      font-size: clamp(1.45rem, 2.5vw, 1.7rem);
       font-weight: 700;
       color: var(--forest);
       font-variant-numeric: tabular-nums;
@@ -1709,11 +1695,12 @@
       display: flex;
       align-items: center;
       gap: 0.45rem;
-      margin-top: 0.4rem;
+      margin-top: 0.45rem;
     }
 
     .budget-input-inline {
-      width: 115px;
+      width: 112px;
+      min-width: 0;
       padding: 0.35rem 0.55rem;
       border: 1px solid var(--border-subtle);
       border-radius: 4px;
@@ -1738,7 +1725,7 @@
       background-color: var(--white);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: clamp(1.25rem, 2.5vw, 1.65rem);
     }
 
     .planner-card h3 {
@@ -1774,9 +1761,10 @@
 
     .gift-item {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.85rem;
+      gap: 0.75rem;
       padding: 0.9rem 1rem;
       border-radius: var(--radius-sm);
       background-color: var(--ivory);
@@ -1794,6 +1782,7 @@
       align-items: flex-start;
       gap: 0.75rem;
       min-width: 0;
+      flex: 1 1 200px;
     }
 
     .gift-checkbox {
@@ -1813,12 +1802,14 @@
       font-weight: 700;
       font-size: 0.95rem;
       color: var(--forest);
+      overflow-wrap: break-word;
       word-break: break-word;
     }
 
     .gift-desc {
       font-size: 0.875rem;
       color: var(--charcoal-muted);
+      overflow-wrap: break-word;
       word-break: break-word;
     }
 
@@ -1830,7 +1821,8 @@
     .gift-item-right {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+      margin-left: auto;
       flex-shrink: 0;
     }
 
@@ -1913,7 +1905,7 @@
     .site-footer {
       background-color: var(--forest-deep);
       color: rgba(246, 241, 232, 0.82);
-      padding-block: 4rem 2.5rem;
+      padding-block: clamp(3rem, 5vw, 4.25rem) 2.5rem;
     }
 
     .footer-grid {
@@ -1938,7 +1930,7 @@
 
     .footer-brand {
       font-family: var(--font-serif);
-      font-size: 1.45rem;
+      font-size: clamp(1.25rem, 2.5vw, 1.45rem);
       font-weight: 700;
       color: var(--ivory);
       margin-bottom: 0.75rem;
@@ -2050,17 +2042,18 @@
     }
 
     .drawer-header {
-      padding: 1.25rem 1.5rem;
+      padding: 1.15rem 1.35rem;
       background-color: var(--forest);
       color: var(--ivory);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.75rem;
     }
 
     .drawer-title {
       font-family: var(--font-serif);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 600;
     }
 
@@ -2071,6 +2064,7 @@
       color: var(--ivory);
       display: inline-grid;
       place-items: center;
+      flex-shrink: 0;
     }
 
     .drawer-close:hover {
@@ -2080,7 +2074,7 @@
     .cart-body {
       flex: 1;
       overflow-y: auto;
-      padding: 1.25rem 1.5rem;
+      padding: 1.25rem 1.35rem;
     }
 
     .cart-items {
@@ -2139,7 +2133,7 @@
     }
 
     .cart-footer {
-      padding: 1.25rem 1.5rem 1.5rem;
+      padding: 1.15rem 1.35rem 1.4rem;
       background-color: var(--white);
       border-top: 1px solid var(--border-subtle);
     }
@@ -2183,9 +2177,9 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -48%) scale(0.97);
-      width: calc(100% - 2rem);
+      width: calc(100% - 1.5rem);
       max-width: 540px;
-      max-height: 88vh;
+      max-height: 88dvh;
       overflow-y: auto;
       background-color: var(--ivory);
       border: 1px solid var(--gold);
@@ -2204,12 +2198,13 @@
     }
 
     .modal-header {
-      padding: 1.15rem 1.5rem;
+      padding: 1.1rem 1.35rem;
       background-color: var(--forest);
       color: var(--ivory);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.75rem;
       position: sticky;
       top: 0;
       z-index: 2;
@@ -2217,11 +2212,11 @@
 
     .modal-title {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     .modal-body {
-      padding: 1.5rem;
+      padding: clamp(1.15rem, 3vw, 1.5rem);
     }
 
     .search-results-list {
@@ -2238,9 +2233,10 @@
       border-radius: var(--radius-sm);
       padding: 0.75rem 1rem;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.5rem;
       width: 100%;
       text-align: left;
     }
@@ -2252,19 +2248,23 @@
     /* Toast Notification */
     .toast {
       position: fixed;
-      bottom: 1.25rem;
-      right: 1.25rem;
+      bottom: 1rem;
+      right: 1rem;
+      left: 1rem;
+      max-width: 380px;
+      margin-left: auto;
       background-color: var(--forest-deep);
       color: var(--ivory);
       border: 1px solid var(--gold);
-      padding: 0.8rem 1.2rem;
+      padding: 0.8rem 1.15rem;
       border-radius: var(--radius-sm);
       font-size: 0.875rem;
       font-weight: 500;
       box-shadow: var(--shadow-lg);
       z-index: 1100;
-      transform: translateY(130%);
+      transform: translateY(140%);
       opacity: 0;
+      pointer-events: none;
       transition: transform var(--transition), opacity var(--transition);
     }
 
@@ -2325,10 +2325,14 @@
         </button>
 
         <button type="button" class="icon-btn mobile-menu-btn" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle Menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg id="mobile-menu-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg id="mobile-menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
@@ -2579,13 +2583,13 @@
                 <span>Step 2 · Recipient Name</span>
                 <span class="control-hint">Max 40 chars</span>
               </label>
-              <input type="text" id="card-recipient-input" class="form-input" maxlength="40" value="Dearest Aarav &amp; Meera" placeholder="e.g., Dearest Family" />
+              <input type="text" id="card-recipient-input" class="form-input" maxlength="40" value="" placeholder="e.g., Dearest Family &amp; Friends" />
             </div>
 
             <div class="control-group">
               <label class="control-label" for="card-message-input">
                 <span>Step 3 · Custom Christmas Message</span>
-                <span class="control-hint" id="message-char-count">118 / 220</span>
+                <span class="control-hint" id="message-char-count">123 / 220</span>
               </label>
               <textarea id="card-message-input" class="form-textarea" maxlength="220" placeholder="Write a warm seasonal wish...">Wishing you a Christmas filled with warm candlelight, unhurried conversations and quiet joy that lingers well into the new year.</textarea>
               <div class="preset-chips" aria-label="Quick Message Ideas">
@@ -2599,7 +2603,7 @@
             <div class="control-row-2">
               <div class="control-group">
                 <label class="control-label" for="card-sender-input">Sender Signature</label>
-                <input type="text" id="card-sender-input" class="form-input" maxlength="40" value="Warmly, Rohan" placeholder="e.g., With love, Maya" />
+                <input type="text" id="card-sender-input" class="form-input" maxlength="40" value="" placeholder="e.g., Warmly, Your Name" />
               </div>
 
               <div class="control-group">
@@ -2638,14 +2642,14 @@
                   </div>
 
                   <div>
-                    <div class="card-recipient" id="preview-recipient">Dearest Aarav &amp; Meera</div>
+                    <div class="card-recipient" id="preview-recipient">Season’s Warmest Wishes</div>
                     <p class="card-message" id="preview-message">
                       Wishing you a Christmas filled with warm candlelight, unhurried conversations and quiet joy that lingers well into the new year.
                     </p>
                   </div>
 
                   <div>
-                    <div class="card-sender" id="preview-sender">Warmly, Rohan</div>
+                    <div class="card-sender" id="preview-sender">With warm wishes</div>
                     <div class="card-brand-stamp">All Things Christmas</div>
                   </div>
                 </div>
@@ -2816,7 +2820,7 @@
             <div class="budget-stat-value" id="stat-total-budget">₹15,000</div>
             <div class="budget-edit-row">
               <label for="overall-budget-input" class="sr-only">Set Overall Budget in INR</label>
-              <input type="number" id="overall-budget-input" class="budget-input-inline" min="0" step="100" value="15000" />
+              <input type="number" id="overall-budget-input" class="budget-input-inline" min="0" max="100000000" step="100" value="15000" />
               <button type="button" class="btn btn-forest btn-sm" id="save-budget-btn" style="min-height:32px; padding:0.25rem 0.65rem; font-size:0.78rem;">Update</button>
             </div>
           </div>
@@ -2830,13 +2834,13 @@
           <div class="budget-stat">
             <div class="budget-stat-label">Purchased Amount</div>
             <div class="budget-stat-value" id="stat-total-purchased">₹0</div>
-            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-purchased-count">0 marked purchased</div>
+            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-purchased-count">0 of 0 purchased</div>
           </div>
 
           <div class="budget-stat">
             <div class="budget-stat-label">Remaining Budget</div>
             <div class="budget-stat-value" id="stat-remaining-budget">₹15,000</div>
-            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-budget-status">Calculated against overall budget</div>
+            <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-budget-status">Available after purchased gifts</div>
           </div>
         </div>
 
@@ -2847,12 +2851,12 @@
             <form class="planner-form" id="gift-form" novalidate>
               <div class="control-group">
                 <label class="control-label" for="gift-recipient-input">Recipient Name</label>
-                <input type="text" id="gift-recipient-input" class="form-input" maxlength="50" placeholder="e.g., Amma, Kabir, Secret Santa" required />
+                <input type="text" id="gift-recipient-input" class="form-input" maxlength="50" placeholder="e.g., Family Member, Secret Santa" required />
               </div>
 
               <div class="control-group">
                 <label class="control-label" for="gift-desc-input">Gift Description</label>
-                <input type="text" id="gift-desc-input" class="form-input" maxlength="80" placeholder="e.g., Artisanal Plum Cake &amp; Coffee Hamper" required />
+                <input type="text" id="gift-desc-input" class="form-input" maxlength="80" placeholder="e.g., Plum Cake &amp; Artisanal Coffee Hamper" required />
               </div>
 
               <div class="control-group">
@@ -3437,7 +3441,7 @@
       };
 
       /* ----------------------------------------------------------------------
-         2. STATE & STORAGE HELPERS
+         2. STORAGE SANITIZATION & STATE MANAGEMENT
          ---------------------------------------------------------------------- */
       const STORAGE_KEYS = {
         CART: "atc_cart_v1",
@@ -3445,18 +3449,91 @@
         GUEST: "atc_guest_name_v1"
       };
 
+      const DEFAULT_PLANNER_BUDGET = 15000;
+
+      function sanitizeCart(raw) {
+        if (!Array.isArray(raw)) return [];
+        const validIds = new Set(PRODUCTS.map((p) => p.id));
+        return raw
+          .filter((item) => item && typeof item === "object" && validIds.has(item.id))
+          .map((item) => ({
+            id: item.id,
+            qty: Math.min(99, Math.max(1, Math.floor(Number(item.qty) || 1)))
+          }));
+      }
+
+      function sanitizePlanner(raw) {
+        const fallback = {
+          budget: DEFAULT_PLANNER_BUDGET,
+          gifts: [],
+          filter: "all"
+        };
+        if (!raw || typeof raw !== "object" || Array.isArray(raw)) return fallback;
+
+        const budgetNum = Number(raw.budget);
+        const budget = Number.isFinite(budgetNum) && budgetNum >= 0
+          ? Math.min(100000000, Math.round(budgetNum))
+          : DEFAULT_PLANNER_BUDGET;
+
+        const validFilters = new Set(["all", "pending", "purchased"]);
+        const filter = validFilters.has(raw.filter) ? raw.filter : "all";
+
+        const gifts = Array.isArray(raw.gifts)
+          ? raw.gifts
+              .filter((g) => g && typeof g === "object" && typeof g.recipient === "string" && typeof g.desc === "string")
+              .map((g, idx) => {
+                const p = Number(g.price);
+                return {
+                  id: typeof g.id === "string" && g.id ? g.id : "g-" + idx,
+                  recipient: g.recipient.trim().slice(0, 50),
+                  desc: g.desc.trim().slice(0, 80),
+                  price: Number.isFinite(p) && p >= 0 ? Math.min(10000000, Math.round(p)) : 0,
+                  purchased: Boolean(g.purchased)
+                };
+              })
+              .filter((g) => g.recipient.length > 0 && g.desc.length > 0)
+          : [];
+
+        return { budget, gifts, filter };
+      }
+
+      function sanitizeGuestName(raw) {
+        return typeof raw === "string" ? raw.trim().slice(0, 32) : "";
+      }
+
+      function loadFromStorage(key, sanitizer) {
+        try {
+          const raw = window.localStorage.getItem(key);
+          if (!raw) return sanitizer(null);
+          return sanitizer(JSON.parse(raw));
+        } catch (err) {
+          return sanitizer(null);
+        }
+      }
+
+      function saveToStorage(key, value) {
+        try {
+          window.localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      const initialGuestName = loadFromStorage(STORAGE_KEYS.GUEST, sanitizeGuestName);
+
       const state = {
         card: {
           templateId: "classic",
-          recipient: "Dearest Aarav & Meera",
+          recipient: "",
           message: MESSAGE_PRESETS.family,
-          sender: "Warmly, Rohan",
+          sender: initialGuestName ? "Warmly, " + initialGuestName : "",
           font: "Playfair Display",
           bg: "#173B32",
           text: "#F6F1E8"
         },
         activity: {
-          mode: "trivia", // 'trivia' | 'movies' | 'emoji'
+          mode: "trivia",
           index: 0,
           score: 0,
           answered: false,
@@ -3464,48 +3541,25 @@
           finished: false
         },
         shopFilter: "all",
-        cart: loadFromStorage(STORAGE_KEYS.CART, []),
-        planner: loadFromStorage(STORAGE_KEYS.PLANNER, {
-          budget: 15000,
-          gifts: [
-            { id: "g-1", recipient: "Amma & Appa", desc: "Artisanal Plum Cake & Filter Coffee Hamper", price: 1850, purchased: true },
-            { id: "g-2", recipient: "Ananya", desc: "Hardcover Novel & Scented Cedar Candle", price: 1400, purchased: false },
-            { id: "g-3", recipient: "Office Secret Santa", desc: "Brass Bookmark & Hot Chocolate Trio", price: 850, purchased: false }
-          ],
-          filter: "all"
-        }),
-        guestName: loadFromStorage(STORAGE_KEYS.GUEST, "")
+        cart: loadFromStorage(STORAGE_KEYS.CART, sanitizeCart),
+        planner: loadFromStorage(STORAGE_KEYS.PLANNER, sanitizePlanner),
+        guestName: initialGuestName
       };
 
-      function loadFromStorage(key, fallback) {
-        try {
-          const raw = window.localStorage.getItem(key);
-          return raw ? JSON.parse(raw) : fallback;
-        } catch (err) {
-          return fallback;
-        }
-      }
-
-      function saveToStorage(key, value) {
-        try {
-          window.localStorage.setItem(key, JSON.stringify(value));
-        } catch (err) {
-          // Ignore storage quota or private mode restrictions gracefully
-        }
-      }
-
       function formatINR(amount) {
-        const numeric = Number(amount) || 0;
+        const numeric = Number(amount);
+        const safe = Number.isFinite(numeric) ? numeric : 0;
         return new Intl.NumberFormat("en-IN", {
           style: "currency",
           currency: "INR",
           maximumFractionDigits: 0
-        }).format(numeric);
+        }).format(safe);
       }
 
       let toastTimer = null;
       function showToast(message) {
         const toast = document.getElementById("toast");
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add("is-visible");
         clearTimeout(toastTimer);
@@ -3515,53 +3569,92 @@
       }
 
       /* ----------------------------------------------------------------------
-         3. NAVIGATION & SCROLL SPY
+         3. NAVIGATION, MOBILE DRAWER & SCROLL SPY
          ---------------------------------------------------------------------- */
+      function setMobileMenuState(open) {
+        const menuToggle = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
+        const iconOpen = document.getElementById("mobile-menu-icon-open");
+        const iconClose = document.getElementById("mobile-menu-icon-close");
+        if (!menuToggle || !mobileNav) return;
+
+        mobileNav.classList.toggle("is-open", open);
+        mobileNav.setAttribute("aria-hidden", String(!open));
+        menuToggle.setAttribute("aria-expanded", String(open));
+        if (iconOpen && iconClose) {
+          iconOpen.style.display = open ? "none" : "block";
+          iconClose.style.display = open ? "block" : "none";
+        }
+        syncBodyScrollLock();
+      }
+
+      function syncBodyScrollLock() {
+        const mobileOpen = document.getElementById("mobile-nav")?.classList.contains("is-open");
+        const cartOpen = document.getElementById("cart-drawer")?.classList.contains("is-open");
+        const modalOpen = document.getElementById("app-modal")?.classList.contains("is-open");
+        document.body.classList.toggle("has-overlay-open", Boolean(mobileOpen || cartOpen || modalOpen));
+      }
+
       function initNavigation() {
         const header = document.getElementById("site-header");
         const menuToggle = document.getElementById("mobile-menu-toggle");
         const mobileNav = document.getElementById("mobile-nav");
         const navLinks = document.querySelectorAll("[data-nav]");
 
-        function setMobileMenu(open) {
-          mobileNav.classList.toggle("is-open", open);
-          mobileNav.setAttribute("aria-hidden", String(!open));
-          menuToggle.setAttribute("aria-expanded", String(open));
-        }
-
-        menuToggle.addEventListener("click", () => {
+        menuToggle.addEventListener("click", (e) => {
+          e.stopPropagation();
           const isOpen = mobileNav.classList.contains("is-open");
-          setMobileMenu(!isOpen);
+          setMobileMenuState(!isOpen);
         });
 
         mobileNav.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => setMobileMenu(false));
+          link.addEventListener("click", () => setMobileMenuState(false));
         });
+
+        document.addEventListener("click", (e) => {
+          if (!mobileNav.classList.contains("is-open")) return;
+          if (!mobileNav.contains(e.target) && !header.contains(e.target)) {
+            setMobileMenuState(false);
+          }
+        });
+
+        const desktopMq = window.matchMedia("(min-width: 900px)");
+        const handleBreakpointChange = (e) => {
+          if (e.matches && mobileNav.classList.contains("is-open")) {
+            setMobileMenuState(false);
+          }
+        };
+        if (typeof desktopMq.addEventListener === "function") {
+          desktopMq.addEventListener("change", handleBreakpointChange);
+        } else if (typeof desktopMq.addListener === "function") {
+          desktopMq.addListener(handleBreakpointChange);
+        }
 
         window.addEventListener("scroll", () => {
           header.classList.toggle("is-scrolled", window.scrollY > 12);
         }, { passive: true });
 
-        // Active section highlight
-        const sectionMap = ["home", "explore", "studio", "shop", "planner"];
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const id = entry.target.id;
-                navLinks.forEach((link) => {
-                  link.classList.toggle("is-active", link.dataset.nav === id);
-                });
-              }
-            });
-          },
-          { rootMargin: "-35% 0px -55% 0px" }
-        );
+        if ("IntersectionObserver" in window) {
+          const sectionMap = ["home", "explore", "studio", "shop", "planner"];
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const id = entry.target.id;
+                  navLinks.forEach((link) => {
+                    link.classList.toggle("is-active", link.dataset.nav === id);
+                  });
+                }
+              });
+            },
+            { rootMargin: "-35% 0px -55% 0px" }
+          );
 
-        sectionMap.forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) observer.observe(el);
-        });
+          sectionMap.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+          });
+        }
       }
 
       /* ----------------------------------------------------------------------
@@ -3579,12 +3672,16 @@
         const downloadBtn = document.getElementById("download-card-btn");
         const resetBtn = document.getElementById("reset-card-btn");
 
-        if (state.guestName) {
-          state.card.sender = "Warmly, " + state.guestName;
-          senderInput.value = state.card.sender;
-        }
+        recipientInput.value = state.card.recipient;
+        messageInput.value = state.card.message;
+        senderInput.value = state.card.sender;
+        fontSelect.value = state.card.font;
 
-        // Render template buttons
+        // Clear containers before populating to prevent duplication
+        tplContainer.innerHTML = "";
+        bgContainer.innerHTML = "";
+        textContainer.innerHTML = "";
+
         CARD_TEMPLATES.forEach((tpl) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -3622,7 +3719,6 @@
           tplContainer.appendChild(btn);
         });
 
-        // Render background swatches
         BG_SWATCHES.forEach((sw) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -3639,7 +3735,6 @@
           bgContainer.appendChild(btn);
         });
 
-        // Render text swatches
         TEXT_SWATCHES.forEach((sw) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -3656,7 +3751,6 @@
           textContainer.appendChild(btn);
         });
 
-        // Live input listeners
         recipientInput.addEventListener("input", () => {
           state.card.recipient = recipientInput.value;
           renderCardPreview();
@@ -3677,7 +3771,6 @@
           renderCardPreview();
         });
 
-        // Preset message chips
         document.querySelectorAll("[data-preset]").forEach((chip) => {
           chip.addEventListener("click", () => {
             const key = chip.dataset.preset;
@@ -3689,14 +3782,13 @@
           });
         });
 
-        // Reset button
         resetBtn.addEventListener("click", () => {
           const defaultTpl = CARD_TEMPLATES[0];
           state.card = {
             templateId: defaultTpl.id,
-            recipient: "Dearest Aarav & Meera",
+            recipient: "",
             message: MESSAGE_PRESETS.family,
-            sender: state.guestName ? "Warmly, " + state.guestName : "Warmly, Rohan",
+            sender: state.guestName ? "Warmly, " + state.guestName : "",
             font: defaultTpl.font,
             bg: defaultTpl.bg,
             text: defaultTpl.text
@@ -3705,12 +3797,13 @@
           messageInput.value = state.card.message;
           senderInput.value = state.card.sender;
           fontSelect.value = state.card.font;
+          const statusEl = document.getElementById("studio-status-banner");
+          statusEl.classList.remove("is-visible", "is-error");
           renderCardPreview();
           syncStudioControls();
           showToast("Card reset to Classic Christmas defaults.");
         });
 
-        // Download PNG button
         downloadBtn.addEventListener("click", exportCardAsPng);
 
         renderCardPreview();
@@ -3758,7 +3851,24 @@
         document.getElementById("preview-recipient").textContent = state.card.recipient.trim() || "Season’s Warmest Wishes";
         document.getElementById("preview-message").textContent = state.card.message.trim() || "Wishing you peace, warmth and joy this Christmas.";
         document.getElementById("preview-sender").textContent = state.card.sender.trim() || "With warm wishes";
-        document.getElementById("message-char-count").textContent = `${state.card.message.length} / 220`; }  async function exportCardAsPng() { const cardEl = document.getElementById("card-preview-canvas"); const statusEl = document.getElementById("studio-status-banner"); const downloadBtn = document.getElementById("download-card-btn");  downloadBtn.disabled = true; statusEl.textContent = "Preparing your high-resolution PNG card..."; statusEl.classList.add("is-visible");  const safeFileRecipient = (state.card.recipient \vert{}\vert{} "christmas-card") .toLowerCase() .replace(/[^a-z0-9]+/g, "-") .replace(/(^-\vert{}-$)/g, "") \vert{}\vert{} "christmas-card"; const filename = `all-things-christmas-${safeFileRecipient}.png`;
+        document.getElementById("message-char-count").textContent = `${state.card.message.length} / 220`;
+      }
+
+      async function exportCardAsPng() {
+        const cardEl = document.getElementById("card-preview-canvas");
+        const statusEl = document.getElementById("studio-status-banner");
+        const downloadBtn = document.getElementById("download-card-btn");
+
+        downloadBtn.disabled = true;
+        statusEl.classList.remove("is-error");
+        statusEl.textContent = "Preparing your high-resolution PNG card...";
+        statusEl.classList.add("is-visible");
+
+        const safeFileRecipient = (state.card.recipient || "christmas-card")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "") || "christmas-card";
+        const filename = `all-things-christmas-${safeFileRecipient}.png`;
 
         try {
           if (typeof window.html2canvas === "function") {
@@ -3769,22 +3879,24 @@
               logging: false
             });
             triggerCanvasDownload(canvas, filename);
-            statusEl.textContent = "Downloaded '" + filename + "' to your device.";
+            statusEl.textContent = `Downloaded "${filename}" to your device.`;
             showToast("Greeting card downloaded as PNG!");
           } else {
-            // Honest fallback if html2canvas CDN could not load (e.g., offline environment)
             const fallbackCanvas = renderFallbackCardCanvas();
             triggerCanvasDownload(fallbackCanvas, filename);
-            statusEl.textContent = "Downloaded using built-in offline renderer (external html2canvas CDN unavailable).";
+            statusEl.textContent = `Downloaded "${filename}" using built-in offline renderer.`;
             showToast("Card downloaded via built-in renderer.");
           }
         } catch (err) {
           try {
             const fallbackCanvas = renderFallbackCardCanvas();
             triggerCanvasDownload(fallbackCanvas, filename);
-            statusEl.textContent = "Card exported via fallback renderer.";
+            statusEl.textContent = `Downloaded "${filename}" using built-in fallback renderer.`;
+            showToast("Card exported via fallback renderer.");
           } catch (fallbackErr) {
-            statusEl.textContent = "Unable to generate PNG automatically in this browser. You may take a screenshot of the preview card.";
+            statusEl.classList.add("is-error");
+            statusEl.textContent = "Export failed: Your browser blocked PNG file generation. Please check download permissions or take a screenshot of the card preview.";
+            showToast("Unable to download PNG automatically.");
           }
         } finally {
           downloadBtn.disabled = false;
@@ -3792,12 +3904,64 @@
       }
 
       function triggerCanvasDownload(canvas, filename) {
+        const dataUrl = canvas.toDataURL("image/png");
+        if (!dataUrl || dataUrl === "data:,") {
+          throw new Error("Empty canvas export");
+        }
         const link = document.createElement("a");
         link.download = filename;
-        link.href = canvas.toDataURL("image/png");
+        link.href = dataUrl;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+      }
+
+      function wrapCanvasText(ctx, text, maxWidth) {
+        const rawParagraphs = String(text || "").split(/\r?\n/);
+        const lines = [];
+
+        rawParagraphs.forEach((paragraph) => {
+          const words = paragraph.split(/\s+/).filter(Boolean);
+          if (words.length === 0) {
+            lines.push("");
+            return;
+          }
+
+          let currentLine = "";
+          words.forEach((word) => {
+            const candidate = currentLine ? currentLine + " " + word : word;
+            if (ctx.measureText(candidate).width <= maxWidth) {
+              currentLine = candidate;
+            } else {
+              if (currentLine) {
+                lines.push(currentLine);
+                currentLine = "";
+              }
+              // Break overly long unbroken tokens character-by-character so nothing clips
+              if (ctx.measureText(word).width > maxWidth) {
+                let chunk = "";
+                for (let i = 0; i < word.length; i++) {
+                  const testChunk = chunk + word[i];
+                  if (ctx.measureText(testChunk).width > maxWidth && chunk) {
+                    lines.push(chunk);
+                    chunk = word[i];
+                  } else {
+                    chunk = testChunk;
+                  }
+                }
+                currentLine = chunk;
+              } else {
+                currentLine = word;
+              }
+            }
+          });
+
+          if (currentLine) {
+            lines.push(currentLine);
+          }
+        });
+
+        return lines;
       }
 
       function renderFallbackCardCanvas() {
@@ -3805,44 +3969,78 @@
         canvas.width = 800;
         canvas.height = 1000;
         const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("Canvas 2D context unavailable");
 
+        const activeTpl = CARD_TEMPLATES.find((t) => t.id === state.card.templateId) || CARD_TEMPLATES[0];
+        const fontFamily = state.card.font === "DM Sans" ? "sans-serif" : "Georgia, serif";
+
+        // Background
         ctx.fillStyle = state.card.bg;
         ctx.fillRect(0, 0, 800, 1000);
 
+        // Outer & inner editorial frame
         ctx.strokeStyle = "#C6A66B";
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 3;
         ctx.strokeRect(48, 48, 704, 904);
+        ctx.lineWidth = 1;
+        ctx.strokeRect(62, 62, 676, 876);
 
         ctx.fillStyle = state.card.text;
         ctx.textAlign = "center";
-        ctx.font = "600 22px Georgia, serif";
-        ctx.fillText("SEASON'S GREETINGS", 400, 140);
+        ctx.textBaseline = "middle";
 
-        ctx.font = "700 44px Georgia, serif";
-        ctx.fillText(state.card.recipient || "Merry Christmas", 400, 340, 640);
+        // Kicker & Gold Rule
+        ctx.font = `700 20px sans-serif`;
+        ctx.fillText(activeTpl.kicker.toUpperCase(), 400, 130);
 
-        ctx.font = "400 28px Georgia, serif";
-        const words = (state.card.message || "").split(" ");
-        let line = "";
-        let y = 440;
-        for (let i = 0; i < words.length; i++) {
-          const testLine = line + words[i] + " ";
-          if (ctx.measureText(testLine).width > 580 && i > 0) {
-            ctx.fillText(line.trim(), 400, y);
-            line = words[i] + " ";
-            y += 42;
-          } else {
-            line = testLine;
-          }
-        }
-        ctx.fillText(line.trim(), 400, y);
+        ctx.fillStyle = "#C6A66B";
+        ctx.fillRect(355, 162, 90, 3);
 
-        ctx.font = "italic 28px Georgia, serif";
-        ctx.fillText(state.card.sender || "", 400, 820, 620);
+        // Recipient (multi-line safe)
+        ctx.fillStyle = state.card.text;
+        const recipientText = state.card.recipient.trim() || "Season’s Warmest Wishes";
+        ctx.font = `700 42px ${fontFamily}`;
+        const recipientLines = wrapCanvasText(ctx, recipientText, 610).slice(0, 3);
+        let cursorY = 260;
+        recipientLines.forEach((line) => {
+          ctx.fillText(line, 400, cursorY);
+          cursorY += 52;
+        });
 
-        ctx.font = "600 16px sans-serif";
-        ctx.globalAlpha = 0.6;
-        ctx.fillText("ALL THINGS CHRISTMAS", 400, 900);
+        // Message body (multi-line safe, scales slightly for dense messages)
+        const messageText = state.card.message.trim() || "Wishing you peace, warmth and joy this Christmas.";
+        const msgFontSize = messageText.length > 165 ? 25 : 28;
+        const msgLineHeight = messageText.length > 165 ? 38 : 42;
+        ctx.font = `400 ${msgFontSize}px ${fontFamily}`;
+        const messageLines = wrapCanvasText(ctx, messageText, 600);
+
+        const blockHeight = messageLines.length * msgLineHeight;
+        const availableTop = Math.max(cursorY + 36, 390);
+        const availableBottom = 770;
+        let msgY = availableTop + Math.max(0, (availableBottom - availableTop - blockHeight) / 2);
+
+        messageLines.forEach((line) => {
+          ctx.fillText(line, 400, msgY);
+          msgY += msgLineHeight;
+        });
+
+        // Sender signature
+        const senderText = state.card.sender.trim() || "With warm wishes";
+        ctx.font = `italic 28px ${fontFamily}`;
+        const senderLines = wrapCanvasText(ctx, senderText, 600).slice(0, 2);
+        let senderY = 825;
+        senderLines.forEach((line) => {
+          ctx.fillText(line, 400, senderY);
+          senderY += 36;
+        });
+
+        // Brand stamp
+        ctx.save();
+        ctx.globalAlpha = 0.55;
+        ctx.font = "600 15px sans-serif";
+        ctx.fillText("ALL THINGS CHRISTMAS", 400, 905);
+        ctx.restore();
+
         return canvas;
       }
 
@@ -3988,7 +4186,8 @@
           </div>
           ${emojiHtml}
           <h3 class="quiz-question">${current.question}</h3>
-          <div class="quiz-options">${optionsHtml}</div>${feedbackHtml}
+          <div class="quiz-options">${optionsHtml}</div>
+          ${feedbackHtml}
         `;
 
         stage.querySelectorAll("[data-option-idx]").forEach((btn) => {
@@ -4062,7 +4261,8 @@
             return `
               <article class="product-card">
                 <div class="product-visual" style="background-color:${prod.artBg};">
-                  <span class="product-tier-badge ${badgeClass}">${prod.tier}</span>${buildProductArtwork(prod)}
+                  <span class="product-tier-badge ${badgeClass}">${prod.tier}</span>
+                  ${buildProductArtwork(prod)}
                 </div>
                 <div class="product-body">
                   <div class="product-category">${prod.category}</div>
@@ -4097,7 +4297,7 @@
 
         const existing = state.cart.find((item) => item.id === productId);
         if (existing) {
-          existing.qty += 1;
+          existing.qty = Math.min(99, existing.qty + 1);
         } else {
           state.cart.push({ id: product.id, qty: 1 });
         }
@@ -4113,6 +4313,8 @@
         item.qty += delta;
         if (item.qty <= 0) {
           state.cart = state.cart.filter((i) => i.id !== productId);
+        } else if (item.qty > 99) {
+          item.qty = 99;
         }
         saveToStorage(STORAGE_KEYS.CART, state.cart);
         renderCart();
@@ -4198,6 +4400,8 @@
       /* ----------------------------------------------------------------------
          7. LIVE CHRISTMAS COUNTDOWN
          ---------------------------------------------------------------------- */
+      let countdownIntervalId = null;
+
       function initCountdown() {
         const daysEl = document.getElementById("cd-days");
         const hoursEl = document.getElementById("cd-hours");
@@ -4216,8 +4420,6 @@
             targetYear = currentYear + 1;
           }
 
-          const targetDate = new Date(targetYear, 11, 25, 0, 0, 0, 0);
-
           if (isChristmasDay) {
             const nextYearTarget = new Date(currentYear + 1, 11, 25, 0, 0, 0, 0);
             const diff = Math.max(0, nextYearTarget - now);
@@ -4235,6 +4437,7 @@
             return;
           }
 
+          const targetDate = new Date(targetYear, 11, 25, 0, 0, 0, 0);
           const diff = Math.max(0, targetDate - now);
           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
           const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -4246,10 +4449,12 @@
           minutesEl.textContent = String(minutes).padStart(2, "0");
           secondsEl.textContent = String(seconds).padStart(2, "0");
           labelEl.textContent = `Counting down to December 25, ${targetYear} in your local time.`;
+          noteEl.textContent = "Every evening brings the season a little nearer—take a quiet moment to write a card or plan a gathering.";
         }
 
         updateClock();
-        setInterval(updateClock, 1000);
+        if (countdownIntervalId) clearInterval(countdownIntervalId);
+        countdownIntervalId = setInterval(updateClock, 1000);
       }
 
       /* ----------------------------------------------------------------------
@@ -4260,16 +4465,20 @@
         const saveBudgetBtn = document.getElementById("save-budget-btn");
         const giftForm = document.getElementById("gift-form");
         const resetPlannerBtn = document.getElementById("reset-planner-btn");
+        const errorEl = document.getElementById("gift-form-error");
 
         budgetInput.value = state.planner.budget;
 
         saveBudgetBtn.addEventListener("click", () => {
-          const val = Number(budgetInput.value);
-          if (Number.isNaN(val) || val < 0) {
-            showToast("Please enter a valid non-negative budget.");
+          const rawVal = budgetInput.value.trim();
+          const val = Number(rawVal);
+          if (rawVal === "" || !Number.isFinite(val) || val < 0 || val > 100000000) {
+            budgetInput.value = state.planner.budget;
+            showToast("Please enter a valid non-negative budget in INR.");
             return;
           }
           state.planner.budget = Math.round(val);
+          budgetInput.value = state.planner.budget;
           saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
           renderPlanner();
           showToast("Overall Christmas budget updated.");
@@ -4280,21 +4489,27 @@
           const recipientEl = document.getElementById("gift-recipient-input");
           const descEl = document.getElementById("gift-desc-input");
           const priceEl = document.getElementById("gift-price-input");
-          const errorEl = document.getElementById("gift-form-error");
 
           const recipient = recipientEl.value.trim();
           const desc = descEl.value.trim();
-          const price = Number(priceEl.value);
+          const rawPrice = priceEl.value.trim();
+          const price = Number(rawPrice);
 
-          if (!recipient || !desc || priceEl.value === "" || Number.isNaN(price) || price < 0) {
-            errorEl.textContent = "Please enter a recipient name, gift description and valid price in INR.";
+          if (!recipient || !desc) {
+            errorEl.textContent = "Please enter both a recipient name and a gift description.";
+            errorEl.style.display = "block";
+            return;
+          }
+
+          if (rawPrice === "" || !Number.isFinite(price) || price < 0 || price > 10000000) {
+            errorEl.textContent = "Please enter a valid non-negative price in INR (₹0 or above).";
             errorEl.style.display = "block";
             return;
           }
 
           errorEl.style.display = "none";
           state.planner.gifts.unshift({
-            id: "g-" + Date.now(),
+            id: "g-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
             recipient,
             desc,
             price: Math.round(price),
@@ -4310,26 +4525,35 @@
         document.querySelectorAll("[data-gift-filter]").forEach((pill) => {
           pill.addEventListener("click", () => {
             state.planner.filter = pill.dataset.giftFilter;
-            document.querySelectorAll("[data-gift-filter]").forEach((p) => {
-              p.classList.toggle("is-active", p === pill);
-            });
+            saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+            syncPlannerFilterPills();
             renderPlanner();
           });
         });
 
         resetPlannerBtn.addEventListener("click", () => {
           state.planner = {
-            budget: 15000,
+            budget: DEFAULT_PLANNER_BUDGET,
             gifts: [],
             filter: "all"
           };
-          budgetInput.value = 15000;
+          budgetInput.value = DEFAULT_PLANNER_BUDGET;
+          giftForm.reset();
+          errorEl.style.display = "none";
           saveToStorage(STORAGE_KEYS.PLANNER, state.planner);
+          syncPlannerFilterPills();
           renderPlanner();
-          showToast("Christmas planner cleared.");
+          showToast("Christmas planner reset.");
         });
 
+        syncPlannerFilterPills();
         renderPlanner();
+      }
+
+      function syncPlannerFilterPills() {
+        document.querySelectorAll("[data-gift-filter]").forEach((pill) => {
+          pill.classList.toggle("is-active", pill.dataset.giftFilter === state.planner.filter);
+        });
       }
 
       function renderPlanner() {
@@ -4343,7 +4567,7 @@
         document.getElementById("stat-total-estimated").textContent = formatINR(totalPlanned);
         document.getElementById("stat-item-count").textContent = `${state.planner.gifts.length} gift${state.planner.gifts.length === 1 ? "" : "s"} listed`;
         document.getElementById("stat-total-purchased").textContent = formatINR(totalPurchased);
-        document.getElementById("stat-purchased-count").textContent = `${purchasedGifts.length} of${state.planner.gifts.length} purchased`;
+        document.getElementById("stat-purchased-count").textContent = `${purchasedGifts.length} of ${state.planner.gifts.length} purchased`;
 
         const remEl = document.getElementById("stat-remaining-budget");
         remEl.textContent = formatINR(remaining);
@@ -4458,11 +4682,13 @@
       /* ----------------------------------------------------------------------
          10. MODALS, DRAWERS & SEARCH
          ---------------------------------------------------------------------- */
+      let lastFocusedElement = null;
+
       function openOverlayBackdrop() {
         document.getElementById("overlay-backdrop").classList.add("is-open");
       }
 
-      function closeAllOverlays() {
+      function closeAllOverlays(restoreFocus = true) {
         document.getElementById("overlay-backdrop").classList.remove("is-open");
         const cartDrawer = document.getElementById("cart-drawer");
         const modal = document.getElementById("app-modal");
@@ -4470,24 +4696,38 @@
         cartDrawer.setAttribute("aria-hidden", "true");
         modal.classList.remove("is-open");
         modal.setAttribute("aria-hidden", "true");
+        syncBodyScrollLock();
+
+        if (restoreFocus && lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+          lastFocusedElement.focus();
+          lastFocusedElement = null;
+        }
       }
 
       function openCartDrawer() {
-        closeAllOverlays();
+        if (!lastFocusedElement) lastFocusedElement = document.activeElement;
+        setMobileMenuState(false);
+        closeAllOverlays(false);
         openOverlayBackdrop();
         const cartDrawer = document.getElementById("cart-drawer");
         cartDrawer.classList.add("is-open");
         cartDrawer.setAttribute("aria-hidden", "false");
+        syncBodyScrollLock();
+        document.getElementById("close-cart-btn").focus();
       }
 
       function openModal(title, htmlContent) {
-        closeAllOverlays();
+        if (!lastFocusedElement) lastFocusedElement = document.activeElement;
+        setMobileMenuState(false);
+        closeAllOverlays(false);
         openOverlayBackdrop();
         const modal = document.getElementById("app-modal");
         document.getElementById("modal-title").textContent = title;
         document.getElementById("modal-body").innerHTML = htmlContent;
         modal.classList.add("is-open");
         modal.setAttribute("aria-hidden", "false");
+        syncBodyScrollLock();
+        document.getElementById("close-modal-btn").focus();
       }
 
       function openProductPreview(productId) {
@@ -4525,7 +4765,7 @@
           "Search All Things Christmas",
           `
             <label for="global-search-input" class="sr-only">Search products, templates and games</label>
-            <input type="search" id="global-search-input" class="form-input" placeholder="Search greeting cards, trivia, wallpapers, planner..." autofocus />
+            <input type="search" id="global-search-input" class="form-input" placeholder="Search greeting cards, trivia, wallpapers, planner..." />
             <ul class="search-results-list" id="global-search-results"></ul>
           `
         );
@@ -4570,13 +4810,14 @@
               <span style="font-weight:600; color:var(--forest);">${item.title}</span>
               <span class="quiz-badge">${item.type}</span>
             `;
-            link.addEventListener("click", closeAllOverlays);
+            link.addEventListener("click", () => closeAllOverlays(false));
             li.appendChild(link);
             resultsEl.appendChild(li);
           });
         }
 
         renderResults("");
+        searchInput.focus();
         searchInput.addEventListener("input", () => renderResults(searchInput.value));
       }
 
@@ -4585,37 +4826,54 @@
           "Guest Preferences",
           `
             <p style="margin-bottom:1rem; color:var(--charcoal-muted);">
-              No account or sign-in is required to use All Things Christmas. Optionally save your first name below to personalise your card signature locally.
+              No account or sign-in is required to use All Things Christmas. Optionally save your display name below to personalise your card signature locally.
             </p>
             <div class="control-group" style="margin-bottom:1rem;">
               <label class="control-label" for="guest-name-input">Your Display Name (Local Browser Only)</label>
-              <input type="text" id="guest-name-input" class="form-input" maxlength="32" placeholder="e.g., Rohan" />
+              <input type="text" id="guest-name-input" class="form-input" maxlength="32" placeholder="e.g., Your Name" />
             </div>
-            <button type="button" class="btn btn-forest" id="save-guest-name-btn" style="width:100%;">Save Preference Locally</button>
+            <div style="display:flex; flex-wrap:wrap; gap:0.65rem;">
+              <button type="button" class="btn btn-forest" id="save-guest-name-btn" style="flex:1 1 180px;">Save Preference Locally</button>
+              <button type="button" class="btn btn-outline-dark" id="clear-guest-name-btn" style="flex:0 1 auto;">Clear</button>
+            </div>
           `
         );
 
         const guestInput = document.getElementById("guest-name-input");
         guestInput.value = state.guestName;
+        guestInput.focus();
 
-        document.getElementById("save-guest-name-btn").addEventListener("click", () => {
-          state.guestName = guestInput.value.trim();
+        function applyGuestName(newName) {
+          const previousSignature = state.guestName ? "Warmly, " + state.guestName : "";
+          state.guestName = sanitizeGuestName(newName);
           saveToStorage(STORAGE_KEYS.GUEST, state.guestName);
+
+          const senderInput = document.getElementById("card-sender-input");
           if (state.guestName) {
             state.card.sender = "Warmly, " + state.guestName;
-            document.getElementById("card-sender-input").value = state.card.sender;
-            renderCardPreview();
+          } else if (state.card.sender === previousSignature) {
+            state.card.sender = "";
           }
-          closeAllOverlays();
+          if (senderInput) senderInput.value = state.card.sender;
+          renderCardPreview();
+          closeAllOverlays(true);
           showToast(state.guestName ? `Saved guest name: ${state.guestName}` : "Guest name cleared.");
+        }
+
+        document.getElementById("save-guest-name-btn").addEventListener("click", () => {
+          applyGuestName(guestInput.value);
+        });
+
+        document.getElementById("clear-guest-name-btn").addEventListener("click", () => {
+          applyGuestName("");
         });
       }
 
       function initOverlays() {
         document.getElementById("open-cart-btn").addEventListener("click", openCartDrawer);
-        document.getElementById("close-cart-btn").addEventListener("click", closeAllOverlays);
-        document.getElementById("close-modal-btn").addEventListener("click", closeAllOverlays);
-        document.getElementById("overlay-backdrop").addEventListener("click", closeAllOverlays);
+        document.getElementById("close-cart-btn").addEventListener("click", () => closeAllOverlays(true));
+        document.getElementById("close-modal-btn").addEventListener("click", () => closeAllOverlays(true));
+        document.getElementById("overlay-backdrop").addEventListener("click", () => closeAllOverlays(true));
 
         document.getElementById("open-search-btn").addEventListener("click", openSearchModal);
         document.getElementById("open-account-btn").addEventListener("click", openAccountModal);
@@ -4638,22 +4896,28 @@
 
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
-            closeAllOverlays();
+            closeAllOverlays(true);
             const mobileNav = document.getElementById("mobile-nav");
-            if (mobileNav.classList.contains("is-open")) {
-              mobileNav.classList.remove("is-open");
-              mobileNav.setAttribute("aria-hidden", "true");
-              document.getElementById("mobile-menu-toggle").setAttribute("aria-expanded", "false");
+            if (mobileNav && mobileNav.classList.contains("is-open")) {
+              setMobileMenuState(false);
+              document.getElementById("mobile-menu-toggle")?.focus();
             }
           }
         });
       }
 
       /* ----------------------------------------------------------------------
-         11. BOOTSTRAP APPLICATION
+         11. IDEMPOTENT APPLICATION BOOTSTRAP
          ---------------------------------------------------------------------- */
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("copyright-year").textContent = String(new Date().getFullYear());
+      let isInitialized = false;
+
+      function initApp() {
+        if (isInitialized) return;
+        isInitialized = true;
+
+        const yearEl = document.getElementById("copyright-year");
+        if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
         initNavigation();
         initStudio();
         initActivities();
@@ -4662,7 +4926,13 @@
         initPlanner();
         initNewsletter();
         initOverlays();
-      });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initApp);
+      } else {
+        initApp();
+      }
     })();
   </script>
 </body>
