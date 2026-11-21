@@ -53,7 +53,7 @@
       --font-cinzel: 'Cinzel', Georgia, serif;
       --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-      --container-max: 1280px;
+      --container-max: 1320px;
       --gutter: clamp(1rem, 3vw, 2.5rem);
       --header-h: clamp(64px, 8vw, 76px);
       --transition: 240ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -61,7 +61,7 @@
 
     @media (min-width: 1440px) {
       :root {
-        --container-max: 1360px;
+        --container-max: 1380px;
       }
     }
 
@@ -94,7 +94,7 @@
       overflow: hidden;
     }
 
-    img, svg {
+    img, svg, canvas {
       display: block;
       max-width: 100%;
     }
@@ -130,10 +130,42 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+      html.reveal-ready [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
     /* ==========================================================================
-       2. FLUID LAYOUT UTILITIES & TYPOGRAPHY
+       2. SCROLL POP-OUT REVEAL ANIMATIONS
+       ========================================================================== */
+    html.reveal-ready [data-reveal] {
+      opacity: 0;
+      transition:
+        opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    html.reveal-ready [data-reveal="left"] {
+      transform: translate3d(-44px, 14px, 0) scale(0.975);
+    }
+
+    html.reveal-ready [data-reveal="right"] {
+      transform: translate3d(44px, 14px, 0) scale(0.975);
+    }
+
+    html.reveal-ready [data-reveal="zoom"] {
+      transform: translate3d(0, 22px, 0) scale(0.94);
+    }
+
+    html.reveal-ready [data-reveal].is-revealed {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    /* ==========================================================================
+       3. FLUID LAYOUT UTILITIES & TYPOGRAPHY
        ========================================================================== */
     .container {
       width: 100%;
@@ -144,6 +176,7 @@
 
     .section {
       padding-block: clamp(3.25rem, 6vw, 6rem);
+      overflow-x: clip;
     }
 
     .eyebrow {
@@ -294,14 +327,14 @@
     }
 
     /* ==========================================================================
-       3. STICKY NAVIGATION & RESPONSIVE MOBILE DRAWER
+       4. STICKY NAVIGATION (ALL SECTIONS ONE-CLICK) & MOBILE DRAWER
        ========================================================================== */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 900;
       height: var(--header-h);
-      background-color: rgba(246, 241, 232, 0.94);
+      background-color: rgba(246, 241, 232, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-subtle);
@@ -318,20 +351,20 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .brand-logo {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.5rem;
       font-family: var(--font-serif);
-      font-size: clamp(1.02rem, 2.2vw, 1.38rem);
+      font-size: clamp(1rem, 1.8vw, 1.32rem);
       font-weight: 700;
       color: var(--forest);
       letter-spacing: -0.01em;
       white-space: nowrap;
-      min-width: 0;
+      flex-shrink: 0;
     }
 
     .brand-mark {
@@ -346,21 +379,14 @@
       border: 1px solid var(--gold);
     }
 
-    @media (min-width: 420px) {
-      .brand-mark {
-        width: 32px;
-        height: 32px;
-      }
-    }
-
     .nav-links {
       display: none;
       list-style: none;
       align-items: center;
-      gap: clamp(1.25rem, 2.5vw, 2.25rem);
+      gap: clamp(0.75rem, 1.35vw, 1.45rem);
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 1060px) {
       .nav-links {
         display: flex;
       }
@@ -368,10 +394,11 @@
 
     .nav-link {
       position: relative;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       font-weight: 500;
       color: var(--charcoal);
       padding-block: 0.4rem;
+      white-space: nowrap;
       transition: color var(--transition);
     }
 
@@ -409,7 +436,7 @@
 
     @media (min-width: 420px) {
       .nav-actions {
-        gap: 0.45rem;
+        gap: 0.35rem;
       }
     }
 
@@ -427,8 +454,8 @@
 
     @media (min-width: 400px) {
       .icon-btn {
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
       }
     }
 
@@ -438,8 +465,8 @@
 
     .cart-badge {
       position: absolute;
-      top: 3px;
-      right: 2px;
+      top: 2px;
+      right: 1px;
       min-width: 18px;
       height: 18px;
       padding-inline: 4px;
@@ -458,13 +485,13 @@
       display: inline-flex;
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 1060px) {
       .mobile-menu-btn {
         display: none;
       }
     }
 
-    /* Mobile Navigation Drawer */
+    /* Mobile / Tablet Navigation Drawer */
     .mobile-nav {
       position: fixed;
       top: var(--header-h);
@@ -475,7 +502,7 @@
       background-color: var(--ivory);
       border-bottom: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-lg);
-      padding: 1.25rem var(--gutter) 1.75rem;
+      padding: 1.15rem var(--gutter) 1.65rem;
       z-index: 890;
       transform: translateY(-105%);
       opacity: 0;
@@ -491,20 +518,27 @@
 
     .mobile-nav-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      margin-bottom: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+      margin-bottom: 1.15rem;
+    }
+
+    @media (min-width: 560px) {
+      .mobile-nav-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.35rem 0.75rem;
+      }
     }
 
     .mobile-nav-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.85rem 0.75rem;
+      padding: 0.75rem 0.85rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 600;
       color: var(--forest);
     }
@@ -516,7 +550,7 @@
     }
 
     /* ==========================================================================
-       4. HERO SECTION
+       5. HERO SECTION & 3D CHRISTMAS TREE STAGE
        ========================================================================== */
     .hero {
       position: relative;
@@ -556,7 +590,7 @@
 
     @media (min-width: 960px) {
       .hero-grid {
-        grid-template-columns: 1.08fr 0.92fr;
+        grid-template-columns: 1.06fr 0.94fr;
       }
     }
 
@@ -620,7 +654,7 @@
       flex-shrink: 0;
     }
 
-    /* Editorial Architectural Illustration Frame */
+    /* Editorial Architectural 3D Tree Frame */
     .hero-visual {
       position: relative;
       max-width: min(490px, 100%);
@@ -631,16 +665,52 @@
     .hero-arch-frame {
       position: relative;
       border-radius: 220px 220px var(--radius-lg) var(--radius-lg);
-      border: 1px solid rgba(198, 166, 107, 0.5);
+      border: 1px solid rgba(198, 166, 107, 0.55);
       padding: clamp(0.55rem, 1.5vw, 0.85rem);
-      background: linear-gradient(180deg, rgba(198, 166, 107, 0.14), rgba(16, 43, 36, 0.6));
+      background: linear-gradient(180deg, rgba(198, 166, 107, 0.16), rgba(16, 43, 36, 0.65));
       box-shadow: var(--shadow-lg);
     }
 
     .hero-arch-inner {
+      position: relative;
+      aspect-ratio: 460 / 520;
+      width: 100%;
       border-radius: 210px 210px var(--radius-md) var(--radius-md);
       overflow: hidden;
-      background-color: var(--forest-deep);
+      background: radial-gradient(circle at 50% 44%, #1A443A 0%, #0D241E 75%, #091915 100%);
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .hero-arch-inner:active {
+      cursor: grabbing;
+    }
+
+    #hero-tree-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .tree-pattern-pill {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      background-color: rgba(16, 43, 36, 0.78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: var(--gold-light);
+      border: 1px solid rgba(198, 166, 107, 0.42);
+      border-radius: 999px;
+      padding: 0.28rem 0.85rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     .hero-floating-tag {
@@ -648,6 +718,7 @@
       bottom: -14px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 4;
       max-width: calc(100% - 1.5rem);
       background-color: var(--ivory);
       color: var(--forest);
@@ -672,7 +743,7 @@
     }
 
     /* ==========================================================================
-       5. EXPLORE / INTRODUCTION SECTION
+       6. EXPLORE / INTRODUCTION SECTION
        ========================================================================== */
     .explore-grid {
       display: grid;
@@ -737,7 +808,7 @@
     }
 
     /* ==========================================================================
-       6. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
+       7. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
        ========================================================================== */
     .studio-section {
       background-color: var(--white);
@@ -822,7 +893,6 @@
       color: var(--charcoal-muted);
     }
 
-    /* Template Selector Grid */
     .template-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -987,7 +1057,6 @@
       align-items: center;
     }
 
-    /* The Exportable Greeting Card Canvas */
     .greeting-card {
       position: relative;
       width: 100%;
@@ -1025,7 +1094,6 @@
       padding: clamp(0.95rem, 2.5vw, 1.35rem) clamp(0.75rem, 2vw, 1.1rem);
     }
 
-    /* Template-Specific Structural Variations */
     .greeting-card.tpl-classic .card-inner-frame {
       border: 1.5px solid rgba(198, 166, 107, 0.72);
       outline: 1px solid rgba(198, 166, 107, 0.3);
@@ -1145,7 +1213,7 @@
     }
 
     /* ==========================================================================
-       7. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
+       8. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
        ========================================================================== */
     .activities-tabs {
       display: flex;
@@ -1383,7 +1451,6 @@
       margin-top: 0.2rem;
     }
 
-    /* Side Activity Cards */
     .activity-sidebar {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
@@ -1423,7 +1490,7 @@
     }
 
     /* ==========================================================================
-       8. CHRISTMAS SHOP (DIGITAL CATALOGUE)
+       9. CHRISTMAS SHOP (DIGITAL CATALOGUE)
        ========================================================================== */
     .shop-section {
       background-color: var(--white);
@@ -1587,7 +1654,7 @@
     }
 
     /* ==========================================================================
-       9. CHRISTMAS COUNTDOWN BANNER
+       10. CHRISTMAS COUNTDOWN BANNER
        ========================================================================== */
     .countdown-section {
       background-color: var(--forest);
@@ -1654,7 +1721,7 @@
     }
 
     /* ==========================================================================
-       10. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
+       11. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
        ========================================================================== */
     .planner-summary {
       display: grid;
@@ -1855,7 +1922,7 @@
     }
 
     /* ==========================================================================
-       11. NEWSLETTER & FOOTER
+       12. NEWSLETTER & FOOTER
        ========================================================================== */
     .newsletter-section {
       background-color: var(--ivory-dark);
@@ -2002,7 +2069,7 @@
     }
 
     /* ==========================================================================
-       12. DRAWERS & MODALS (CART, SEARCH, PRODUCT PREVIEW, ACCOUNT, LEGAL)
+       13. DRAWERS & MODALS (CART, SEARCH, PRODUCT PREVIEW, ACCOUNT, LEGAL)
        ========================================================================== */
     .overlay-backdrop {
       position: fixed;
@@ -2020,7 +2087,6 @@
       visibility: visible;
     }
 
-    /* Slide-over Cart Drawer */
     .cart-drawer {
       position: fixed;
       top: 0;
@@ -2171,7 +2237,6 @@
       margin-bottom: 0.85rem;
     }
 
-    /* Centered Modal */
     .modal-dialog {
       position: fixed;
       top: 50%;
@@ -2245,7 +2310,6 @@
       border-color: var(--gold);
     }
 
-    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 1rem;
@@ -2277,7 +2341,7 @@
 <body>
 
   <!-- ========================================================================
-       HEADER & STICKY NAVIGATION
+       HEADER & COMPLETE ONE-CLICK NAVIGATION
        ======================================================================== -->
   <header class="site-header" id="site-header">
     <div class="container nav-bar">
@@ -2295,8 +2359,11 @@
           <li><a href="#home" class="nav-link is-active" data-nav="home">Home</a></li>
           <li><a href="#explore" class="nav-link" data-nav="explore">Explore</a></li>
           <li><a href="#studio" class="nav-link" data-nav="studio">Create</a></li>
+          <li><a href="#activities" class="nav-link" data-nav="activities">Games</a></li>
           <li><a href="#shop" class="nav-link" data-nav="shop">Shop</a></li>
+          <li><a href="#countdown" class="nav-link" data-nav="countdown">Countdown</a></li>
           <li><a href="#planner" class="nav-link" data-nav="planner">Plan</a></li>
+          <li><a href="#newsletter" class="nav-link" data-nav="newsletter">Newsletter</a></li>
         </ul>
       </nav>
 
@@ -2339,26 +2406,29 @@
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
+  <!-- Mobile / Tablet Navigation Drawer -->
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <ul class="mobile-nav-list">
       <li><a href="#home" class="mobile-nav-link" data-nav="home">Home <span aria-hidden="true">→</span></a></li>
       <li><a href="#explore" class="mobile-nav-link" data-nav="explore">Explore <span aria-hidden="true">→</span></a></li>
       <li><a href="#studio" class="mobile-nav-link" data-nav="studio">Create <span aria-hidden="true">→</span></a></li>
+      <li><a href="#activities" class="mobile-nav-link" data-nav="activities">Games <span aria-hidden="true">→</span></a></li>
       <li><a href="#shop" class="mobile-nav-link" data-nav="shop">Shop <span aria-hidden="true">→</span></a></li>
+      <li><a href="#countdown" class="mobile-nav-link" data-nav="countdown">Countdown <span aria-hidden="true">→</span></a></li>
       <li><a href="#planner" class="mobile-nav-link" data-nav="planner">Plan <span aria-hidden="true">→</span></a></li>
+      <li><a href="#newsletter" class="mobile-nav-link" data-nav="newsletter">Newsletter <span aria-hidden="true">→</span></a></li>
     </ul>
     <a href="#studio" class="btn btn-primary" style="width:100%;">Create a Christmas Card</a>
   </div>
 
   <main>
     <!-- ======================================================================
-         SECTION 1: HERO
+         SECTION 1: HERO WITH INTERACTIVE 3D CHRISTMAS TREE
          ====================================================================== -->
     <section class="hero" id="home" aria-labelledby="hero-heading">
       <div class="hero-snow" aria-hidden="true"></div>
       <div class="container hero-grid">
-        <div>
+        <div data-reveal="left">
           <span class="eyebrow eyebrow--gold">Season’s Curated Destination</span>
           <h1 class="hero-title" id="hero-heading">Make this Christmas <em>unforgettable.</em></h1>
           <p class="hero-subtitle">
@@ -2375,83 +2445,11 @@
           </div>
         </div>
 
-        <div class="hero-visual">
+        <div class="hero-visual" data-reveal="right">
           <div class="hero-arch-frame">
-            <div class="hero-arch-inner">
-              <!-- Editorial Architectural Illustration: Warm Living Room & Golden Christmas Tree -->
-              <svg viewBox="0 0 460 520" role="img" aria-label="Editorial illustration of an illuminated Christmas tree with warm golden lights inside a cosy evening room">
-                <defs>
-                  <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#0E2620" />
-                    <stop offset="100%" stop-color="#1A4238" />
-                  </linearGradient>
-                  <radialGradient id="treeGlow" cx="50%" cy="48%" r="45%">
-                    <stop offset="0%" stop-color="#C6A66B" stop-opacity="0.34" />
-                    <stop offset="100%" stop-color="#102B24" stop-opacity="0" />
-                  </radialGradient>
-                  <linearGradient id="treeBody" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#265A4D" />
-                    <stop offset="100%" stop-color="#13332B" />
-                  </linearGradient>
-                </defs>
-                <!-- Evening Backdrop -->
-                <rect width="460" height="520" fill="url(#skyGrad)" />
-                <circle cx="230" cy="250" r="195" fill="url(#treeGlow)" />
-
-                <!-- Distant Window Panes -->
-                <rect x="65" y="95" width="330" height="315" rx="165" fill="none" stroke="#C6A66B" stroke-opacity="0.28" stroke-width="1.5" />
-                <line x1="230" y1="95" x2="230" y2="410" stroke="#C6A66B" stroke-opacity="0.16" stroke-width="1" />
-                <line x1="65" y1="265" x2="395" y2="265" stroke="#C6A66B" stroke-opacity="0.16" stroke-width="1" />
-
-                <!-- Subtle Stars Outside -->
-                <circle cx="130" cy="165" r="2" fill="#DFC694" opacity="0.8" />
-                <circle cx="335" cy="155" r="2.2" fill="#DFC694" opacity="0.85" />
-                <circle cx="110" cy="225" r="1.5" fill="#F6F1E8" opacity="0.6" />
-                <circle cx="350" cy="235" r="1.5" fill="#F6F1E8" opacity="0.65" />
-
-                <!-- Floor & Hearth Base -->
-                <rect x="0" y="412" width="460" height="108" fill="#0B1F1A" />
-                <line x1="35" y1="412" x2="425" y2="412" stroke="#C6A66B" stroke-opacity="0.45" stroke-width="1.5" />
-
-                <!-- Tree Trunk & Brass Stand -->
-                <rect x="218" y="376" width="24" height="36" fill="#4B2E24" />
-                <path d="M198 412 L262 412 L252 400 L208 400 Z" fill="#C6A66B" />
-
-                <!-- Layered Evergreen Tiers -->
-                <polygon points="230,225 112,380 348,380" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.35" stroke-width="1" />
-                <polygon points="230,175 134,315 326,315" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.4" stroke-width="1" />
-                <polygon points="230,130 156,248 304,248" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.45" stroke-width="1" />
-                <polygon points="230,92 182,182 278,182" fill="url(#treeBody)" stroke="#C6A66B" stroke-opacity="0.55" stroke-width="1" />
-
-                <!-- Golden Ribbon Garland -->
-                <path d="M194 166 Q230 186 266 166" fill="none" stroke="#DFC694" stroke-width="1.8" stroke-linecap="round" />
-                <path d="M168 232 Q230 262 292 232" fill="none" stroke="#DFC694" stroke-width="2" stroke-linecap="round" />
-                <path d="M144 302 Q230 338 316 302" fill="none" stroke="#DFC694" stroke-width="2.2" stroke-linecap="round" />
-                <path d="M122 365 Q230 402 338 365" fill="none" stroke="#DFC694" stroke-width="2.2" stroke-linecap="round" />
-
-                <!-- Burgundy & Champagne Baubles -->
-                <circle cx="212" cy="158" r="5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
-                <circle cx="248" cy="168" r="4.5" fill="#C6A66B" />
-                <circle cx="192" cy="222" r="6" fill="#C6A66B" />
-                <circle cx="235" cy="214" r="5.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
-                <circle cx="268" cy="228" r="5" fill="#F6F1E8" />
-                <circle cx="174" cy="292" r="6.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
-                <circle cx="222" cy="285" r="6" fill="#C6A66B" />
-                <circle cx="282" cy="295" r="6.5" fill="#762D38" stroke="#DFC694" stroke-width="1" />
-                <circle cx="155" cy="356" r="7" fill="#C6A66B" />
-                <circle cx="206" cy="352" r="6.5" fill="#F6F1E8" />
-                <circle cx="256" cy="358" r="7" fill="#762D38" stroke="#DFC694" stroke-width="1" />
-                <circle cx="305" cy="352" r="6.5" fill="#C6A66B" />
-
-                <!-- Crown Star -->
-                <polygon points="230,62 235,77 251,77 238,86 243,101 230,92 217,101 222,86 209,77 225,77" fill="#DFC694" />
-
-                <!-- Wrapped Gift Boxes Beneath Tree -->
-                <rect x="128" y="384" width="44" height="28" rx="2" fill="#762D38" stroke="#C6A66B" stroke-width="1" />
-                <line x1="150" y1="384" x2="150" y2="412" stroke="#DFC694" stroke-width="2" />
-                <rect x="284" y="388" width="52" height="24" rx="2" fill="#F6F1E8" stroke="#C6A66B" stroke-width="1" />
-                <line x1="310" y1="388" x2="310" y2="412" stroke="#762D38" stroke-width="2" />
-              </svg>
+            <div class="hero-arch-inner" id="hero-tree-stage">
+              <div class="tree-pattern-pill" id="tree-pattern-label" aria-live="polite">Tri-Color Glow · Drag to Spin</div>
+              <canvas id="hero-tree-canvas" role="img" aria-label="Interactive 3D rotating Christmas tree dusted with snow and illuminated with glowing multi-colour lights that transition every five seconds"></canvas>
             </div>
           </div>
           <div class="hero-floating-tag">
@@ -2467,7 +2465,7 @@
          ====================================================================== -->
     <section class="section" id="explore" aria-labelledby="explore-heading">
       <div class="container">
-        <div class="section-header section-header--center">
+        <div class="section-header section-header--center" data-reveal="zoom">
           <span class="eyebrow">The Festive Edit</span>
           <h2 class="section-heading" id="explore-heading">Everything Christmas. All in one place.</h2>
           <p class="section-lead">
@@ -2477,7 +2475,7 @@
 
         <div class="explore-grid">
           <!-- Pillar 1 -->
-          <article class="pillar-card">
+          <article class="pillar-card" data-reveal="left" style="--reveal-delay: 0ms;">
             <div class="pillar-art" aria-hidden="true">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
                 <rect x="22" y="14" width="52" height="68" rx="4" fill="#173B32" stroke="#C6A66B" stroke-width="2" />
@@ -2492,7 +2490,7 @@
           </article>
 
           <!-- Pillar 2 -->
-          <article class="pillar-card">
+          <article class="pillar-card" data-reveal="right" style="--reveal-delay: 80ms;">
             <div class="pillar-art" aria-hidden="true">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
                 <circle cx="48" cy="52" r="24" fill="#762D38" stroke="#C6A66B" stroke-width="2" />
@@ -2509,7 +2507,7 @@
           </article>
 
           <!-- Pillar 3 -->
-          <article class="pillar-card">
+          <article class="pillar-card" data-reveal="left" style="--reveal-delay: 160ms;">
             <div class="pillar-art" aria-hidden="true">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
                 <rect x="20" y="22" width="56" height="54" rx="6" fill="#FFFFFF" stroke="#173B32" stroke-width="2" />
@@ -2526,7 +2524,7 @@
           </article>
 
           <!-- Pillar 4 -->
-          <article class="pillar-card">
+          <article class="pillar-card" data-reveal="right" style="--reveal-delay: 240ms;">
             <div class="pillar-art" aria-hidden="true">
               <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
                 <rect x="24" y="36" width="48" height="40" rx="4" fill="#173B32" stroke="#C6A66B" stroke-width="2" />
@@ -2550,14 +2548,14 @@
     <section class="section studio-section" id="studio" aria-labelledby="studio-heading">
       <div class="container">
         <div class="studio-promo-bar">
-          <div>
+          <div data-reveal="left">
             <span class="eyebrow">Christmas Studio</span>
             <h2 class="section-heading" id="studio-heading">Make it personal.</h2>
             <p class="section-lead">
               Create beautiful Christmas greetings for the people who matter most. Choose an editorial template, write your note and download a ready-to-share PNG in seconds.
             </p>
           </div>
-          <div class="studio-steps" aria-label="Card Creation Steps">
+          <div class="studio-steps" aria-label="Card Creation Steps" data-reveal="right">
             <span class="step-pill">1. Template</span>
             <span class="step-pill">2. Message</span>
             <span class="step-pill">3. Style</span>
@@ -2567,7 +2565,7 @@
 
         <div class="studio-workspace">
           <!-- Left Column: Editor Controls -->
-          <div class="studio-controls" aria-label="Greeting Card Customisation Controls">
+          <div class="studio-controls" aria-label="Greeting Card Customisation Controls" data-reveal="left">
             <div class="control-group">
               <span class="control-label">
                 <span>Step 1 · Select a Template</span>
@@ -2631,7 +2629,7 @@
           </div>
 
           <!-- Right Column: Live Card Preview & Export -->
-          <div class="studio-preview-column">
+          <div class="studio-preview-column" data-reveal="right">
             <div class="preview-stage">
               <div class="greeting-card tpl-classic" id="card-preview-canvas" style="background-color:#173B32; color:#F6F1E8; font-family:'Playfair Display', Georgia, serif;">
                 <div class="card-ornament-layer" id="card-ornament-layer" aria-hidden="true"></div>
@@ -2679,7 +2677,7 @@
          ====================================================================== -->
     <section class="section" id="activities" aria-labelledby="activities-heading">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-reveal="left">
           <span class="eyebrow">Festive Games &amp; Quizzes</span>
           <h2 class="section-heading" id="activities-heading">Bring everyone together.</h2>
           <p class="section-lead">
@@ -2687,7 +2685,7 @@
           </p>
         </div>
 
-        <div class="activities-tabs" role="tablist" aria-label="Christmas Activities">
+        <div class="activities-tabs" role="tablist" aria-label="Christmas Activities" data-reveal="right">
           <button type="button" class="activity-tab-btn is-active" role="tab" aria-selected="true" data-activity="trivia">
             <span>✦ Christmas Trivia (10 Questions)</span>
           </button>
@@ -2701,12 +2699,12 @@
 
         <div class="activity-layout">
           <!-- Main Interactive Game Stage -->
-          <div class="quiz-card" id="activity-stage" aria-live="polite">
+          <div class="quiz-card" id="activity-stage" aria-live="polite" data-reveal="left">
             <!-- Dynamically rendered by JS -->
           </div>
 
           <!-- Activity Overview Cards -->
-          <aside class="activity-sidebar" aria-label="Available Games Overview">
+          <aside class="activity-sidebar" aria-label="Available Games Overview" data-reveal="right">
             <div class="mini-activity-card is-current" data-card-activity="trivia">
               <h3>Christmas Trivia</h3>
               <p>Ten curated questions spanning carols, history, global traditions and holiday lore.</p>
@@ -2734,7 +2732,7 @@
          ====================================================================== -->
     <section class="section shop-section" id="shop" aria-labelledby="shop-heading">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-reveal="left">
           <span class="eyebrow">Digital Curations</span>
           <h2 class="section-heading" id="shop-heading">Thoughtful little things. Beautifully designed.</h2>
           <p class="section-lead">
@@ -2742,7 +2740,7 @@
           </p>
         </div>
 
-        <div class="shop-toolbar">
+        <div class="shop-toolbar" data-reveal="right">
           <div class="filter-pills" id="shop-filters" role="group" aria-label="Filter Products by Category">
             <button type="button" class="filter-pill is-active" data-filter="all">All Editions</button>
             <button type="button" class="filter-pill" data-filter="Cards &amp; Tags">Cards &amp; Tags</button>
@@ -2764,7 +2762,7 @@
          ====================================================================== -->
     <section class="section countdown-section" id="countdown" aria-labelledby="countdown-heading">
       <div class="container">
-        <div class="countdown-box">
+        <div class="countdown-box" data-reveal="zoom">
           <span class="eyebrow eyebrow--gold">Counting the Moments</span>
           <h2 class="section-heading section-heading--light" id="countdown-heading">Christmas is getting closer.</h2>
           <p class="section-lead section-lead--light" style="margin-inline:auto;" id="countdown-target-label">
@@ -2802,7 +2800,7 @@
          ====================================================================== -->
     <section class="section" id="planner" aria-labelledby="planner-heading">
       <div class="container">
-        <div class="section-header" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1rem;">
+        <div class="section-header" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1rem;" data-reveal="left">
           <div>
             <span class="eyebrow">Holiday Organiser</span>
             <h2 class="section-heading" id="planner-heading">Plan your Christmas gifting.</h2>
@@ -2815,7 +2813,7 @@
 
         <!-- Budget Summary Cards -->
         <div class="planner-summary" aria-label="Budget Summary">
-          <div class="budget-stat">
+          <div class="budget-stat" data-reveal="left" style="--reveal-delay: 0ms;">
             <div class="budget-stat-label">Overall Budget</div>
             <div class="budget-stat-value" id="stat-total-budget">₹15,000</div>
             <div class="budget-edit-row">
@@ -2825,19 +2823,19 @@
             </div>
           </div>
 
-          <div class="budget-stat">
+          <div class="budget-stat" data-reveal="right" style="--reveal-delay: 70ms;">
             <div class="budget-stat-label">Total Planned Gifts</div>
             <div class="budget-stat-value" id="stat-total-estimated">₹0</div>
             <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-item-count">0 gifts listed</div>
           </div>
 
-          <div class="budget-stat">
+          <div class="budget-stat" data-reveal="left" style="--reveal-delay: 140ms;">
             <div class="budget-stat-label">Purchased Amount</div>
             <div class="budget-stat-value" id="stat-total-purchased">₹0</div>
             <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-purchased-count">0 of 0 purchased</div>
           </div>
 
-          <div class="budget-stat">
+          <div class="budget-stat" data-reveal="right" style="--reveal-delay: 210ms;">
             <div class="budget-stat-label">Remaining Budget</div>
             <div class="budget-stat-value" id="stat-remaining-budget">₹15,000</div>
             <div style="font-size:0.78rem; color:var(--charcoal-muted); margin-top:0.35rem;" id="stat-budget-status">Available after purchased gifts</div>
@@ -2846,7 +2844,7 @@
 
         <div class="planner-grid">
           <!-- Add Gift Form -->
-          <div class="planner-card">
+          <div class="planner-card" data-reveal="left">
             <h3>Add a Gift Idea</h3>
             <form class="planner-form" id="gift-form" novalidate>
               <div class="control-group">
@@ -2871,7 +2869,7 @@
           </div>
 
           <!-- Checklist Display -->
-          <div class="planner-card">
+          <div class="planner-card" data-reveal="right">
             <div class="gift-list-header">
               <h3 style="margin-bottom:0;">Gift Checklist</h3>
               <div class="filter-pills" id="planner-filter-pills">
@@ -2893,7 +2891,7 @@
          ====================================================================== -->
     <section class="section newsletter-section" id="newsletter" aria-labelledby="newsletter-heading">
       <div class="container">
-        <div class="newsletter-card">
+        <div class="newsletter-card" data-reveal="zoom">
           <span class="eyebrow">Seasonal Notes</span>
           <h2 class="section-heading" id="newsletter-heading">Make room for a little more Christmas.</h2>
           <p class="section-lead" style="margin-inline:auto;">
@@ -2936,8 +2934,11 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#explore">Explore</a></li>
             <li><a href="#studio">Create a Card</a></li>
+            <li><a href="#activities">Festive Games</a></li>
             <li><a href="#shop">Christmas Shop</a></li>
+            <li><a href="#countdown">Christmas Countdown</a></li>
             <li><a href="#planner">Gift Planner</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
           </ul>
         </div>
 
@@ -3013,7 +3014,7 @@
     </div>
   </aside>
 
-  <!-- General Purpose Modal (Search, Product Preview, Guest Account, Legal Policies) -->
+  <!-- General Purpose Modal -->
   <div class="modal-dialog" id="app-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-header">
       <h2 class="modal-title" id="modal-title">Modal Title</h2>
@@ -3028,7 +3029,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- ========================================================================
-       APPLICATION JAVASCRIPT (CLEAN, MODULAR, SAFE DOM MANIPULATION)
+       APPLICATION JAVASCRIPT
        ======================================================================== -->
   <script>
     (function () {
@@ -3569,7 +3570,610 @@
       }
 
       /* ----------------------------------------------------------------------
-         3. NAVIGATION, MOBILE DRAWER & SCROLL SPY
+         3. SCROLL POP-OUT REVEAL ENGINE (LEFT / RIGHT / ZOOM)
+         ---------------------------------------------------------------------- */
+      let revealObserver = null;
+
+      function initScrollReveal() {
+        const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.documentElement.classList.add("reveal-ready");
+
+        if (prefersReduced || !("IntersectionObserver" in window)) {
+          document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-revealed"));
+          return;
+        }
+
+        revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px"
+          }
+        );
+
+        observeRevealElements(document);
+      }
+
+      function observeRevealElements(rootEl) {
+        if (!rootEl) return;
+        const targets = rootEl.querySelectorAll("[data-reveal]:not(.is-revealed)");
+        targets.forEach((el) => {
+          if (revealObserver) {
+            revealObserver.observe(el);
+          } else {
+            el.classList.add("is-revealed");
+          }
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         4. INTERACTIVE 3D CHRISTMAS TREE WITH SNOW & 5-SEC ALTERNATING LIGHTS
+         ---------------------------------------------------------------------- */
+      function init3DChristmasTree() {
+        const stage = document.getElementById("hero-tree-stage");
+        const canvas = document.getElementById("hero-tree-canvas");
+        const patternLabelEl = document.getElementById("tree-pattern-label");
+        if (!stage || !canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Luminous festive bulb colors
+        const PALETTE = {
+          RED:     { r: 255, g: 42,  b: 78 },
+          BLUE:    { r: 42,  g: 157, b: 255 },
+          GREEN:   { r: 32,  g: 226, b: 118 },
+          GOLD:    { r: 255, g: 208, b: 92 },
+          MAGENTA: { r: 218, g: 92,  b: 255 },
+          CYAN:    { r: 52,  g: 238, b: 232 }
+        };
+
+        const PATTERN_MODES = [
+          {
+            name: "Tri-Color Alternating",
+            assign: (bulbs, shift) => {
+              const seq = [PALETTE.RED, PALETTE.BLUE, PALETTE.GREEN];
+              bulbs.forEach((b, i) => {
+                b.targetColor = { ...seq[(i + shift) % 3] };
+              });
+            }
+          },
+          {
+            name: "Jewel Spiral Shift",
+            assign: (bulbs, shift) => {
+              const seq = [PALETTE.RED, PALETTE.BLUE, PALETTE.GREEN, PALETTE.GOLD];
+              bulbs.forEach((b, i) => {
+                b.targetColor = { ...seq[(i + shift) % 4] };
+              });
+            }
+          },
+          {
+            name: "Random Festive Scatter",
+            assign: (bulbs) => {
+              const keys = Object.keys(PALETTE);
+              let prevKey = "";
+              bulbs.forEach((b) => {
+                const candidates = keys.filter((k) => k !== prevKey);
+                const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+                prevKey = chosen;
+                b.targetColor = { ...PALETTE[chosen] };
+              });
+            }
+          },
+          {
+            name: "Starlight Contrast",
+            assign: (bulbs) => {
+              const pairs = [
+                [PALETTE.RED, PALETTE.BLUE],
+                [PALETTE.GREEN, PALETTE.RED],
+                [PALETTE.BLUE, PALETTE.GOLD],
+                [PALETTE.MAGENTA, PALETTE.CYAN]
+              ];
+              const pair = pairs[Math.floor(Math.random() * pairs.length)];
+              bulbs.forEach((b, i) => {
+                b.targetColor = { ...pair[i % 2] };
+              });
+            }
+          },
+          {
+            name: "Tiered Aurora Bands",
+            assign: (bulbs, shift) => {
+              const seq = [PALETTE.RED, PALETTE.BLUE, PALETTE.GREEN, PALETTE.MAGENTA, PALETTE.GOLD];
+              bulbs.forEach((b) => {
+                const band = Math.floor(((b.y + 150) / 310) * 6);
+                b.targetColor = { ...seq[(band + shift) % seq.length] };
+              });
+            }
+          },
+          {
+            name: "Midnight Carnival",
+            assign: (bulbs, shift) => {
+              const seq = [PALETTE.BLUE, PALETTE.GREEN, PALETTE.RED, PALETTE.CYAN, PALETTE.GOLD, PALETTE.MAGENTA];
+              bulbs.forEach((b, i) => {
+                b.targetColor = { ...seq[(i * 2 + shift) % seq.length] };
+              });
+            }
+          }
+        ];
+
+        // Construct 3D Tree Geometry (y: -165 top star to +155 base)
+        const boughs = [];
+        const snowPatches = [];
+        const tiers = 7;
+
+        for (let t = 0; t < tiers; t++) {
+          const tierProgress = t / (tiers - 1); // 0 = top, 1 = bottom
+          const yTop = -142 + t * 38;
+          const yBot = yTop + 56;
+          const rTop = 10 + tierProgress * 32;
+          const rBot = 36 + tierProgress * 102;
+          const boughCount = Math.round(14 + tierProgress * 18);
+
+          for (let i = 0; i < boughCount; i++) {
+            const angle = (i / boughCount) * Math.PI * 2 + t * 0.42;
+            const jitter = Math.sin(i * 3.7 + t * 1.9) * 5;
+            const droop = 6 + tierProgress * 8;
+
+            boughs.push({
+              angle,
+              yTop,
+              yBot: yBot + droop,
+              rTop,
+              rBot: rBot + jitter,
+              spreadAngle: (Math.PI * 2) / boughCount * 0.85,
+              shadeOffset: Math.cos(i * 2.1 + t) * 10
+            });
+
+            // Place realistic 3D snow clusters here and there across the boughs
+            const hasSnow = ((i * 7 + t * 3) % 5 === 0) || ((i + t * 2) % 4 === 1);
+            if (hasSnow) {
+              const snowDist = rTop + (rBot - rTop) * (0.58 + ((i * 13) % 10) * 0.032);
+              const snowY = yTop + (yBot - yTop) * 0.62 + droop * 0.55;
+              snowPatches.push({
+                angle: angle + 0.04,
+                radius: snowDist,
+                y: snowY,
+                sizeX: 11 + (i % 4) * 3.2 + tierProgress * 4,
+                sizeY: 5 + (i % 3) * 1.6
+              });
+            }
+          }
+        }
+
+        // Construct 54 3D Spiral Fairy Lights starting with Red -> Blue -> Green alternating
+        const lights = [];
+        const totalLights = 54;
+        const initialTriSeq = [PALETTE.RED, PALETTE.BLUE, PALETTE.GREEN];
+
+        for (let i = 0; i < totalLights; i++) {
+          const frac = i / (totalLights - 1); // 0 = bottom, 1 = near top
+          const y = 148 - frac * 282;
+          const maxR = 132 * (1 - frac * 0.86) + 8;
+          const spiralAngle = frac * Math.PI * 2 * 5.2; // 5.2 full wraps around the 3D tree
+          const initCol = initialTriSeq[i % 3];
+
+          lights.push({
+            index: i,
+            angle: spiralAngle,
+            radius: maxR,
+            y,
+            phase: i * 0.65,
+            currentColor: { ...initCol },
+            targetColor: { ...initCol }
+          });
+        }
+
+        // Ambient 3D Snowflakes inside the arched window
+        const ambientSnow = Array.from({ length: 46 }, (_, idx) => ({
+          x: ((idx * 73) % 360) - 180,
+          y: ((idx * 137) % 420) - 210,
+          z: ((idx * 97) % 260) - 130,
+          r: 1.2 + (idx % 3) * 0.75,
+          speedY: 14 + (idx % 5) * 4,
+          driftPhase: idx * 0.9
+        }));
+
+        // Pattern switching every 5.0 seconds
+        let currentPatternIdx = 0;
+        let patternStep = 0;
+        let lastPatternSwitchTime = performance.now();
+        const PATTERN_INTERVAL_MS = 5000;
+
+        function advanceLightPattern(now) {
+          patternStep += 1;
+          let nextIdx = Math.floor(Math.random() * PATTERN_MODES.length);
+          if (nextIdx === currentPatternIdx) {
+            nextIdx = (currentPatternIdx + 1) % PATTERN_MODES.length;
+          }
+          currentPatternIdx = nextIdx;
+          const mode = PATTERN_MODES[currentPatternIdx];
+          mode.assign(lights, patternStep);
+          lastPatternSwitchTime = now;
+          if (patternLabelEl) {
+            patternLabelEl.textContent = `${mode.name} · Drag to Spin`;
+          }
+        }
+
+        // Camera & Interaction State
+        let rotY = 0.25;
+        let autoSpinSpeed = prefersReduced ? 0 : 0.42; // radians per second
+        let isDragging = false;
+        let lastPointerX = 0;
+        let dragVelocity = 0;
+
+        stage.addEventListener("pointerdown", (e) => {
+          isDragging = true;
+          lastPointerX = e.clientX;
+          dragVelocity = 0;
+          stage.setPointerCapture(e.pointerId);
+        });
+
+        stage.addEventListener("pointermove", (e) => {
+          if (!isDragging) return;
+          const dx = e.clientX - lastPointerX;
+          lastPointerX = e.clientX;
+          const deltaAngle = dx * 0.011;
+          rotY += deltaAngle;
+          dragVelocity = deltaAngle * 45;
+        });
+
+        const endDrag = (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (e && e.pointerId !== undefined && stage.hasPointerCapture(e.pointerId)) {
+            stage.releasePointerCapture(e.pointerId);
+          }
+        };
+        stage.addEventListener("pointerup", endDrag);
+        stage.addEventListener("pointercancel", endDrag);
+
+        // HiDPI Responsive Resize
+        let viewW = 460;
+        let viewH = 520;
+        function resizeCanvas() {
+          const rect = stage.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          viewW = rect.width;
+          viewH = rect.height;
+          canvas.width = Math.round(viewW * dpr);
+          canvas.height = Math.round(viewH * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        resizeCanvas();
+        if ("ResizeObserver" in window) {
+          const ro = new ResizeObserver(resizeCanvas);
+          ro.observe(stage);
+        } else {
+          window.addEventListener("resize", resizeCanvas, { passive: true });
+        }
+
+        // 3D Perspective Projection Helper
+        const FOV = 520;
+        function project3D(x, y, z, scaleFactor) {
+          const depth = FOV + z;
+          const perspective = FOV / Math.max(140, depth);
+          return {
+            px: viewW * 0.5 + x * perspective * scaleFactor,
+            py: viewH * 0.51 + y * perspective * scaleFactor,
+            scale: perspective * scaleFactor,
+            z
+          };
+        }
+
+        function drawStar3D(cx, cy, outerR, innerR, rotAngle, scale) {
+          ctx.save();
+          // Golden halo behind star
+          const aura = ctx.createRadialGradient(cx, cy, 1, cx, cy, outerR * 2.6);
+          aura.addColorStop(0, "rgba(255, 232, 150, 0.85)");
+          aura.addColorStop(0.45, "rgba(198, 166, 107, 0.35)");
+          aura.addColorStop(1, "rgba(198, 166, 107, 0)");
+          ctx.fillStyle = aura;
+          ctx.beginPath();
+          ctx.arc(cx, cy, outerR * 2.6, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 3D foreshortened 5-point star
+          const squashX = 0.55 + 0.45 * Math.abs(Math.cos(rotAngle));
+          ctx.translate(cx, cy);
+          ctx.scale(squashX, 1);
+
+          ctx.beginPath();
+          for (let p = 0; p < 10; p++) {
+            const rad = p % 2 === 0 ? outerR : innerR;
+            const a = (p * Math.PI) / 5 - Math.PI / 2;
+            const sx = Math.cos(a) * rad;
+            const sy = Math.sin(a) * rad;
+            if (p === 0) ctx.moveTo(sx, sy);
+            else ctx.lineTo(sx, sy);
+          }
+          ctx.closePath();
+
+          const starGrad = ctx.createLinearGradient(-outerR, -outerR, outerR, outerR);
+          starGrad.addColorStop(0, "#FFF4C4");
+          starGrad.addColorStop(0.5, "#DFC694");
+          starGrad.addColorStop(1, "#B8914B");
+          ctx.fillStyle = starGrad;
+          ctx.fill();
+          ctx.lineWidth = Math.max(1, 1.2 * scale);
+          ctx.strokeStyle = "#FFF8DC";
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        let lastFrameTime = performance.now();
+
+        function renderFrame(now) {
+          const dt = Math.min(0.05, (now - lastFrameTime) / 1000);
+          lastFrameTime = now;
+
+          // Check 5-second pattern switch
+          if (now - lastPatternSwitchTime >= PATTERN_INTERVAL_MS) {
+            advanceLightPattern(now);
+          }
+
+          // Update rotation
+          if (!isDragging) {
+            rotY += autoSpinSpeed * dt + dragVelocity * dt;
+            dragVelocity *= Math.pow(0.08, dt);
+          }
+
+          const scaleFactor = Math.min(viewW / 440, viewH / 500);
+          ctx.clearRect(0, 0, viewW, viewH);
+
+          // 1. Subtle Arch Window Lines & Warm Radial Hearth Glow
+          const centerProj = project3D(0, 10, 0, scaleFactor);
+          const bgGlow = ctx.createRadialGradient(
+            centerProj.px,
+            centerProj.py,
+            10,
+            centerProj.px,
+            centerProj.py,
+            195 * scaleFactor
+          );
+          bgGlow.addColorStop(0, "rgba(198, 166, 107, 0.24)");
+          bgGlow.addColorStop(0.6, "rgba(26, 72, 61, 0.14)");
+          bgGlow.addColorStop(1, "rgba(9, 25, 21, 0)");
+          ctx.fillStyle = bgGlow;
+          ctx.fillRect(0, 0, viewW, viewH);
+
+          // Architectural window mullion lines
+          ctx.save();
+          ctx.strokeStyle = "rgba(198, 166, 107, 0.18)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(viewW * 0.5, viewH * 0.14);
+          ctx.lineTo(viewW * 0.5, viewH * 0.82);
+          ctx.moveTo(viewW * 0.14, viewH * 0.52);
+          ctx.lineTo(viewW * 0.86, viewH * 0.52);
+          ctx.stroke();
+          ctx.restore();
+
+          // 2. Floor & Brass Tree Stand
+          const floorY = viewH * 0.835;
+          ctx.fillStyle = "#081713";
+          ctx.fillRect(0, floorY, viewW, viewH - floorY);
+          ctx.strokeStyle = "rgba(198, 166, 107, 0.45)";
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(viewW * 0.08, floorY);
+          ctx.lineTo(viewW * 0.92, floorY);
+          ctx.stroke();
+
+          // Tree trunk & 3D brass pedestal
+          const trunkTop = project3D(0, 138, 0, scaleFactor);
+          const trunkBot = project3D(0, 174, 0, scaleFactor);
+          ctx.fillStyle = "#3D241B";
+          ctx.fillRect(
+            trunkTop.px - 11 * scaleFactor,
+            trunkTop.py,
+            22 * scaleFactor,
+            Math.max(10, trunkBot.py - trunkTop.py)
+          );
+
+          ctx.fillStyle = "#C6A66B";
+          ctx.beginPath();
+          ctx.ellipse(trunkBot.px, trunkBot.py, 32 * scaleFactor, 7 * scaleFactor, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 3. Collect all 3D primitives (Boughs, Snow Patches, Lights) for Z-sorting
+          const renderQueue = [];
+
+          // Project 3D boughs
+          for (let i = 0; i < boughs.length; i++) {
+            const b = boughs[i];
+            const a = b.angle + rotY;
+            const sinA = Math.sin(a);
+            const cosA = Math.cos(a);
+
+            const xTop = sinA * b.rTop;
+            const zTop = cosA * b.rTop;
+            const xBot = sinA * b.rBot;
+            const zBot = cosA * b.rBot;
+
+            const leftA = a - b.spreadAngle;
+            const rightA = a + b.spreadAngle;
+            const xLeft = Math.sin(leftA) * (b.rBot * 0.92);
+            const zLeft = Math.cos(leftA) * (b.rBot * 0.92);
+            const xRight = Math.sin(rightA) * (b.rBot * 0.92);
+            const zRight = Math.cos(rightA) * (b.rBot * 0.92);
+
+            const zAvg = (zTop + zBot * 1.4) / 2.4;
+            renderQueue.push({
+              type: "bough",
+              z: zAvg,
+              cosA,
+              pTop: project3D(xTop, b.yTop, zTop, scaleFactor),
+              pTip: project3D(xBot, b.yBot, zBot, scaleFactor),
+              pLeft: project3D(xLeft, b.yBot - 4, zLeft, scaleFactor),
+              pRight: project3D(xRight, b.yBot - 4, zRight, scaleFactor),
+              shadeOffset: b.shadeOffset
+            });
+          }
+
+          // Project 3D snow clusters on branches
+          for (let i = 0; i < snowPatches.length; i++) {
+            const sp = snowPatches[i];
+            const a = sp.angle + rotY;
+            const x = Math.sin(a) * sp.radius;
+            const z = Math.cos(a) * sp.radius;
+            const proj = project3D(x, sp.y, z, scaleFactor);
+            renderQueue.push({
+              type: "snow",
+              z: z + 2.5,
+              proj,
+              sizeX: sp.sizeX * proj.scale,
+              sizeY: sp.sizeY * proj.scale
+            });
+          }
+
+          // Smooth color lerp & project 3D glowing lights
+          const lerpSpeed = Math.min(1, dt * 3.4);
+          for (let i = 0; i < lights.length; i++) {
+            const l = lights[i];
+            l.currentColor.r += (l.targetColor.r - l.currentColor.r) * lerpSpeed;
+            l.currentColor.g += (l.targetColor.g - l.currentColor.g) * lerpSpeed;
+            l.currentColor.b += (l.targetColor.b - l.currentColor.b) * lerpSpeed;
+
+            const a = l.angle + rotY;
+            const x = Math.sin(a) * (l.radius + 5);
+            const z = Math.cos(a) * (l.radius + 5);
+            const proj = project3D(x, l.y, z, scaleFactor);
+            const twinkle = 0.82 + 0.18 * Math.sin(now * 0.0045 + l.phase);
+
+            renderQueue.push({
+              type: "light",
+              z: z + 5,
+              proj,
+              color: l.currentColor,
+              twinkle
+            });
+          }
+
+          // Sort back-to-front (largest z = farthest in background, smallest z = closest to viewer)
+          renderQueue.sort((a, b) => b.z - a.z);
+
+          // Draw sorted 3D items
+          for (let i = 0; i < renderQueue.length; i++) {
+            const item = renderQueue[i];
+
+            if (item.type === "bough") {
+              // Lighting based on 3D facing normal (cosA < 0 is closer to camera)
+              const frontness = Math.max(0, Math.min(1, (-item.cosA + 1) * 0.5));
+              const r = Math.round(14 + frontness * 22 + item.shadeOffset * 0.3);
+              const g = Math.round(44 + frontness * 54 + item.shadeOffset * 0.5);
+              const b = Math.round(36 + frontness * 40 + item.shadeOffset * 0.3);
+
+              ctx.beginPath();
+              ctx.moveTo(item.pTop.px, item.pTop.py);
+              ctx.lineTo(item.pLeft.px, item.pLeft.py);
+              ctx.quadraticCurveTo(item.pTip.px, item.pTip.py + 3 * item.pTip.scale, item.pRight.px, item.pRight.py);
+              ctx.closePath();
+
+              ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+              ctx.fill();
+
+              // Crisp pine rim highlight on front-facing boughs
+              if (frontness > 0.45) {
+                ctx.strokeStyle = `rgba(167, 196, 178, ${(frontness - 0.45) * 0.38})`;
+                ctx.lineWidth = 0.9;
+                ctx.stroke();
+              }
+            } else if (item.type === "snow") {
+              const { px, py } = item.proj;
+              ctx.save();
+              ctx.beginPath();
+              ctx.ellipse(px, py, Math.max(3, item.sizeX), Math.max(2, item.sizeY), 0, 0, Math.PI * 2);
+              const snowGrad = ctx.createLinearGradient(px, py - item.sizeY, px, py + item.sizeY);
+              snowGrad.addColorStop(0, "rgba(255, 255, 255, 0.96)");
+              snowGrad.addColorStop(1, "rgba(218, 232, 228, 0.85)");
+              ctx.fillStyle = snowGrad;
+              ctx.fill();
+              ctx.restore();
+            } else if (item.type === "light") {
+              const { px, py, scale, z } = item.proj;
+              const cr = Math.round(item.color.r);
+              const cg = Math.round(item.color.g);
+              const cb = Math.round(item.color.b);
+              const isFront = z < 15;
+              const alphaBoost = isFront ? 1.0 : 0.48;
+              const glowRadius = (isFront ? 20 : 12) * scale * item.twinkle;
+              const bulbRadius = (isFront ? 4.3 : 2.8) * scale;
+
+              ctx.save();
+              ctx.globalCompositeOperation = "lighter";
+
+              // Outer volumetric glow
+              const halo = ctx.createRadialGradient(px, py, 0.5, px, py, Math.max(4, glowRadius));
+              halo.addColorStop(0, `rgba(${cr}, ${cg}, ${cb}, ${0.95 * alphaBoost})`);
+              halo.addColorStop(0.35, `rgba(${cr}, ${cg}, ${cb}, ${0.42 * alphaBoost})`);
+              halo.addColorStop(1, `rgba(${cr}, ${cg}, ${cb}, 0)`);
+              ctx.fillStyle = halo;
+              ctx.beginPath();
+              ctx.arc(px, py, Math.max(4, glowRadius), 0, Math.PI * 2);
+              ctx.fill();
+
+              // Bright incandescent bulb core
+              ctx.fillStyle = `rgba(${Math.min(255, cr + 90)}, ${Math.min(255, cg + 90)}, ${Math.min(255, cb + 90)}, ${0.98 * alphaBoost})`;
+              ctx.beginPath();
+              ctx.arc(px, py, Math.max(1.6, bulbRadius), 0, Math.PI * 2);
+              ctx.fill();
+              ctx.restore();
+            }
+          }
+
+          // 4. 3D Golden Star Topper
+          const starProj = project3D(0, -162, 0, scaleFactor);
+          drawStar3D(starProj.px, starProj.py, 19 * starProj.scale, 8 * starProj.scale, rotY * 1.4, starProj.scale);
+
+          // 5. Wrapped Luxury Gifts at Tree Base
+          const giftLeft = project3D(-68, 148, 28, scaleFactor);
+          ctx.fillStyle = "#762D38";
+          ctx.fillRect(giftLeft.px - 20 * giftLeft.scale, giftLeft.py, 40 * giftLeft.scale, 25 * giftLeft.scale);
+          ctx.fillStyle = "#DFC694";
+          ctx.fillRect(giftLeft.px - 2.5 * giftLeft.scale, giftLeft.py, 5 * giftLeft.scale, 25 * giftLeft.scale);
+
+          const giftRight = project3D(66, 151, 24, scaleFactor);
+          ctx.fillStyle = "#F6F1E8";
+          ctx.fillRect(giftRight.px - 23 * giftRight.scale, giftRight.py, 46 * giftRight.scale, 22 * giftRight.scale);
+          ctx.fillStyle = "#762D38";
+          ctx.fillRect(giftRight.px - 2.5 * giftRight.scale, giftRight.py, 5 * giftRight.scale, 22 * giftRight.scale);
+
+          // 6. Gentle Drifting Snowflakes in Foreground
+          ctx.save();
+          for (let i = 0; i < ambientSnow.length; i++) {
+            const flake = ambientSnow[i];
+            if (!prefersReduced) {
+              flake.y += flake.speedY * dt;
+              if (flake.y > 210) flake.y = -210;
+            }
+            const fx = flake.x + Math.sin(now * 0.0012 + flake.driftPhase) * 10;
+            const fp = project3D(fx, flake.y, flake.z, scaleFactor);
+            ctx.fillStyle = `rgba(255, 255, 255, ${flake.z < 0 ? 0.65 : 0.3})`;
+            ctx.beginPath();
+            ctx.arc(fp.px, fp.py, flake.r * fp.scale, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+
+          requestAnimationFrame(renderFrame);
+        }
+
+        requestAnimationFrame(renderFrame);
+      }
+
+      /* ----------------------------------------------------------------------
+         5. NAVIGATION, MOBILE DRAWER & FULL-SECTION SCROLL SPY
          ---------------------------------------------------------------------- */
       function setMobileMenuState(open) {
         const menuToggle = document.getElementById("mobile-menu-toggle");
@@ -3618,7 +4222,7 @@
           }
         });
 
-        const desktopMq = window.matchMedia("(min-width: 900px)");
+        const desktopMq = window.matchMedia("(min-width: 1060px)");
         const handleBreakpointChange = (e) => {
           if (e.matches && mobileNav.classList.contains("is-open")) {
             setMobileMenuState(false);
@@ -3635,7 +4239,16 @@
         }, { passive: true });
 
         if ("IntersectionObserver" in window) {
-          const sectionMap = ["home", "explore", "studio", "shop", "planner"];
+          const sectionMap = [
+            "home",
+            "explore",
+            "studio",
+            "activities",
+            "shop",
+            "countdown",
+            "planner",
+            "newsletter"
+          ];
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
@@ -3647,7 +4260,7 @@
                 }
               });
             },
-            { rootMargin: "-35% 0px -55% 0px" }
+            { rootMargin: "-32% 0px -56% 0px" }
           );
 
           sectionMap.forEach((id) => {
@@ -3658,7 +4271,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         4. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
+         6. CHRISTMAS STUDIO — FUNCTIONAL CARD CREATOR
          ---------------------------------------------------------------------- */
       function initStudio() {
         const tplContainer = document.getElementById("template-selector");
@@ -3677,7 +4290,6 @@
         senderInput.value = state.card.sender;
         fontSelect.value = state.card.font;
 
-        // Clear containers before populating to prevent duplication
         tplContainer.innerHTML = "";
         bgContainer.innerHTML = "";
         textContainer.innerHTML = "";
@@ -3937,7 +4549,6 @@
                 lines.push(currentLine);
                 currentLine = "";
               }
-              // Break overly long unbroken tokens character-by-character so nothing clips
               if (ctx.measureText(word).width > maxWidth) {
                 let chunk = "";
                 for (let i = 0; i < word.length; i++) {
@@ -3974,11 +4585,9 @@
         const activeTpl = CARD_TEMPLATES.find((t) => t.id === state.card.templateId) || CARD_TEMPLATES[0];
         const fontFamily = state.card.font === "DM Sans" ? "sans-serif" : "Georgia, serif";
 
-        // Background
         ctx.fillStyle = state.card.bg;
         ctx.fillRect(0, 0, 800, 1000);
 
-        // Outer & inner editorial frame
         ctx.strokeStyle = "#C6A66B";
         ctx.lineWidth = 3;
         ctx.strokeRect(48, 48, 704, 904);
@@ -3989,14 +4598,12 @@
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
-        // Kicker & Gold Rule
         ctx.font = `700 20px sans-serif`;
         ctx.fillText(activeTpl.kicker.toUpperCase(), 400, 130);
 
         ctx.fillStyle = "#C6A66B";
         ctx.fillRect(355, 162, 90, 3);
 
-        // Recipient (multi-line safe)
         ctx.fillStyle = state.card.text;
         const recipientText = state.card.recipient.trim() || "Season’s Warmest Wishes";
         ctx.font = `700 42px ${fontFamily}`;
@@ -4007,7 +4614,6 @@
           cursorY += 52;
         });
 
-        // Message body (multi-line safe, scales slightly for dense messages)
         const messageText = state.card.message.trim() || "Wishing you peace, warmth and joy this Christmas.";
         const msgFontSize = messageText.length > 165 ? 25 : 28;
         const msgLineHeight = messageText.length > 165 ? 38 : 42;
@@ -4024,7 +4630,6 @@
           msgY += msgLineHeight;
         });
 
-        // Sender signature
         const senderText = state.card.sender.trim() || "With warm wishes";
         ctx.font = `italic 28px ${fontFamily}`;
         const senderLines = wrapCanvasText(ctx, senderText, 600).slice(0, 2);
@@ -4034,7 +4639,6 @@
           senderY += 36;
         });
 
-        // Brand stamp
         ctx.save();
         ctx.globalAlpha = 0.55;
         ctx.font = "600 15px sans-serif";
@@ -4045,7 +4649,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         5. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
+         7. CHRISTMAS ACTIVITIES (TRIVIA, MOVIE GUESS, EMOJI CHALLENGE)
          ---------------------------------------------------------------------- */
       function getActivityBank(mode) {
         if (mode === "movies") return MOVIE_QUESTIONS;
@@ -4219,7 +4823,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         6. CHRISTMAS SHOP & SHOPPING BAG DRAWER
+         8. CHRISTMAS SHOP & SHOPPING BAG DRAWER
          ---------------------------------------------------------------------- */
       function initShop() {
         document.querySelectorAll("#shop-filters .filter-pill").forEach((pill) => {
@@ -4255,11 +4859,13 @@
           : PRODUCTS.filter((p) => p.category === state.shopFilter);
 
         grid.innerHTML = filtered
-          .map((prod) => {
+          .map((prod, idx) => {
             const isFreeHighlight = prod.tier.toLowerCase().includes("free");
             const badgeClass = isFreeHighlight ? "product-tier-badge--free" : "product-tier-badge--premium";
+            const dir = idx % 2 === 0 ? "left" : "right";
+            const delay = (idx % 4) * 65;
             return `
-              <article class="product-card">
+              <article class="product-card" data-reveal="${dir}" style="--reveal-delay: ${delay}ms;">
                 <div class="product-visual" style="background-color:${prod.artBg};">
                   <span class="product-tier-badge ${badgeClass}">${prod.tier}</span>
                   ${buildProductArtwork(prod)}
@@ -4289,6 +4895,8 @@
         grid.querySelectorAll("[data-add-id]").forEach((btn) => {
           btn.addEventListener("click", () => addToCart(btn.dataset.addId));
         });
+
+        observeRevealElements(grid);
       }
 
       function addToCart(productId) {
@@ -4398,7 +5006,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         7. LIVE CHRISTMAS COUNTDOWN
+         9. LIVE CHRISTMAS COUNTDOWN
          ---------------------------------------------------------------------- */
       let countdownIntervalId = null;
 
@@ -4458,7 +5066,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         8. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
+         10. CHRISTMAS PLANNER (GIFT CHECKLIST & BUDGET TRACKER)
          ---------------------------------------------------------------------- */
       function initPlanner() {
         const budgetInput = document.getElementById("overall-budget-input");
@@ -4655,7 +5263,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         9. NEWSLETTER VALIDATION (HONEST PROTOTYPE HANDLING)
+         11. NEWSLETTER VALIDATION (HONEST PROTOTYPE HANDLING)
          ---------------------------------------------------------------------- */
       function initNewsletter() {
         const form = document.getElementById("newsletter-form");
@@ -4680,7 +5288,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         10. MODALS, DRAWERS & SEARCH
+         12. MODALS, DRAWERS & SEARCH
          ---------------------------------------------------------------------- */
       let lastFocusedElement = null;
 
@@ -4778,7 +5386,9 @@
           { title: "Christmas Trivia (10 Questions)", type: "Activity", href: "#activities" },
           { title: "Guess the Christmas Movie", type: "Activity", href: "#activities" },
           { title: "Christmas Emoji Challenge", type: "Activity", href: "#activities" },
+          { title: "Christmas Countdown", type: "Live Timer", href: "#countdown" },
           { title: "Gift & Budget Planner", type: "Planning Tool", href: "#planner" },
+          { title: "Seasonal Notes Newsletter", type: "Updates", href: "#newsletter" },
           ...PRODUCTS.map((p) => ({
             title: `${p.name} (${formatINR(p.price)})`,
             type: p.category,
@@ -4907,7 +5517,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         11. IDEMPOTENT APPLICATION BOOTSTRAP
+         13. IDEMPOTENT APPLICATION BOOTSTRAP
          ---------------------------------------------------------------------- */
       let isInitialized = false;
 
@@ -4919,6 +5529,7 @@
         if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
         initNavigation();
+        init3DChristmasTree();
         initStudio();
         initActivities();
         initShop();
@@ -4926,6 +5537,7 @@
         initPlanner();
         initNewsletter();
         initOverlays();
+        initScrollReveal();
       }
 
       if (document.readyState === "loading") {
